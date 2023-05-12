@@ -46,7 +46,7 @@ const Hamburger = styled.img`
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleModal = () => {
+  const handleModalOpenClose = () => {
     setIsModalOpen((prev) => !prev);
   };
 
@@ -54,10 +54,13 @@ function Header() {
     <HeaderWrapper>
       <CodeStatesLogo src='./image/로고.png'></CodeStatesLogo>
       <COZShopping src='./image/쇼핑몰 이름.jpg'></COZShopping>
-      <Hamburger src='./image/hamburger.jpg' onClick={handleModal}></Hamburger>
+      <Hamburger
+        src='./image/hamburger.jpg'
+        onClick={handleModalOpenClose}
+      ></Hamburger>
       <Modal
         isOpen={isModalOpen}
-        onRequestClose={handleModal}
+        onRequestClose={handleModalOpenClose}
         style={modalStyle}
       >
         <div>OOO님, 안녕하세요!</div>
