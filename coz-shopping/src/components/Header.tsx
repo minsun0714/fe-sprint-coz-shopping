@@ -5,8 +5,8 @@ Modal.setAppElement("#root");
 
 const modalStyle: ReactModal.Styles = {
   content: {
-    top: "17%",
-    left: "91%",
+    top: "23%",
+    left: "87vw",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
