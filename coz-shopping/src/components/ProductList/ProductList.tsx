@@ -1,35 +1,8 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { MainWrapper, ItemBox, Item, ItemImg } from "../Home/Main";
+import FilterBtn from "./FilterBtn";
 import axios from "axios";
-import { useEffect, useState } from "react";
-
-export const MainWrapper = styled.header`
-  border: 1px solid transparent;
-  margin: none;
-  height: 820px;
-  box-shadow: 0px 5px 5px gray;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
-const Section = styled.section``;
-
-export const ItemBox = styled.ul`
-  display: flex;
-  flex-direction: row;
-`;
-
-export const Item = styled.div`
-  border: 1px solid green;
-  list-style-type: none;
-  margin: 1vw;
-`;
-
-export const ItemImg = styled.img`
-  height: 10vw;
-  width: 10vw;
-  margin: 30px;
-  border-radius: 10px;
-`;
 
 interface IItem {
   brand_image_url?: string;
@@ -44,16 +17,11 @@ interface IItem {
   type: string;
 }
 
-function Main() {
+function ProductList() {
   const [itemsList, setItemsList] = useState<IItem[]>([]);
-
   useEffect(() => {
     axios
-      .get("http://cozshopping.codestates-seb.link/api/v1/products", {
-        params: {
-          count: 4,
-        },
-      })
+      .get("http://cozshopping.codestates-seb.link/api/v1/products", {})
       .then((response) => {
         console.log(response.data);
         setItemsList(response.data);
@@ -62,10 +30,10 @@ function Main() {
         console.log(error);
       });
   }, []);
-
   return (
     <MainWrapper>
-      <Section>
+      <FilterBtn />
+      <section>
         <h1>상품 리스트</h1>
         <ItemBox>
           {itemsList.map((item) => (
@@ -75,9 +43,8 @@ function Main() {
             </Item>
           ))}
         </ItemBox>
-      </Section>
-      <section></section>
+      </section>
     </MainWrapper>
   );
 }
-export default Main;
+export default ProductList;
