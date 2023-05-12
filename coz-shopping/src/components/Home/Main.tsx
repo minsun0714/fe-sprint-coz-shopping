@@ -30,7 +30,7 @@ export const ItemImg = styled.img`
   border-radius: 10px;
 `;
 
-interface IItem {
+export interface IItem {
   brand_image_url?: string;
   brand_name: string | null;
   discountPercentage: number | null;
