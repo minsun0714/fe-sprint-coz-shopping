@@ -10,7 +10,6 @@ const MainWrapper = styled.header`
   display: flex;
   flex-direction: row;
 `;
-
 const Section = styled.section``;
 
 const ItemBox = styled.ul`
