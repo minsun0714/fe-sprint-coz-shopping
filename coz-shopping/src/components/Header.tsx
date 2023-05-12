@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "react-modal";
 Modal.setAppElement("#root");
@@ -45,27 +44,20 @@ const Hamburger = styled.img`
 `;
 
 function Header() {
-  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
-    setIsDropDownOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsDropDownOpen(false);
+  const handleModal = () => {
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
     <HeaderWrapper>
       <CodeStatesLogo src='./image/로고.png'></CodeStatesLogo>
       <COZShopping src='./image/쇼핑몰 이름.jpg'></COZShopping>
-      <Hamburger
-        src='./image/hamburger.jpg'
-        onClick={handleOpenModal}
-      ></Hamburger>
+      <Hamburger src='./image/hamburger.jpg' onClick={handleModal}></Hamburger>
       <Modal
-        isOpen={isDropDownOpen}
-        onRequestClose={handleCloseModal}
+        isOpen={isModalOpen}
+        onRequestClose={handleModal}
         style={modalStyle}
       >
         <div>OOO님, 안녕하세요!</div>
