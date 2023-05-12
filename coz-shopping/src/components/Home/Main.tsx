@@ -11,7 +11,6 @@ export const MainWrapper = styled.header`
   flex-direction: row;
   justify-content: center;
 `;
-const Section = styled.section``;
 
 export const ItemBox = styled.ul`
   display: flex;
@@ -65,7 +64,7 @@ function Main() {
 
   return (
     <MainWrapper>
-      <Section>
+      <section>
         <h1>상품 리스트</h1>
         <ItemBox>
           {itemsList.map((item) => (
@@ -75,7 +74,7 @@ function Main() {
             </Item>
           ))}
         </ItemBox>
-      </Section>
+      </section>
       <section></section>
     </MainWrapper>
   );
