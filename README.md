@@ -1,1 +1,4 @@
-# fe-sprint-coz-shopping
+프로젝트 소개
+개발 기간
+개발 환경
+주요 기능
