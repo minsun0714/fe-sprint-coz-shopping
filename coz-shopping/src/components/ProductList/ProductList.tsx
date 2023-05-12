@@ -4,6 +4,14 @@ import { MainWrapper, ItemBox, Item, ItemImg } from "../Home/Main";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 
+const ProductListMainWrapper = styled(MainWrapper)`
+  flex-direction: column;
+`;
+
+const Section = styled.section`
+  margin: 0px 0px 10px;
+`;
+
 interface IItem {
   brand_image_url?: string;
   brand_name: string | null;
@@ -30,21 +38,15 @@ function ProductList() {
         console.log(error);
       });
   }, []);
+
   return (
-    <MainWrapper>
+    <ProductListMainWrapper>
       <FilterBtn />
-      <section>
+      <Section>
         <h1>상품 리스트</h1>
-        <ItemBox>
-          {itemsList.map((item) => (
-            <Item key={item.id}>
-              <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-              <li>{item.title || item.brand_name}</li>
-            </Item>
-          ))}
-        </ItemBox>
-      </section>
-    </MainWrapper>
+        <ItemBox></ItemBox>
+      </Section>
+    </ProductListMainWrapper>
   );
 }
 export default ProductList;
