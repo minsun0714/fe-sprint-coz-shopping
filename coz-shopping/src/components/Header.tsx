@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import ProductList from "./ProductList/ProductList";
 import styled from "styled-components";
-import Modal from "react-modal";
-Modal.setAppElement("#root");
+import ReactModal from "react-modal";
+import Main from "./Home/Main";
+import App from "../App";
+ReactModal.setAppElement("#root");
 
 const modalStyle: ReactModal.Styles = {
   content: {
@@ -52,21 +56,27 @@ function Header() {
 
   return (
     <HeaderWrapper>
-      <CodeStatesLogo src='./image/로고.png'></CodeStatesLogo>
-      <COZShopping src='./image/쇼핑몰 이름.jpg'></COZShopping>
+      <CodeStatesLogo src='/image/로고.png'></CodeStatesLogo>
+      <COZShopping src='/image/쇼핑몰 이름.jpg'></COZShopping>
       <Hamburger
-        src='./image/hamburger.jpg'
+        src='/image/hamburger.jpg'
         onClick={handleModalOpenClose}
       ></Hamburger>
-      <Modal
+      <ReactModal
         isOpen={isModalOpen}
         onRequestClose={handleModalOpenClose}
         style={modalStyle}
       >
-        <div>OOO님, 안녕하세요!</div>
-        <div>상품리스트 페이지</div>
-        <div>북마크 페이지</div>
-      </Modal>
+        <nav>
+          <div>OOO님, 안녕하세요!</div>
+          <ul>
+            <li>
+              <Link to='/products/list'>상품리스트 페이지</Link>
+            </li>
+            <li>북마크 페이지</li>
+          </ul>
+        </nav>
+      </ReactModal>
     </HeaderWrapper>
   );
 }
