@@ -18,12 +18,17 @@ const ItemBox = styled.ul`
   flex-direction: row;
 `;
 
-const Item = styled.div``;
+const Item = styled.div`
+  border: 1px solid green;
+  list-style-type: none;
+  margin: 1vw;
+`;
 
 const ItemImg = styled.img`
   height: 10vw;
   width: 10vw;
   margin: 30px;
+  border-radius: 10px;
 `;
 
 interface IItem {
@@ -66,7 +71,7 @@ function Main() {
           {itemsList.map((item) => (
             <Item key={item.id}>
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-              <li>{item.title}</li>
+              <li>{item.title || item.brand_name}</li>
             </Item>
           ))}
         </ItemBox>
