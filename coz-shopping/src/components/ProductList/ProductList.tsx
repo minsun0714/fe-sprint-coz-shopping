@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { MainWrapper, ItemBox, Item, ItemImg } from "../Home/Main";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
+import { storeAllProducts } from "../../store/productsStore";
 
 const ProductListMainWrapper = styled(MainWrapper)`
   flex-direction: column;
@@ -26,25 +28,38 @@ interface IItem {
 }
 
 function ProductList() {
-  const [itemsList, setItemsList] = useState<IItem[]>([]);
+  const [items, setItems] = useState<IItem[]>([]);
+  const dispatch = useDispatch();
+  const state = useSelector((state: any) => state[0]);
+
   useEffect(() => {
     axios
-      .get("http://cozshopping.codestates-seb.link/api/v1/products", {})
+      .get("http://cozshopping.codestates-seb.link/api/v1/products")
       .then((response) => {
-        console.log(response.data);
-        setItemsList(response.data);
+        dispatch(storeAllProducts(response.data));
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
+  useEffect(() => {
+    setItems(state);
+  }, [state]);
+
   return (
     <ProductListMainWrapper>
       <FilterBtn />
       <Section>
         <h1>상품 리스트</h1>
-        <ItemBox></ItemBox>
+        <ItemBox>
+          {items?.map((item: IItem) => (
+            <Item key={item.id}>
+              <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
+              <li>{item.title || item.brand_name}</li>
+            </Item>
+          ))}
+        </ItemBox>
       </Section>
     </ProductListMainWrapper>
   );
