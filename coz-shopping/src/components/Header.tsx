@@ -47,7 +47,7 @@ const Hamburger = styled.img`
   height: 20px;
   margin-left: auto;
   margin-right: 30px;
-  margin-top: 15px;
+  margin-top: 20px;
   cursor: pointer;
 `;
 
