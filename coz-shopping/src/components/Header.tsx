@@ -9,15 +9,17 @@ ReactModal.setAppElement("#root");
 
 const modalStyle: ReactModal.Styles = {
   content: {
-    top: "23%",
-    left: "87vw",
+    top: "15%",
+    left: "90vw",
     right: "auto",
     bottom: "auto",
-    marginRight: "-50%",
+    marginLeft: "auto",
+    marginRight: "100px",
     transform: "translate(-50%, -50%)",
     width: "200px",
-    height: "200px",
+    height: "183px",
     position: "absolute",
+    padding: "0",
   },
 };
 
@@ -42,10 +44,43 @@ const COZShopping = styled.img`
 `;
 
 const Hamburger = styled.img`
-  height: 3vh;
+  height: 20px;
   margin-left: auto;
   margin-right: 30px;
-  margin-top: 1vw;
+  margin-top: 15px;
+`;
+
+const Nav = styled.nav`
+  display: flex;
+  flex-direction: column;
+`;
+
+const PageMenu = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+`;
+
+const Greeting = styled.p`
+  text-align: center;
+  margin-top: 23px;
+`;
+
+const PageItem = styled.li`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 60px;
+  margin-left: 0vw;
+  padding-left: 2vw;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-top: 1px solid gray;
+`;
+
+const Icon = styled.img`
+  margin-right: 10px;
 `;
 
 function Header() {
@@ -70,17 +105,22 @@ function Header() {
         onRequestClose={handleModalOpenClose}
         style={modalStyle}
       >
-        <nav>
-          <div>OOO님, 안녕하세요!</div>
-          <ul>
-            <li>
+        <Nav>
+          <Greeting>OOO님, 안녕하세요!</Greeting>
+          <PageMenu>
+            <PageItem>
               <Link to='/products/list' onClick={handleModalOpenClose}>
+                <Icon src='/image/상품 아이콘.png' />
                 상품리스트 페이지
               </Link>
-            </li>
-            <li>북마크 페이지</li>
-          </ul>
-        </nav>
+            </PageItem>
+            <PageItem>
+              {" "}
+              <Icon src='/image/북마크 아이콘.png' />
+              북마크 페이지
+            </PageItem>
+          </PageMenu>
+        </Nav>
       </ReactModal>
     </HeaderWrapper>
   );
