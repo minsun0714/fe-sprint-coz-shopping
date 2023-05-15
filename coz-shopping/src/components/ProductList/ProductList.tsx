@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-  MainWrapper,
-  ItemBox,
-  Item,
-  ItemImg,
-  BookMarkStar,
-} from "../Home/Main";
+import { MainWrapper, ItemBox, Item, ItemImg } from "../Home/Main";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { storeAllProducts } from "../../store/productsStore";
@@ -39,6 +33,31 @@ interface IItem {
   type: string;
 }
 
+interface IImageProps {
+  id: any;
+}
+
+enum BookMarkIcon {
+  onIcon = "/image/bookmark_on.jpg",
+  offIcon = "/image/bookmark_off.jpg",
+}
+
+const BookMarkStar = styled.div<IImageProps>`
+  background-image: ${(props: IImageProps): string => {
+    const bookMarkedProducts = useSelector(
+      (store: RootState) => store.bookMarkedProducts
+    );
+    const isBookMarked = bookMarkedProducts.find(
+      (product: IItem) => product.id === props.id
+    );
+    const imageUrl = isBookMarked ? BookMarkIcon.onIcon : BookMarkIcon.offIcon;
+    return `url(${imageUrl})`;
+  }};
+  border: none;
+  height: 30px;
+  width: 30px;
+`;
+
 function ProductList() {
   const [items, setItems] = useState<IItem[]>([]);
   const dispatch = useDispatch();
@@ -55,10 +74,9 @@ function ProductList() {
     if (!bookMarkedTargetItem) {
       const targetItem = products.find((product: IItem) => product.id === id);
       if (targetItem) dispatch(getBookMarkedProducts(targetItem));
-      console.log(bookMarkedProducts);
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
-    console.log(bookMarkedProducts);
   };
+  console.log(bookMarkedProducts);
 
   useEffect(() => {
     axios
@@ -84,7 +102,7 @@ function ProductList() {
             <Item key={item.id}>
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
               <BookMarkStar
-                src='/image/북마크 아이콘 - off.png'
+                id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
               <li>{item.title || item.brand_name}</li>
