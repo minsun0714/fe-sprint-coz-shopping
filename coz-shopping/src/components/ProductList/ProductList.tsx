@@ -61,6 +61,7 @@ export const BookMarkStar = styled.div<IImageProps>`
   border: none;
   height: 30px;
   width: 30px;
+  cursor: pointer;
 `;
 
 function ProductList() {
