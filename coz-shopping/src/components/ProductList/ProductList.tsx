@@ -76,17 +76,17 @@ function ProductList() {
       if (targetItem) dispatch(getBookMarkedProducts(targetItem));
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
-  console.log(bookMarkedProducts);
-
   useEffect(() => {
-    axios
-      .get("http://cozshopping.codestates-seb.link/api/v1/products")
-      .then((response) => {
-        dispatch(storeAllProducts(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (products.length === 0) {
+      axios
+        .get("http://cozshopping.codestates-seb.link/api/v1/products")
+        .then((response) => {
+          dispatch(storeAllProducts(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   useEffect(() => {
