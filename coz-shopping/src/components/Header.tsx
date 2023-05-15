@@ -78,6 +78,10 @@ const PageItem = styled.li`
   padding-bottom: 10px;
   padding-top: 10px;
   border-top: 1px solid gray;
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const Icon = styled.img`
