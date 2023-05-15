@@ -115,9 +115,10 @@ function Header() {
               </Link>
             </PageItem>
             <PageItem>
-              {" "}
-              <Icon src='/image/북마크 아이콘.png' />
-              북마크 페이지
+              <Link to='/bookmark' onClick={handleModalOpenClose}>
+                <Icon src='/image/북마크 아이콘.png' />
+                북마크 페이지
+              </Link>
             </PageItem>
           </PageMenu>
         </Nav>
