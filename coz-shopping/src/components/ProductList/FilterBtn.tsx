@@ -13,6 +13,14 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
 `;
 
+enum FilterBtnIcon {
+  Whole = "/image/버튼 전체.png",
+  Product = "/image/버튼 상품.png",
+  Category = "/image/버튼 카테고리.png",
+  Exhibition = "/image/버튼 기획전.png",
+  Brand = "/image/버튼 브랜드.png",
+}
+
 const StyledFilterBtn = styled.button`
   border-radius: 100px;
   height: 60px;
