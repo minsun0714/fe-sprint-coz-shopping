@@ -15,12 +15,12 @@ import {
 } from "../../store/bookMarkStore";
 
 function BookMarkList() {
-  const [items, setItems] = useState<IItem[]>([]);
-  const dispatch = useDispatch();
-  const products = useSelector((store: RootState) => store.products);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
+  const [items, setItems] = useState<IItem[]>(bookMarkedProducts);
+  const dispatch = useDispatch();
+  const products = useSelector((store: RootState) => store.products);
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
