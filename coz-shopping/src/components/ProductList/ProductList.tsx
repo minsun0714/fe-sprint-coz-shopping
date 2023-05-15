@@ -12,14 +12,17 @@ import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { storeAllProducts } from "../../store/productsStore";
 import { RootState } from "../../store/rootStore";
-import { getBookMarkedProducts } from "../../store/bookMarkStore";
+import {
+  getBookMarkedProducts,
+  deleteBookMarkedProduct,
+} from "../../store/bookMarkStore";
 
 export const ProductListMainWrapper = styled(MainWrapper)`
   flex-direction: column;
   height: 84vh;
 `;
 
-const Section = styled.section`
+export const Section = styled.section`
   margin: 0px 0px 10px;
 `;
 
@@ -43,17 +46,18 @@ function ProductList() {
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
-  console.log(bookMarkedProducts);
 
-  const onClickBookMark = (
-    id: number,
-    title: string | null,
-    brand_name: string | null
-  ) => {
-    console.log(id, title, brand_name);
-    const targetItem = products.find((product: IItem) => product.id === id);
-    if (!targetItem) return;
-    dispatch(getBookMarkedProducts(targetItem));
+  const onClickBookMark = (id: number) => {
+    const bookMarkedTargetItem = bookMarkedProducts.find(
+      (product: IItem) => product.id === id
+    );
+
+    if (!bookMarkedTargetItem) {
+      const targetItem = products.find((product: IItem) => product.id === id);
+      if (targetItem) dispatch(getBookMarkedProducts(targetItem));
+      console.log(bookMarkedProducts);
+    } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
+    console.log(bookMarkedProducts);
   };
 
   useEffect(() => {
@@ -81,9 +85,7 @@ function ProductList() {
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
               <BookMarkStar
                 src='/image/북마크 아이콘 - off.png'
-                onClick={() =>
-                  onClickBookMark(item.id, item.title, item.brand_name)
-                }
+                onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
               <li>{item.title || item.brand_name}</li>
             </Item>
