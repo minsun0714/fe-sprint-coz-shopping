@@ -31,6 +31,8 @@ export const ItemImg = styled.img`
   border-radius: 10px;
 `;
 
+export const BookMarkStar = styled.img``;
+
 export interface IItem {
   brand_image_url?: string;
   brand_name: string | null;
@@ -71,6 +73,7 @@ function Main() {
           {itemsList.map((item) => (
             <Item key={item.id}>
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
+              <BookMarkStar src='/image/북마크 아이콘 - off.png'></BookMarkStar>
               <li>{item.title || item.brand_name}</li>
             </Item>
           ))}
