@@ -10,7 +10,6 @@ import {
 } from "../../store/bookMarkStore";
 
 export const MainWrapper = styled.div`
-  border: 1px solid transparent;
   margin: none;
   height: 86vh;
   box-shadow: 0px 5px 5px gray;
@@ -22,6 +21,7 @@ export const MainWrapper = styled.div`
 export const ItemBox = styled.ul`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `;
 
 export const Item = styled.div`
@@ -31,8 +31,8 @@ export const Item = styled.div`
 `;
 
 export const ItemImg = styled.img`
-  height: 10vw;
-  width: 10vw;
+  height: 210px;
+  width: 264px;
   margin: 30px;
   border-radius: 10px;
 `;
