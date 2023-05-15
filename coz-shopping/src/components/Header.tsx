@@ -56,8 +56,10 @@ function Header() {
 
   return (
     <HeaderWrapper>
-      <CodeStatesLogo src='/image/로고.png'></CodeStatesLogo>
-      <COZShopping src='/image/쇼핑몰 이름.jpg'></COZShopping>
+      <Link to='/'>
+        <CodeStatesLogo src='/image/로고.png'></CodeStatesLogo>
+        <COZShopping src='/image/쇼핑몰 이름.jpg'></COZShopping>
+      </Link>
       <Hamburger
         src='/image/hamburger.jpg'
         onClick={handleModalOpenClose}
