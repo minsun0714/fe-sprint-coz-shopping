@@ -73,7 +73,7 @@ function Main() {
   return (
     <MainWrapper>
       <section>
-        <h1>상품 리스트</h1>
+        <h2>상품 리스트</h2>
         <ItemBox>
           {itemsList.map((item) => (
             <Item key={item.id}>
@@ -85,7 +85,7 @@ function Main() {
         </ItemBox>
       </section>
       <section>
-        <h1>북마크 리스트</h1>
+        <h2>북마크 리스트</h2>
         <ItemBox>
           {bookMarkList.map((bookMarkedItem) => (
             <Item key={bookMarkedItem.id}>
