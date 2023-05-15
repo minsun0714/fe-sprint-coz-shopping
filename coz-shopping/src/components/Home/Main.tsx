@@ -53,10 +53,10 @@ export interface IItem {
 function Main() {
   const [itemsList, setItemsList] = useState<IItem[]>([]);
   const dispatch = useDispatch();
-  const products = useSelector((store: RootState) => store.products);
-  const bookMarkList = useSelector((store: RootState) =>
-    store.bookMarkedProducts.slice(0, 4)
+  const bookMarkedProducts = useSelector(
+    (store: RootState) => store.bookMarkedProducts
   );
+  const showFourBookMarked = bookMarkedProducts.slice(0, 4);
 
   useEffect(() => {
     axios
@@ -74,7 +74,7 @@ function Main() {
   }, []);
 
   const onClickBookMark = (id: number) => {
-    const bookMarkedTargetItem = bookMarkList.find(
+    const bookMarkedTargetItem = bookMarkedProducts.find(
       (product: IItem) => product.id === id
     );
 
@@ -105,7 +105,7 @@ function Main() {
       <section>
         <h2>북마크 리스트</h2>
         <ItemBox>
-          {bookMarkList.map((bookMarkedItem) => (
+          {showFourBookMarked.map((bookMarkedItem) => (
             <Item key={bookMarkedItem.id}>
               <ItemImg
                 src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
