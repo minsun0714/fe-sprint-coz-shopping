@@ -50,8 +50,8 @@ export interface IItem {
 
 function Main() {
   const [itemsList, setItemsList] = useState<IItem[]>([]);
-  const bookMarkList = useSelector((state: RootState) =>
-    state.bookMarkedProducts.slice(0, 4)
+  const bookMarkList = useSelector((store: RootState) =>
+    store.bookMarkedProducts.slice(0, 4)
   );
 
   useEffect(() => {
