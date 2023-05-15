@@ -3,7 +3,7 @@ import styled from "styled-components";
 const FooterWrapper = styled.footer`
   border: 1px solid transparent;
   margin: none;
-  height: 50px;
+  height: 7vh;
   box-shadow: 0px 5px 5px gray;
   display: flex;
   flex-direction: column;

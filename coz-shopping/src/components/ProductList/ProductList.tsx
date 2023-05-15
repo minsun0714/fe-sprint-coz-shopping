@@ -8,6 +8,7 @@ import { storeAllProducts } from "../../store/productsStore";
 
 const ProductListMainWrapper = styled(MainWrapper)`
   flex-direction: column;
+  height: 84vh;
 `;
 
 const Section = styled.section`

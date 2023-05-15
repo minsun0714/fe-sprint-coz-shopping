@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export const MainWrapper = styled.header`
   border: 1px solid transparent;
   margin: none;
-  height: 820px;
+  height: 86vh;
   box-shadow: 0px 5px 5px gray;
   display: flex;
   flex-direction: row;
