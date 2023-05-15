@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const ButtonsWrapper = styled.section`
   display: flex;
   flex-direction: row;
-  margin: 10px;
+  margin: 20px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -19,7 +20,30 @@ const StyledFilterBtn = styled.button`
   margin: 8px;
 `;
 
-function FilterBtn() {
+interface IItem {
+  brand_image_url?: string;
+  brand_name: string | null;
+  discountPercentage: number | null;
+  follower: number;
+  id: number;
+  image_url: string | null;
+  price: string | null;
+  sub_title: string | null;
+  title: string | null;
+  type: string;
+}
+
+interface IFilteredBtn {
+  setFilteredItems: (items: IItem[]) => void;
+}
+
+function FilterBtn({ setFilteredItems }: IFilteredBtn) {
+  const state = useSelector((state: IItem[][]) => state[0]);
+
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const type = event.currentTarget.name;
+    setFilteredItems(state.filter((product: IItem) => product.type === type));
+  };
   return (
     <ButtonsWrapper>
       <ButtonWrapper>
@@ -27,19 +51,31 @@ function FilterBtn() {
         <label>전체</label>
       </ButtonWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn></StyledFilterBtn>
+        <StyledFilterBtn
+          name='Product'
+          onClick={(e) => onClick(e)}
+        ></StyledFilterBtn>
         <label>상품</label>
       </ButtonWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn></StyledFilterBtn>
+        <StyledFilterBtn
+          name='Category'
+          onClick={(e) => onClick(e)}
+        ></StyledFilterBtn>
         <label>카테고리</label>
       </ButtonWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn></StyledFilterBtn>
+        <StyledFilterBtn
+          name='Exhibition'
+          onClick={(e) => onClick(e)}
+        ></StyledFilterBtn>
         <label>기획전</label>
       </ButtonWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn></StyledFilterBtn>
+        <StyledFilterBtn
+          name='Brand'
+          onClick={(e) => onClick(e)}
+        ></StyledFilterBtn>
         <label>브랜드</label>
       </ButtonWrapper>
     </ButtonsWrapper>

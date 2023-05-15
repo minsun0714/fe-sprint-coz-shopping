@@ -50,7 +50,7 @@ function ProductList() {
 
   return (
     <ProductListMainWrapper>
-      <FilterBtn />
+      <FilterBtn setFilteredItems={setItems} />
       <Section>
         <ItemBox>
           {items?.map((item: IItem) => (
