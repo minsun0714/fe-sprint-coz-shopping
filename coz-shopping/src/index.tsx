@@ -8,7 +8,9 @@ import normalize from "normalize.css";
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
-
+*{
+  box-sizing: border-box;
+}
 header {
   margin: 0;
 }
