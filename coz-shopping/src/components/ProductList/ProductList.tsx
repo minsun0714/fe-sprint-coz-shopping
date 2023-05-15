@@ -12,6 +12,7 @@ import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { storeAllProducts } from "../../store/productsStore";
 import { RootState } from "../../store/rootStore";
+import { getBookMarkedProducts } from "../../store/bookMarkStore";
 
 export const ProductListMainWrapper = styled(MainWrapper)`
   flex-direction: column;
@@ -39,7 +40,21 @@ function ProductList() {
   const [items, setItems] = useState<IItem[]>([]);
   const dispatch = useDispatch();
   const products = useSelector((store: RootState) => store.products);
-  console.log(products.length);
+  const bookMarkedProducts = useSelector(
+    (store: RootState) => store.bookMarkedProducts
+  );
+  console.log(bookMarkedProducts);
+
+  const onClickBookMark = (
+    id: number,
+    title: string | null,
+    brand_name: string | null
+  ) => {
+    console.log(id, title, brand_name);
+    const targetItem = products.find((product: IItem) => product.id === id);
+    if (!targetItem) return;
+    dispatch(getBookMarkedProducts(targetItem));
+  };
 
   useEffect(() => {
     axios
@@ -64,7 +79,12 @@ function ProductList() {
           {items?.map((item: IItem) => (
             <Item key={item.id}>
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-              <BookMarkStar src='/image/북마크 아이콘 - off.png'></BookMarkStar>
+              <BookMarkStar
+                src='/image/북마크 아이콘 - off.png'
+                onClick={() =>
+                  onClickBookMark(item.id, item.title, item.brand_name)
+                }
+              ></BookMarkStar>
               <li>{item.title || item.brand_name}</li>
             </Item>
           ))}
