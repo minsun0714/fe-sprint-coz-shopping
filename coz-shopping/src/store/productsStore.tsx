@@ -13,5 +13,5 @@ export const products = createSlice({
   },
 });
 
-export const store = configureStore({ reducer: products.reducer });
+export const productStore = configureStore({ reducer: products.reducer });
 export const { storeAllProducts } = products.actions;
