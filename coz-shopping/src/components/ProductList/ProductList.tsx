@@ -52,7 +52,6 @@ function ProductList() {
     <ProductListMainWrapper>
       <FilterBtn />
       <Section>
-        <h1>상품 리스트</h1>
         <ItemBox>
           {items?.map((item: IItem) => (
             <Item key={item.id}>
