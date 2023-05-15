@@ -19,6 +19,7 @@ const StyledFilterBtn = styled.button`
   width: 60px;
   border: none;
   margin: 8px;
+  cursor: pointer;
 `;
 
 interface IItem {
