@@ -26,7 +26,7 @@ const modalStyle: ReactModal.Styles = {
 const HeaderWrapper = styled.header`
   border: 1px solid transparent;
   margin: none;
-  height: 7vh;
+  height: 60px;
   box-shadow: 0px 5px 5px gray;
   display: flex;
   flex-direction: row;
