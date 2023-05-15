@@ -43,7 +43,6 @@ function FilterBtn({ setFilteredItems }: IFilteredBtn) {
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const type = event.currentTarget.name;
-    console.log(type);
     setFilteredItems(
       type
         ? products.filter((product: IItem) => product.type === type)
