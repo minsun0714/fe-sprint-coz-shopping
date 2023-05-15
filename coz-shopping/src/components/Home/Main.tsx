@@ -1,11 +1,15 @@
-import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
+import { BookMarkStar } from "../ProductList/ProductList";
+import {
+  getBookMarkedProducts,
+  deleteBookMarkedProduct,
+} from "../../store/bookMarkStore";
 
-export const MainWrapper = styled.header`
+export const MainWrapper = styled.div`
   border: 1px solid transparent;
   margin: none;
   height: 86vh;
@@ -33,8 +37,6 @@ export const ItemImg = styled.img`
   border-radius: 10px;
 `;
 
-export const BookMarkStar = styled.img``;
-
 export interface IItem {
   brand_image_url?: string;
   brand_name: string | null;
@@ -50,9 +52,22 @@ export interface IItem {
 
 function Main() {
   const [itemsList, setItemsList] = useState<IItem[]>([]);
+  const dispatch = useDispatch();
+  const products = useSelector((store: RootState) => store.products);
   const bookMarkList = useSelector((store: RootState) =>
     store.bookMarkedProducts.slice(0, 4)
   );
+
+  const onClickBookMark = (id: number) => {
+    const bookMarkedTargetItem = bookMarkList.find(
+      (product: IItem) => product.id === id
+    );
+
+    if (!bookMarkedTargetItem) {
+      const targetItem = products.find((product: IItem) => product.id === id);
+      if (targetItem) dispatch(getBookMarkedProducts(targetItem));
+    } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
+  };
 
   useEffect(() => {
     axios
@@ -62,7 +77,6 @@ function Main() {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setItemsList(response.data);
       })
       .catch((error) => {
@@ -78,12 +92,16 @@ function Main() {
           {itemsList.map((item) => (
             <Item key={item.id}>
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-              <BookMarkStar></BookMarkStar>
+              <BookMarkStar
+                id={item.id}
+                onClick={() => onClickBookMark(item.id)}
+              ></BookMarkStar>
               <li>{item.title || item.brand_name}</li>
             </Item>
           ))}
         </ItemBox>
       </section>
+
       <section>
         <h2>북마크 리스트</h2>
         <ItemBox>
@@ -92,7 +110,10 @@ function Main() {
               <ItemImg
                 src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
               ></ItemImg>
-              <BookMarkStar></BookMarkStar>
+              <BookMarkStar
+                id={bookMarkedItem.id}
+                onClick={() => onClickBookMark(bookMarkedItem.id)}
+              ></BookMarkStar>
               <li>{bookMarkedItem.title || bookMarkedItem.brand_name}</li>
             </Item>
           ))}
