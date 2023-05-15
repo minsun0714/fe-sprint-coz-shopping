@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { MainWrapper, ItemBox, Item, ItemImg } from "../Home/Main";
+import { ItemBox, Item, ItemImg } from "../Home/Main";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { storeAllProducts } from "../../store/productsStore";
@@ -11,9 +11,14 @@ import {
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
 
-export const ProductListMainWrapper = styled(MainWrapper)`
+export const ProductListMainWrapper = styled.div`
   flex-direction: column;
+  display: flex;
+  justify-content: center;
   height: 84vh;
+  border: 1px solid transparent;
+  margin: none;
+  box-shadow: 0px 5px 5px gray;
 `;
 
 export const Section = styled.section`
