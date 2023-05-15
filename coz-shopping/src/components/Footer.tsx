@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 const FooterWrapper = styled.footer`
+  position: sticky;
   border: 1px solid transparent;
   margin: none;
-  height: 7vh;
+  height: 60px;
   box-shadow: 0px 5px 5px gray;
   display: flex;
   flex-direction: column;
-  position: relative;
 `;
 
 const FooterContent = styled.p`
