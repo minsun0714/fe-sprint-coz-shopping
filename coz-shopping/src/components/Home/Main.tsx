@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/rootStore";
 
 export const MainWrapper = styled.header`
   border: 1px solid transparent;
@@ -9,7 +11,7 @@ export const MainWrapper = styled.header`
   height: 86vh;
   box-shadow: 0px 5px 5px gray;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 `;
 
@@ -48,6 +50,9 @@ export interface IItem {
 
 function Main() {
   const [itemsList, setItemsList] = useState<IItem[]>([]);
+  const bookMarkList = useSelector((state: RootState) =>
+    state.bookMarkedProducts.slice(0, 4)
+  );
 
   useEffect(() => {
     axios
@@ -73,13 +78,26 @@ function Main() {
           {itemsList.map((item) => (
             <Item key={item.id}>
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-              <BookMarkStar src='/image/북마크 아이콘 - off.png'></BookMarkStar>
+              <BookMarkStar></BookMarkStar>
               <li>{item.title || item.brand_name}</li>
             </Item>
           ))}
         </ItemBox>
       </section>
-      <section></section>
+      <section>
+        <h1>북마크 리스트</h1>
+        <ItemBox>
+          {bookMarkList.map((bookMarkedItem) => (
+            <Item key={bookMarkedItem.id}>
+              <ItemImg
+                src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
+              ></ItemImg>
+              <BookMarkStar></BookMarkStar>
+              <li>{bookMarkedItem.title || bookMarkedItem.brand_name}</li>
+            </Item>
+          ))}
+        </ItemBox>
+      </section>
     </MainWrapper>
   );
 }
