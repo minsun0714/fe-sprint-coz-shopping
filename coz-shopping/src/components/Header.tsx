@@ -73,7 +73,9 @@ function Header() {
           <div>OOO님, 안녕하세요!</div>
           <ul>
             <li>
-              <Link to='/products/list'>상품리스트 페이지</Link>
+              <Link to='/products/list' onClick={handleModalOpenClose}>
+                상품리스트 페이지
+              </Link>
             </li>
             <li>북마크 페이지</li>
           </ul>
