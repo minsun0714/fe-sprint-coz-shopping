@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { RootState } from "../../store/rootStore";
 
 const ButtonsWrapper = styled.section`
   display: flex;
@@ -38,11 +39,13 @@ interface IFilteredBtn {
 }
 
 function FilterBtn({ setFilteredItems }: IFilteredBtn) {
-  const state = useSelector((state: any) => state.products[0]);
+  const products = useSelector((store: RootState) => store.products);
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const type = event.currentTarget.name;
-    setFilteredItems(state.filter((product: IItem) => product.type === type));
+    setFilteredItems(
+      products.filter((product: IItem) => product.type === type)
+    );
   };
   return (
     <ButtonsWrapper>

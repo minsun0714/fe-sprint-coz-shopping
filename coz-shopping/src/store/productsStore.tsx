@@ -7,8 +7,8 @@ export const products = createSlice({
   name: "productsReducer",
   initialState: initialProducts,
   reducers: {
-    storeAllProducts: (state: IItem[], action: PayloadAction<IItem>) => {
-      return [...state, action.payload];
+    storeAllProducts: (state: IItem[], action: PayloadAction<IItem[]>) => {
+      return [...state, ...action.payload];
     },
   },
 });

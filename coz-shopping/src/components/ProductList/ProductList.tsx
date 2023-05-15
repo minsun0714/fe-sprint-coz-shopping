@@ -12,6 +12,7 @@ import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { storeAllProducts } from "../../store/productsStore";
 import { onClickBookMark } from "../../onClickBookMark";
+import { RootState } from "../../store/rootStore";
 
 export const ProductListMainWrapper = styled(MainWrapper)`
   flex-direction: column;
@@ -38,7 +39,8 @@ interface IItem {
 function ProductList() {
   const [items, setItems] = useState<IItem[]>([]);
   const dispatch = useDispatch();
-  const state = useSelector((state: IItem[][]) => state[0]);
+  const products = useSelector((store: RootState) => store.products);
+  console.log(products.length);
 
   useEffect(() => {
     axios
@@ -52,8 +54,8 @@ function ProductList() {
   }, []);
 
   useEffect(() => {
-    setItems(state);
-  }, [state]);
+    setItems(products);
+  }, [products]);
 
   return (
     <ProductListMainWrapper>
