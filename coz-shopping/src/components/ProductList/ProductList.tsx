@@ -11,8 +11,9 @@ import {
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { storeAllProducts } from "../../store/productsStore";
+import { onClickBookMark } from "../../onClickBookMark";
 
-const ProductListMainWrapper = styled(MainWrapper)`
+export const ProductListMainWrapper = styled(MainWrapper)`
   flex-direction: column;
   height: 84vh;
 `;
@@ -62,7 +63,12 @@ function ProductList() {
           {items?.map((item: IItem) => (
             <Item key={item.id}>
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-              <BookMarkStar src='/image/북마크 아이콘 - off.png'></BookMarkStar>
+              <BookMarkStar
+                src='/image/북마크 아이콘 - off.png'
+                onClick={() =>
+                  onClickBookMark(item.id, item.title || item.brand_name)
+                }
+              ></BookMarkStar>
               <li>{item.title || item.brand_name}</li>
             </Item>
           ))}
