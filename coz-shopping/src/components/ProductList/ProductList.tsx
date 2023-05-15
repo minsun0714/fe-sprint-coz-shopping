@@ -31,7 +31,7 @@ interface IItem {
 function ProductList() {
   const [items, setItems] = useState<IItem[]>([]);
   const dispatch = useDispatch();
-  const state = useSelector((state: any) => state[0]);
+  const state = useSelector((state: IItem[][]) => state[0]);
 
   useEffect(() => {
     axios
