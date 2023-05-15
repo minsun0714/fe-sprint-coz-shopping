@@ -59,8 +59,8 @@ export const BookMarkStar = styled.div<IImageProps>`
     return `url(${imageUrl})`;
   }};
   border: none;
-  height: 30px;
-  width: 30px;
+  height: 24px;
+  width: 25px;
   cursor: pointer;
 `;
 
