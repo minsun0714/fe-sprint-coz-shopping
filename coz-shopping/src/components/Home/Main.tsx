@@ -58,17 +58,6 @@ function Main() {
     store.bookMarkedProducts.slice(0, 4)
   );
 
-  const onClickBookMark = (id: number) => {
-    const bookMarkedTargetItem = bookMarkList.find(
-      (product: IItem) => product.id === id
-    );
-
-    if (!bookMarkedTargetItem) {
-      const targetItem = products.find((product: IItem) => product.id === id);
-      if (targetItem) dispatch(getBookMarkedProducts(targetItem));
-    } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
-  };
-
   useEffect(() => {
     axios
       .get("http://cozshopping.codestates-seb.link/api/v1/products", {
@@ -83,6 +72,17 @@ function Main() {
         console.log(error);
       });
   }, []);
+
+  const onClickBookMark = (id: number) => {
+    const bookMarkedTargetItem = bookMarkList.find(
+      (product: IItem) => product.id === id
+    );
+
+    if (!bookMarkedTargetItem) {
+      const targetItem = itemsList.find((product: IItem) => product.id === id);
+      if (targetItem) dispatch(getBookMarkedProducts(targetItem));
+    } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
+  };
 
   return (
     <MainWrapper>
