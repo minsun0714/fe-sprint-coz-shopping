@@ -48,6 +48,7 @@ const Hamburger = styled.img`
   margin-left: auto;
   margin-right: 30px;
   margin-top: 15px;
+  cursor: pointer;
 `;
 
 const Nav = styled.nav`
