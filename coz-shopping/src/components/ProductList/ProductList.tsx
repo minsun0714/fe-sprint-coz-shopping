@@ -11,7 +11,6 @@ import {
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { storeAllProducts } from "../../store/productsStore";
-import { onClickBookMark } from "../../onClickBookMark";
 import { RootState } from "../../store/rootStore";
 
 export const ProductListMainWrapper = styled(MainWrapper)`
@@ -65,12 +64,7 @@ function ProductList() {
           {items?.map((item: IItem) => (
             <Item key={item.id}>
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-              <BookMarkStar
-                src='/image/북마크 아이콘 - off.png'
-                onClick={() =>
-                  onClickBookMark(item.id, item.title || item.brand_name)
-                }
-              ></BookMarkStar>
+              <BookMarkStar src='/image/북마크 아이콘 - off.png'></BookMarkStar>
               <li>{item.title || item.brand_name}</li>
             </Item>
           ))}
