@@ -42,7 +42,7 @@ enum BookMarkIcon {
   offIcon = "/image/bookmark_off.jpg",
 }
 
-const BookMarkStar = styled.div<IImageProps>`
+export const BookMarkStar = styled.div<IImageProps>`
   background-image: ${(props: IImageProps): string => {
     const bookMarkedProducts = useSelector(
       (store: RootState) => store.bookMarkedProducts
