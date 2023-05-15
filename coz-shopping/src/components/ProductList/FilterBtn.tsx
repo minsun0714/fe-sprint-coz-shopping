@@ -43,14 +43,17 @@ function FilterBtn({ setFilteredItems }: IFilteredBtn) {
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const type = event.currentTarget.name;
+    console.log(type);
     setFilteredItems(
-      products.filter((product: IItem) => product.type === type)
+      type
+        ? products.filter((product: IItem) => product.type === type)
+        : products
     );
   };
   return (
     <ButtonsWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn></StyledFilterBtn>
+        <StyledFilterBtn onClick={(e) => onClick(e)}></StyledFilterBtn>
         <label>전체</label>
       </ButtonWrapper>
       <ButtonWrapper>

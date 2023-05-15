@@ -45,15 +45,16 @@ function FilterBookMarkBtn({ setFilteredItems }: IFilteredBtn) {
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const type = event.currentTarget.name;
-    console.log(type);
     setFilteredItems(
-      bookMarkStore.filter((product: IItem) => product.type === type)
+      type
+        ? bookMarkStore.filter((product: IItem) => product.type === type)
+        : bookMarkStore
     );
   };
   return (
     <ButtonsWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn></StyledFilterBtn>
+        <StyledFilterBtn onClick={(e) => onClick(e)}></StyledFilterBtn>
         <label>전체</label>
       </ButtonWrapper>
       <ButtonWrapper>
