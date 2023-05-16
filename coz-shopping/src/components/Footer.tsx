@@ -22,7 +22,7 @@ const FooterContent = styled.p`
   color: #888888;
   text-align: center;
   margin-bottom: -10px;
-  margin-top: 15px;
+  margin-top: 19px;
 `;
 
 function Footer() {

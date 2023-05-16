@@ -8,9 +8,6 @@ export const products = createSlice({
   initialState: initialProducts,
   reducers: {
     getAllProducts: (state: IItem[], action: PayloadAction<IItem[]>) => {
-      if (state.length === 0) {
-      }
-
       return [...state, ...action.payload];
     },
   },
