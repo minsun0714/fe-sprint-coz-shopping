@@ -10,33 +10,20 @@ import {
   getBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
+import { IItem } from "../Home/Main";
 
 export const ProductListMainWrapper = styled.div`
-  flex-direction: column;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   height: 84vh;
-  border: 1px solid transparent;
-  margin: none;
   box-shadow: 0px 5px 5px gray;
 `;
 
 export const Section = styled.section`
   margin: 0px 0px 10px;
 `;
-
-interface IItem {
-  brand_image_url?: string;
-  brand_name: string | null;
-  discountPercentage: number | null;
-  follower: number;
-  id: number;
-  image_url: string | null;
-  price: string | null;
-  sub_title: string | null;
-  title: string | null;
-  type: string;
-}
 
 interface IImageProps {
   id: any;
