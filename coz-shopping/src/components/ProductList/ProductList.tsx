@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { ItemBox, Item, ItemImg, ItemInfo } from "../Home/Main";
+import {
+  ItemBox,
+  Item,
+  ItemImg,
+  ItemInfo,
+  LeftInfo,
+  RightInfo,
+  LeftUp,
+  RightUp,
+} from "../Home/Main";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { getAllProducts } from "../../store/productsStore";
@@ -21,7 +30,8 @@ export const ProductListMainWrapper = styled.div`
 `;
 
 export const Section = styled.section`
-  margin: 0 20px 10px;
+  margin: 0 20px 0px;
+  padding-bottom: 100px;
 `;
 
 interface IImageProps {
@@ -49,7 +59,7 @@ export const BookMarkStar = styled.div<IImageProps>`
   width: 25px;
   margin-top: -90px;
   margin-left: 260px;
-  z-index: 990;
+  z-index: 0.5;
   cursor: pointer;
 `;
 
@@ -101,7 +111,30 @@ function ProductList() {
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
               <ItemInfo>
-                <span>{item.title || item.brand_name}</span>
+                <LeftInfo>
+                  <LeftUp>
+                    {item.type === "Category"
+                      ? "# " + item.title
+                      : item.title || item.brand_name}
+                  </LeftUp>
+                  <span>{item.sub_title}</span>
+                </LeftInfo>
+                <RightInfo>
+                  <RightUp discount={item.discountPercentage}>
+                    {item.brand_name
+                      ? "관심고객수"
+                      : item.discountPercentage
+                      ? item.discountPercentage + "%"
+                      : ""}
+                  </RightUp>
+                  <span>
+                    {item.brand_name
+                      ? Number(item.follower).toLocaleString()
+                      : item.price
+                      ? Number(item.price).toLocaleString() + "원"
+                      : ""}
+                  </span>
+                </RightInfo>
               </ItemInfo>
             </Item>
           ))}

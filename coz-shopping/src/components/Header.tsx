@@ -6,23 +6,23 @@ ReactModal.setAppElement("#root");
 
 const modalStyle: ReactModal.Styles = {
   content: {
-    top: "15%",
+    top: "130px",
     left: "90vw",
-    right: "auto",
     bottom: "auto",
-    transform: "translate(-50%, -50%)",
+    transform: "translate(-30%, -32%)",
     width: "200px",
     height: "183px",
-    position: "absolute",
+    position: "sticky",
     padding: "0",
+    paddingRight: "0px",
     borderRadius: "12px",
-    zIndex: "2000",
+    zIndex: "99",
   },
 };
 
 const HeaderWrapper = styled.header`
   position: fixed;
-  z-index: 0.5;
+  z-index: 1;
   top: 0;
   background-color: white;
   margin: none;

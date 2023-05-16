@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { Item, ItemImg, ItemBox } from "../Home/Main";
+import {
+  Item,
+  ItemImg,
+  ItemBox,
+  ItemInfo,
+  LeftInfo,
+  RightInfo,
+  LeftUp,
+  RightUp,
+} from "../Home/Main";
 import FilterBookMarkBtn from "../BookMarkList/FilterBookMarkBtn";
 import {
   ProductListMainWrapper,
@@ -45,7 +54,32 @@ function BookMarkList() {
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
-              <li>{item.title || item.brand_name}</li>
+              <ItemInfo>
+                <LeftInfo>
+                  <LeftUp>
+                    {item.type === "Category"
+                      ? "# " + item.title
+                      : item.title || item.brand_name}
+                  </LeftUp>
+                  <span>{item.sub_title}</span>
+                </LeftInfo>
+                <RightInfo>
+                  <RightUp discount={item.discountPercentage}>
+                    {item.brand_name
+                      ? "관심고객수"
+                      : item.discountPercentage
+                      ? item.discountPercentage + "%"
+                      : ""}
+                  </RightUp>
+                  <span>
+                    {item.brand_name
+                      ? Number(item.follower).toLocaleString()
+                      : item.price
+                      ? Number(item.price).toLocaleString() + "원"
+                      : ""}
+                  </span>
+                </RightInfo>
+              </ItemInfo>
             </Item>
           ))}
         </ItemBox>

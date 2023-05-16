@@ -9,7 +9,6 @@ export const ButtonsWrapper = styled.section`
   justify-content: center;
   margin-top: 80px;
   transform: translateX(110%);
-  z-index: 0.1;
 `;
 
 export const ButtonWrapper = styled.span`

@@ -13,42 +13,76 @@ export const MainWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 87vh;
+  height: 100vh;
   box-shadow: 0px 3px 4px gray;
-  margin-top: 120px;
+  margin-top: 70px;
+  margin-bottom: 66px;
 `;
 
 const H2 = styled.h2`
   font-size: 24px;
-  margin-left: 320px;
+  margin-left: 350px;
+  margin-bottom: -20px;
 `;
 
 export const ItemBox = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-content: flex-start;
-  margin-left: 13vw;
-  margin-right: 10vw;
+  margin-left: 260px;
+  margin-right: 370px;
 `;
 
 export const Item = styled.span`
-  border: 1px dotted gray;
   list-style-type: none;
   display: flex;
   flex-direction: column;
+  margin-top: 12px;
 `;
 
 export const ItemImg = styled.img`
   height: 210px;
   width: 264px;
   border-radius: 20px;
-  margin: 0 0 50px 40px;
+  margin: 10px 0 50px 40px;
 `;
 
 export const ItemInfo = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 30px 32px 0;
+`;
+
+export const LeftInfo = styled.span`
+  display: flex;
   flex-direction: column;
-  margin: 30px 30px;
+  margin-left: 10px;
+  margin-top: -20px;
+`;
+
+export const LeftUp = styled.h4`
+  margin-bottom: 7px;
+`;
+
+export const RightInfo = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: -20px;
+  margin-top: -20px;
+`;
+
+export interface IRightUp {
+  discount: number | null;
+}
+
+export const RightUp = styled.h4<IRightUp>`
+  color: ${(props) => {
+    return props.discount ? "purple" : null;
+  }};
+  margin-bottom: 7px;
+  margin-left: auto;
 `;
 
 export interface IItem {
@@ -97,7 +131,7 @@ function Main() {
       if (targetItem) dispatch(addBookMarkedProducts(targetItem));
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
-
+  console.log(itemsList);
   return (
     <MainWrapper>
       <section>
@@ -111,7 +145,30 @@ function Main() {
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
               <ItemInfo>
-                <span>{item.title || item.brand_name}</span>
+                <LeftInfo>
+                  <LeftUp>
+                    {item.type === "Category"
+                      ? "# " + item.title
+                      : item.title || item.brand_name}
+                  </LeftUp>
+                  <span>{item.sub_title}</span>
+                </LeftInfo>
+                <RightInfo>
+                  <RightUp discount={item.discountPercentage}>
+                    {item.brand_name
+                      ? "관심고객수"
+                      : item.discountPercentage
+                      ? item.discountPercentage + "%"
+                      : ""}
+                  </RightUp>
+                  <span>
+                    {item.brand_name
+                      ? Number(item.follower).toLocaleString()
+                      : item.price
+                      ? Number(item.price).toLocaleString() + "원"
+                      : ""}
+                  </span>
+                </RightInfo>
               </ItemInfo>
             </Item>
           ))}
@@ -130,7 +187,30 @@ function Main() {
                 onClick={() => onClickBookMark(bookMarkedItem.id)}
               ></BookMarkStar>
               <ItemInfo>
-                <span>{bookMarkedItem.title || bookMarkedItem.brand_name}</span>
+                <LeftInfo>
+                  <LeftUp>
+                    {bookMarkedItem.type === "Category"
+                      ? "# " + bookMarkedItem.title
+                      : bookMarkedItem.title || bookMarkedItem.brand_name}
+                  </LeftUp>
+                  <span>{bookMarkedItem.sub_title}</span>
+                </LeftInfo>
+                <RightInfo>
+                  <RightUp discount={bookMarkedItem.discountPercentage}>
+                    {bookMarkedItem.brand_name
+                      ? "관심고객수"
+                      : bookMarkedItem.discountPercentage
+                      ? bookMarkedItem.discountPercentage + "%"
+                      : ""}
+                  </RightUp>
+                  <span>
+                    {bookMarkedItem.brand_name
+                      ? Number(bookMarkedItem.follower).toLocaleString()
+                      : bookMarkedItem.price
+                      ? Number(bookMarkedItem.price).toLocaleString() + "원"
+                      : ""}
+                  </span>
+                </RightInfo>
               </ItemInfo>
             </Item>
           ))}
