@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
 import { BookMarkStar } from "../ProductList/ProductList";
@@ -16,6 +16,8 @@ export const MainWrapper = styled.div`
   box-shadow: 0px 3px 4px gray;
   margin: 70px 0 66px;
 `;
+
+const Section = styled.section``;
 
 const H2 = styled.h2`
   font-size: 24px;
@@ -131,7 +133,7 @@ function Main() {
 
   return (
     <MainWrapper>
-      <section>
+      <Section>
         <H2>상품 리스트</H2>
         <ItemBox>
           {itemsList.map((item) => (
@@ -170,8 +172,8 @@ function Main() {
             </Item>
           ))}
         </ItemBox>
-      </section>
-      <section>
+      </Section>
+      <Section>
         <H2>북마크 리스트</H2>
         <ItemBox>
           {showFourBookMarked.map((bookMarkedItem) => (
@@ -212,7 +214,7 @@ function Main() {
             </Item>
           ))}
         </ItemBox>
-      </section>
+      </Section>
     </MainWrapper>
   );
 }
