@@ -26,7 +26,7 @@ export const ItemBox = styled.ul`
   margin-right: 10vw;
 `;
 
-export const Item = styled.li`
+export const Item = styled.span`
   border: 1px solid green;
   list-style-type: none;
 `;
@@ -97,7 +97,7 @@ function Main() {
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
-              <li>{item.title || item.brand_name}</li>
+              <p>{item.title || item.brand_name}</p>
             </Item>
           ))}
         </ItemBox>
