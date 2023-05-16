@@ -13,8 +13,8 @@ export const MainWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 86vh;
-  box-shadow: 0px 5px 5px gray;
+  height: 87vh;
+  box-shadow: 0px 3px 4px gray;
   margin-top: 50px;
 `;
 

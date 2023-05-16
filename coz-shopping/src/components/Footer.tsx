@@ -4,9 +4,9 @@ const FooterWrapper = styled.footer`
   position: fixed;
   background-color: white;
   bottom: 0;
-  height: 65px;
+  height: 63px;
   width: 100vw;
-  box-shadow: 0px 5px 5px gray;
+  box-shadow: 0px 3px 15px gray;
   display: flex;
   flex-direction: column;
 `;
