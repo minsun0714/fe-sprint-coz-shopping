@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Main from "./components/Home/Main";
@@ -8,7 +7,7 @@ import BookMarkList from "./components/BookMarkList/BookMarkList";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Header />
       <Routes>
         <Route path='/' element={<Main />} />
@@ -16,7 +15,7 @@ function App() {
         <Route path='/bookmark' element={<BookMarkList />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </Router>
   );
 }
 

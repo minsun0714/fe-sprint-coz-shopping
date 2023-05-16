@@ -59,20 +59,20 @@ function BookMarkList() {
                   <LeftUp>
                     {item.type === "Category"
                       ? "# " + item.title
-                      : item.title || item.brand_name}
+                      : item.brand_name}
                   </LeftUp>
                   <span>{item.sub_title}</span>
                 </LeftInfo>
                 <RightInfo>
                   <RightUp discount={item.discountPercentage}>
-                    {item.brand_name
+                    {item.type === "Brand"
                       ? "관심고객수"
                       : item.discountPercentage
                       ? item.discountPercentage + "%"
                       : ""}
                   </RightUp>
                   <span>
-                    {item.brand_name
+                    {item.type === "Brand"
                       ? Number(item.follower).toLocaleString()
                       : item.price
                       ? Number(item.price).toLocaleString() + "원"

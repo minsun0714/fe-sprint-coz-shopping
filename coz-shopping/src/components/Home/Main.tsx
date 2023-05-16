@@ -10,13 +10,11 @@ import {
 } from "../../store/bookMarkStore";
 
 export const MainWrapper = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   height: 100vh;
   box-shadow: 0px 3px 4px gray;
-  margin-top: 70px;
-  margin-bottom: 66px;
+  margin: 70px 0 66px;
 `;
 
 const H2 = styled.h2`
@@ -29,8 +27,7 @@ export const ItemBox = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-content: flex-start;
-  margin-left: 260px;
-  margin-right: 370px;
+  margin: 10px 370px 0 260px;
 `;
 
 export const Item = styled.span`
@@ -131,7 +128,7 @@ function Main() {
       if (targetItem) dispatch(addBookMarkedProducts(targetItem));
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
-  console.log(itemsList);
+
   return (
     <MainWrapper>
       <section>
