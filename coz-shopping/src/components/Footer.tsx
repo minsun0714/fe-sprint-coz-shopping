@@ -9,6 +9,7 @@ const FooterWrapper = styled.footer`
   box-shadow: 0px 3px 15px gray;
   display: flex;
   flex-direction: column;
+  z-index: 9999;
 `;
 
 const FooterContent = styled.p`
