@@ -8,6 +8,7 @@ export const ButtonsWrapper = styled.section`
   flex-direction: row;
   justify-content: center;
   margin-top: 80px;
+  transform: translateX(110%);
 `;
 
 export const ButtonWrapper = styled.span`
