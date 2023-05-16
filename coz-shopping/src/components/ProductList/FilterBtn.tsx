@@ -27,7 +27,32 @@ enum FilterBtnIcon {
   Brand = "/image/버튼 브랜드.png",
 }
 
-export const StyledFilterBtn = styled.button`
+interface IStyledFilteredBtn {
+  name?: string;
+}
+
+export const StyledFilterBtn = styled.button<IStyledFilteredBtn>`
+  background-image: ${(props) => {
+    let icon;
+    switch (props.name) {
+      case "Product":
+        icon = FilterBtnIcon.Product;
+        break;
+      case "Category":
+        icon = FilterBtnIcon.Category;
+        break;
+      case "Exhibition":
+        icon = FilterBtnIcon.Exhibition;
+        break;
+      case "Brand":
+        icon = FilterBtnIcon.Brand;
+        break;
+      default:
+        icon = FilterBtnIcon.Whole;
+        break;
+    }
+    return `url("${icon}")`;
+  }};
   border-radius: 100px;
   height: 82px;
   width: 82px;
