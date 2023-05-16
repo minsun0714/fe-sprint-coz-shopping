@@ -42,9 +42,13 @@ export const ItemImg = styled.img`
   height: 210px;
   width: 264px;
   border-radius: 20px;
-  margin: 50px;
-  margin-left: 40px;
-  margin-right: 0px;
+  margin: 0 0 50px 40px;
+`;
+
+export const ItemInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 30px 30px;
 `;
 
 export interface IItem {
@@ -106,7 +110,9 @@ function Main() {
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
-              <p>{item.title || item.brand_name}</p>
+              <ItemInfo>
+                <span>{item.title || item.brand_name}</span>
+              </ItemInfo>
             </Item>
           ))}
         </ItemBox>
@@ -123,7 +129,9 @@ function Main() {
                 id={bookMarkedItem.id}
                 onClick={() => onClickBookMark(bookMarkedItem.id)}
               ></BookMarkStar>
-              <li>{bookMarkedItem.title || bookMarkedItem.brand_name}</li>
+              <ItemInfo>
+                <span>{bookMarkedItem.title || bookMarkedItem.brand_name}</span>
+              </ItemInfo>
             </Item>
           ))}
         </ItemBox>

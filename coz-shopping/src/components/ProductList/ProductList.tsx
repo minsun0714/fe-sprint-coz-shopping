@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { ItemBox, Item, ItemImg } from "../Home/Main";
+import { ItemBox, Item, ItemImg, ItemInfo } from "../Home/Main";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { getAllProducts } from "../../store/productsStore";
@@ -47,7 +47,8 @@ export const BookMarkStar = styled.div<IImageProps>`
   border: none;
   height: 24px;
   width: 25px;
-  margin-top: -80px;
+  margin-top: -90px;
+  margin-left: 260px;
   z-index: 990;
   cursor: pointer;
 `;
@@ -99,7 +100,9 @@ function ProductList() {
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
-              <li>{item.title || item.brand_name}</li>
+              <ItemInfo>
+                <span>{item.title || item.brand_name}</span>
+              </ItemInfo>
             </Item>
           ))}
         </ItemBox>
