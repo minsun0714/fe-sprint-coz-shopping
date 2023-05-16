@@ -7,7 +7,7 @@ ReactModal.setAppElement("#root");
 const modalStyle: ReactModal.Styles = {
   content: {
     top: "130px",
-    left: "90vw",
+    left: "83vw",
     bottom: "auto",
     transform: "translate(-30%, -32%)",
     width: "200px",
@@ -16,7 +16,7 @@ const modalStyle: ReactModal.Styles = {
     padding: "0",
     paddingRight: "0px",
     borderRadius: "12px",
-    zIndex: "99",
+    zIndex: "9999",
   },
 };
 
@@ -34,20 +34,23 @@ const HeaderWrapper = styled.header`
 `;
 
 const CodeStatesLogo = styled.img`
+  position: fixed;
   height: 45px;
-  padding: 7px 10px 10px;
+  padding: 10px 10px 10px 19vw;
+  margin-top: 10px;
 `;
 
 const COZShopping = styled.img`
+  position: fixed;
   height: 45px;
-  padding: 13px 10px 10px 1vw;
+  padding: 13px 10px 10px 24vw;
   margin-top: 14px;
 `;
 
 const Hamburger = styled.img`
   height: 20px;
   margin-left: auto;
-  margin-right: 30px;
+  margin-right: 21vw;
   margin-top: 25px;
   cursor: pointer;
 `;
@@ -59,7 +62,7 @@ const Nav = styled.nav`
 
 const PageMenu = styled.ul`
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 0px;
   list-style: none;
 `;
 
@@ -75,9 +78,7 @@ const PageItem = styled.li`
   align-items: center;
   height: 60px;
   margin-left: 0vw;
-  padding-left: 2vw;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding: 10px 0 10px 25px;
   border-top: 1px solid gray;
   a {
     text-decoration: none;
