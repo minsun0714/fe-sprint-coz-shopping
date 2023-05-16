@@ -15,7 +15,12 @@ export const MainWrapper = styled.div`
   flex-direction: column;
   height: 87vh;
   box-shadow: 0px 3px 4px gray;
-  margin-top: 50px;
+  margin-top: 120px;
+`;
+
+const H2 = styled.h2`
+  font-size: 24px;
+  margin-left: 320px;
 `;
 
 export const ItemBox = styled.ul`
@@ -27,15 +32,19 @@ export const ItemBox = styled.ul`
 `;
 
 export const Item = styled.span`
-  border: 1px solid green;
+  border: 1px dotted gray;
   list-style-type: none;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ItemImg = styled.img`
   height: 210px;
   width: 264px;
-  margin: 30px;
   border-radius: 20px;
+  margin: 50px;
+  margin-left: 40px;
+  margin-right: 0px;
 `;
 
 export interface IItem {
@@ -88,7 +97,7 @@ function Main() {
   return (
     <MainWrapper>
       <section>
-        <h2>상품 리스트</h2>
+        <H2>상품 리스트</H2>
         <ItemBox>
           {itemsList.map((item) => (
             <Item key={item.id}>
@@ -102,9 +111,8 @@ function Main() {
           ))}
         </ItemBox>
       </section>
-
       <section>
-        <h2>북마크 리스트</h2>
+        <H2>북마크 리스트</H2>
         <ItemBox>
           {showFourBookMarked.map((bookMarkedItem) => (
             <Item key={bookMarkedItem.id}>

@@ -21,7 +21,7 @@ export const ProductListMainWrapper = styled.div`
 `;
 
 export const Section = styled.section`
-  margin: 0px 0px 10px;
+  margin: 0 20px 10px;
 `;
 
 interface IImageProps {
@@ -47,6 +47,8 @@ export const BookMarkStar = styled.div<IImageProps>`
   border: none;
   height: 24px;
   width: 25px;
+  margin-top: -80px;
+  z-index: 990;
   cursor: pointer;
 `;
 
