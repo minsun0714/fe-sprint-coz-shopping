@@ -19,6 +19,8 @@ export const ButtonWrapper = styled.span`
   text-align: center;
 `;
 
+export const Label = styled.label``;
+
 const enum FilterBtnIcon {
   Whole = "/image/버튼 전체.png",
   Product = "/image/버튼 상품.png",
@@ -80,35 +82,35 @@ function FilterBtn({ setFilteredItems }: IFilteredBtn) {
     <ButtonsWrapper>
       <ButtonWrapper>
         <StyledFilterBtn onClick={(e) => onClick(e)}></StyledFilterBtn>
-        <label>전체</label>
+        <Label>전체</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
           name='Product'
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
-        <label>상품</label>
+        <Label>상품</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
           name='Category'
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
-        <label>카테고리</label>
+        <Label>카테고리</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
           name='Exhibition'
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
-        <label>기획전</label>
+        <Label>기획전</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
           name='Brand'
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
-        <label>브랜드</label>
+        <Label>브랜드</Label>
       </ButtonWrapper>
     </ButtonsWrapper>
   );
