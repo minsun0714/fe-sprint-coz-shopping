@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
+import { IItem } from "../Home/Main";
 
-const ButtonsWrapper = styled.section`
+export const ButtonsWrapper = styled.section`
   display: flex;
   flex-direction: row;
-  margin: 20px;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.span`
   display: flex;
   flex-direction: column;
+  margin: 10px;
+  text-align: center;
 `;
 
 enum FilterBtnIcon {
@@ -21,27 +25,14 @@ enum FilterBtnIcon {
   Brand = "/image/버튼 브랜드.png",
 }
 
-const StyledFilterBtn = styled.button`
+export const StyledFilterBtn = styled.button`
   border-radius: 100px;
-  height: 60px;
-  width: 60px;
-  border: none;
+  height: 82px;
+  width: 82px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   margin: 8px;
   cursor: pointer;
 `;
-
-interface IItem {
-  brand_image_url?: string;
-  brand_name: string | null;
-  discountPercentage: number | null;
-  follower: number;
-  id: number;
-  image_url: string | null;
-  price: string | null;
-  sub_title: string | null;
-  title: string | null;
-  type: string;
-}
 
 interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;

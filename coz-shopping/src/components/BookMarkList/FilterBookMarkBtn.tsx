@@ -1,39 +1,12 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
-
-const ButtonsWrapper = styled.section`
-  display: flex;
-  flex-direction: row;
-  margin: 20px;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledFilterBtn = styled.button`
-  border-radius: 100px;
-  height: 60px;
-  width: 60px;
-  border: none;
-  margin: 8px;
-  cursor: pointer;
-`;
-
-interface IItem {
-  brand_image_url?: string;
-  brand_name: string | null;
-  discountPercentage: number | null;
-  follower: number;
-  id: number;
-  image_url: string | null;
-  price: string | null;
-  sub_title: string | null;
-  title: string | null;
-  type: string;
-}
+import {
+  ButtonsWrapper,
+  ButtonWrapper,
+  StyledFilterBtn,
+} from "../ProductList/FilterBtn";
+import { IItem } from "../Home/Main";
 
 interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;

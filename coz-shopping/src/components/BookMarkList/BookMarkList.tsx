@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Item, ItemImg, ItemBox } from "../Home/Main";
 import FilterBookMarkBtn from "../BookMarkList/FilterBookMarkBtn";
-import ProductList, {
+import {
   ProductListMainWrapper,
   BookMarkStar,
   Section,

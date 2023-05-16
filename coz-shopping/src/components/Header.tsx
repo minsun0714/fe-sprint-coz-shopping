@@ -13,13 +13,12 @@ const modalStyle: ReactModal.Styles = {
     left: "90vw",
     right: "auto",
     bottom: "auto",
-    marginLeft: "auto",
-    marginRight: "100px",
     transform: "translate(-50%, -50%)",
     width: "200px",
     height: "183px",
     position: "absolute",
     padding: "0",
+    borderRadius: "12px",
   },
 };
 

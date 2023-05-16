@@ -10,31 +10,32 @@ import {
 } from "../../store/bookMarkStore";
 
 export const MainWrapper = styled.div`
-  margin: none;
-  height: 86vh;
-  box-shadow: 0px 5px 5px gray;
+  position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 86vh;
+  box-shadow: 0px 5px 5px gray;
+  margin-top: 50px;
 `;
 
 export const ItemBox = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-content: flex-start;
+  margin-left: 13vw;
+  margin-right: 10vw;
 `;
 
-export const Item = styled.div`
+export const Item = styled.li`
   border: 1px solid green;
   list-style-type: none;
-  margin: 1vw;
 `;
 
 export const ItemImg = styled.img`
   height: 210px;
   width: 264px;
   margin: 30px;
-  border-radius: 10px;
+  border-radius: 20px;
 `;
 
 export interface IItem {
