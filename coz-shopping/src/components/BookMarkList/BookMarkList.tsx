@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Item,
   ItemImg,
@@ -22,6 +22,13 @@ import {
   addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
+
+const enum ItemType {
+  Product = "Product",
+  Category = "Category",
+  Exhibition = "Exhibition",
+  Brand = "Brand",
+}
 
 function BookMarkList() {
   const bookMarkedProducts = useSelector(
@@ -57,7 +64,7 @@ function BookMarkList() {
               <ItemInfo>
                 <LeftInfo>
                   <LeftUp>
-                    {item.type === "Category"
+                    {item.type === ItemType.Category
                       ? "# " + item.title
                       : item.brand_name}
                   </LeftUp>
@@ -65,14 +72,14 @@ function BookMarkList() {
                 </LeftInfo>
                 <RightInfo>
                   <RightUp discount={item.discountPercentage}>
-                    {item.type === "Brand"
+                    {item.type === ItemType.Brand
                       ? "관심고객수"
                       : item.discountPercentage
                       ? item.discountPercentage + "%"
                       : ""}
                   </RightUp>
                   <span>
-                    {item.type === "Brand"
+                    {item.type === ItemType.Brand
                       ? Number(item.follower).toLocaleString()
                       : item.price
                       ? Number(item.price).toLocaleString() + "원"
