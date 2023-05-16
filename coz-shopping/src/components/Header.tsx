@@ -24,34 +24,33 @@ const modalStyle: ReactModal.Styles = {
 
 const HeaderWrapper = styled.header`
   position: fixed;
-  /* z-index: 999; */
+  z-index: 999;
   top: 0;
-
   background-color: white;
   margin: none;
   height: 70px;
   width: 100vw;
-  box-shadow: 0px 5px 5px gray;
+  box-shadow: 0px 3px 4px gray;
   display: flex;
   flex-direction: row;
 `;
 
 const CodeStatesLogo = styled.img`
   height: 45px;
-  padding: 7px 10px 10px 2vw;
+  padding: 7px 10px 10px;
 `;
 
 const COZShopping = styled.img`
   height: 45px;
   padding: 13px 10px 10px 1vw;
-  margin-top: 0.5vw;
+  margin-top: 14px;
 `;
 
 const Hamburger = styled.img`
   height: 20px;
   margin-left: auto;
   margin-right: 30px;
-  margin-top: 20px;
+  margin-top: 25px;
   cursor: pointer;
 `;
 
