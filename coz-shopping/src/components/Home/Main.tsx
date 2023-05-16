@@ -10,7 +10,7 @@ import {
 } from "../../store/bookMarkStore";
 
 export const MainWrapper = styled.div`
-  position: fixed;
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 86vh;

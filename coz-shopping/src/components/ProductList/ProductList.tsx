@@ -18,7 +18,6 @@ export const ProductListMainWrapper = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   height: 84vh;
-  box-shadow: 0px 5px 5px gray;
 `;
 
 export const Section = styled.section`

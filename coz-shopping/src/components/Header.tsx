@@ -23,9 +23,14 @@ const modalStyle: ReactModal.Styles = {
 };
 
 const HeaderWrapper = styled.header`
-  border: 1px solid transparent;
+  position: fixed;
+  /* z-index: 999; */
+  top: 0;
+
+  background-color: white;
   margin: none;
-  height: 60px;
+  height: 70px;
+  width: 100vw;
   box-shadow: 0px 5px 5px gray;
   display: flex;
   flex-direction: row;
