@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
@@ -18,7 +19,7 @@ export const ButtonWrapper = styled.span`
   text-align: center;
 `;
 
-enum FilterBtnIcon {
+const enum FilterBtnIcon {
   Whole = "/image/버튼 전체.png",
   Product = "/image/버튼 상품.png",
   Category = "/image/버튼 카테고리.png",
