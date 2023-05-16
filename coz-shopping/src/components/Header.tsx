@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import ProductList from "./ProductList/ProductList";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ReactModal from "react-modal";
-import Main from "./Home/Main";
-import App from "../App";
 ReactModal.setAppElement("#root");
 
 const modalStyle: ReactModal.Styles = {
@@ -19,12 +16,13 @@ const modalStyle: ReactModal.Styles = {
     position: "absolute",
     padding: "0",
     borderRadius: "12px",
+    zIndex: "2000",
   },
 };
 
 const HeaderWrapper = styled.header`
   position: fixed;
-  z-index: 999;
+  z-index: 0.5;
   top: 0;
   background-color: white;
   margin: none;
