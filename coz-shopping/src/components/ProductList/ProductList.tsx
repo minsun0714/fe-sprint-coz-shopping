@@ -38,7 +38,7 @@ interface IImageProps {
   id: any;
 }
 
-enum BookMarkIcon {
+const enum BookMarkIcon {
   onIcon = "/image/bookmark_on.jpg",
   offIcon = "/image/bookmark_off.jpg",
 }
