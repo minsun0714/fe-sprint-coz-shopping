@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { ItemBox, Item, ItemImg } from "../Home/Main";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
-import { storeAllProducts } from "../../store/productsStore";
+import { getAllProducts } from "../../store/productsStore";
 import { RootState } from "../../store/rootStore";
 import {
-  getBookMarkedProducts,
+  addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
 import { IItem } from "../Home/Main";
@@ -62,18 +62,18 @@ function ProductList() {
     const bookMarkedTargetItem = bookMarkedProducts.find(
       (product: IItem) => product.id === id
     );
-
     if (!bookMarkedTargetItem) {
       const targetItem = products.find((product: IItem) => product.id === id);
-      if (targetItem) dispatch(getBookMarkedProducts(targetItem));
+      if (targetItem) dispatch(addBookMarkedProducts(targetItem));
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
+
   useEffect(() => {
     if (products.length === 0) {
       axios
         .get("http://cozshopping.codestates-seb.link/api/v1/products")
         .then((response) => {
-          dispatch(storeAllProducts(response.data));
+          dispatch(getAllProducts(response.data));
         })
         .catch((error) => {
           console.log(error);

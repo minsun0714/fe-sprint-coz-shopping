@@ -7,7 +7,7 @@ export const bookMarkedProducts = createSlice({
   name: "bookMarkReducer",
   initialState: initialProducts,
   reducers: {
-    getBookMarkedProducts: (state: IItem[], action: PayloadAction<IItem>) => {
+    addBookMarkedProducts: (state: IItem[], action: PayloadAction<IItem>) => {
       return [...state, action.payload];
     },
     deleteBookMarkedProduct: (state: IItem[], action: PayloadAction<IItem>) => {
@@ -19,5 +19,5 @@ export const bookMarkedProducts = createSlice({
 export const bookMarkStore = configureStore({
   reducer: bookMarkedProducts.reducer,
 });
-export const { getBookMarkedProducts, deleteBookMarkedProduct } =
+export const { addBookMarkedProducts, deleteBookMarkedProduct } =
   bookMarkedProducts.actions;

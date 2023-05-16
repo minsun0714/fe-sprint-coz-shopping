@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
 import { BookMarkStar } from "../ProductList/ProductList";
 import {
-  getBookMarkedProducts,
+  addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
 
@@ -81,7 +81,7 @@ function Main() {
 
     if (!bookMarkedTargetItem) {
       const targetItem = itemsList.find((product: IItem) => product.id === id);
-      if (targetItem) dispatch(getBookMarkedProducts(targetItem));
+      if (targetItem) dispatch(addBookMarkedProducts(targetItem));
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
 
