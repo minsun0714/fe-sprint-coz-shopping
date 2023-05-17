@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Item,
   ItemImg,
@@ -51,7 +51,10 @@ function BookMarkList() {
 
   return (
     <ProductListMainWrapper>
-      <FilterBookMarkBtn setFilteredItems={setItems} />
+      <FilterBookMarkBtn
+        setFilteredItems={setItems}
+        bookMarkedProducts={bookMarkedProducts}
+      />
       <Section>
         <ItemBox>
           {items?.map((item: IItem) => (

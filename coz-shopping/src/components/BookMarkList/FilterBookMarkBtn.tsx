@@ -11,19 +11,19 @@ import { IItem } from "../Home/Main";
 
 interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;
+  bookMarkedProducts: IItem[];
 }
 
-function FilterBookMarkBtn({ setFilteredItems }: IFilteredBtn) {
-  const bookMarkStore = useSelector(
-    (store: RootState) => store.bookMarkedProducts
-  );
-
+function FilterBookMarkBtn({
+  setFilteredItems,
+  bookMarkedProducts,
+}: IFilteredBtn) {
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const type = event.currentTarget.name;
     setFilteredItems(
       type
-        ? bookMarkStore.filter((product: IItem) => product.type === type)
-        : bookMarkStore
+        ? bookMarkedProducts.filter((product: IItem) => product.type === type)
+        : bookMarkedProducts
     );
   };
   return (
