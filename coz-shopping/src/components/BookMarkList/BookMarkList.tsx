@@ -52,15 +52,6 @@ function BookMarkList() {
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [targetUrl, setTargetUrl] = useState("");
-
-  // const handleModalOpenClose = (url?: string) => {
-  //   setIsModalOpen((prev) => !prev);
-  //   if (url) setTargetUrl(url);
-  // };
-  // console.log(targetUrl);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDetail, setModalDetail] = useState<IModalDetail>({
     id: undefined,
