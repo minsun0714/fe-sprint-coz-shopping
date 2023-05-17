@@ -17,11 +17,17 @@ import {
   IRightUp,
   IItem,
 } from "./MainStyle";
-import { BookMarkStar } from "../ProductList/ProductListStyle";
+import {
+  BookMarkStar,
+  modalStyle,
+  ModalImg,
+} from "../ProductList/ProductListStyle";
 import {
   addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
+import ReactModal from "react-modal";
+ReactModal.setAppElement("#root");
 
 function Main() {
   const [itemsList, setItemsList] = useState<IItem[]>([]);
@@ -57,13 +63,34 @@ function Main() {
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [targetUrl, setTargetUrl] = useState("");
+
+  const handleModalOpenClose = (url?: string) => {
+    setIsModalOpen((prev) => !prev);
+    if (url) setTargetUrl(url);
+  };
+  console.log(targetUrl);
+
   return (
     <MainWrapper>
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={() => handleModalOpenClose()}
+        style={modalStyle}
+      >
+        <ModalImg src={targetUrl} alt='Large Image' />
+      </ReactModal>
       <Section>
         <H2>상품 리스트</H2>
         <ItemBox>
           {itemsList.map((item) => (
-            <Item key={item.id}>
+            <Item
+              key={item.id}
+              onClick={() =>
+                handleModalOpenClose(item.image_url || item.brand_image_url)
+              }
+            >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
               <BookMarkStar
                 id={item.id}
@@ -103,7 +130,14 @@ function Main() {
         <H2>북마크 리스트</H2>
         <ItemBox>
           {showFourBookMarked.map((bookMarkedItem) => (
-            <Item key={bookMarkedItem.id}>
+            <Item
+              key={bookMarkedItem.id}
+              onClick={() =>
+                handleModalOpenClose(
+                  bookMarkedItem.image_url || bookMarkedItem.brand_image_url
+                )
+              }
+            >
               <ItemImg
                 src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
               ></ItemImg>

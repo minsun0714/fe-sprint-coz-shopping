@@ -19,11 +19,15 @@ export const modalStyle: ReactModal.Styles = {
   },
 };
 
+export const ModalDetail = styled.div``;
+
 export const ModalImg = styled.img`
   width: 292px;
   height: 223px;
   padding-bottom: 0;
 `;
+
+export const ModalTitle = styled.h3``;
 
 export const ProductListMainWrapper = styled.div`
   display: flex;
@@ -65,4 +69,26 @@ export const BookMarkStar = styled.div<IImageProps>`
   margin-left: 260px;
   z-index: 0.5;
   cursor: pointer;
+`;
+
+export const BookMarkStarModal = styled(BookMarkStar)`
+  height: 100px;
+  width: 100px;
+  padding-left: -100px;
+`;
+
+export interface IModalDetail {
+  id?: number;
+  title?: string | null;
+  url?: string;
+}
+
+interface XSign {
+  src: string;
+}
+
+export const XSign = styled.img<XSign>`
+  height: 30px;
+  width: 30px;
+  background-color: red;
 `;

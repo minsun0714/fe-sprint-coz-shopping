@@ -22,11 +22,16 @@ import { IItem } from "../Home/MainStyle";
 import {
   ProductListMainWrapper,
   Section,
+  ModalDetail,
   IImageProps,
   BookMarkIcon,
   BookMarkStar,
+  BookMarkStarModal,
   modalStyle,
   ModalImg,
+  ModalTitle,
+  IModalDetail,
+  XSign,
 } from "./ProductListStyle";
 import ReactModal from "react-modal";
 ReactModal.setAppElement("#root");
@@ -67,13 +72,20 @@ function ProductList() {
   }, [products]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [targetUrl, setTargetUrl] = useState("");
+  const [modalDetail, setModalDetail] = useState<IModalDetail>({
+    id: undefined,
+    title: undefined,
+    url: undefined,
+  });
 
-  const handleModalOpenClose = (url?: string) => {
+  const handleModalOpenClose = (
+    id?: number,
+    title?: string | null,
+    url?: string
+  ) => {
     setIsModalOpen((prev) => !prev);
-    if (url) setTargetUrl(url);
+    if (url && title) setModalDetail({ id, title, url });
   };
-  console.log(targetUrl);
 
   return (
     <ProductListMainWrapper>
@@ -83,7 +95,12 @@ function ProductList() {
         onRequestClose={() => handleModalOpenClose()}
         style={modalStyle}
       >
-        <ModalImg src={targetUrl} alt='Large Image' />
+        <ModalDetail>
+          <XSign src='/image/x.png' />
+          <ModalImg src={modalDetail.url} alt='Large Image' />
+          <BookMarkStarModal id={modalDetail.id} />
+          <ModalTitle>{modalDetail.title}</ModalTitle>
+        </ModalDetail>
       </ReactModal>
       <Section>
         <ItemBox>
@@ -91,7 +108,11 @@ function ProductList() {
             <Item
               key={item.id}
               onClick={() =>
-                handleModalOpenClose(item.image_url || item.brand_image_url)
+                handleModalOpenClose(
+                  item.id,
+                  item.title || item.brand_name,
+                  item.image_url || item.brand_image_url
+                )
               }
             >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
