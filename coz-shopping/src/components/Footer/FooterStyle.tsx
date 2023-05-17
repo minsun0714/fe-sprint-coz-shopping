@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-const FooterWrapper = styled.footer`
+export const FooterWrapper = styled.footer`
   position: fixed;
   background-color: white;
   bottom: 0;
@@ -13,7 +12,7 @@ const FooterWrapper = styled.footer`
   z-index: 9999;
 `;
 
-const FooterContent = styled.p`
+export const FooterContent = styled.p`
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -25,14 +24,3 @@ const FooterContent = styled.p`
   margin-bottom: -10px;
   margin-top: 19px;
 `;
-
-function Footer() {
-  return (
-    <FooterWrapper>
-      <FooterContent>개인정보 처리방침 | 이용약관</FooterContent>
-      <FooterContent>All rights reserved @ CodeStates</FooterContent>
-    </FooterWrapper>
-  );
-}
-
-export default Footer;
