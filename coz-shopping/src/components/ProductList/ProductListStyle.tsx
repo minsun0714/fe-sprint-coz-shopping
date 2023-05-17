@@ -8,9 +8,9 @@ export const modalStyle: ReactModal.Styles = {
     top: "40vh",
     left: "47vw",
     bottom: "auto",
-    transform: "translate(-30%, -32%)",
-    width: "294px",
-    height: "230px",
+    transform: "translate(-45%, -40%)",
+    width: "744px",
+    height: "480px",
     position: "sticky",
     padding: "0",
     paddingRight: "0px",
@@ -19,15 +19,28 @@ export const modalStyle: ReactModal.Styles = {
   },
 };
 
-export const ModalDetail = styled.div``;
-
-export const ModalImg = styled.img`
-  width: 292px;
-  height: 223px;
-  padding-bottom: 0;
+export const ModalDetail = styled.div`
+  position: relative;
 `;
 
-export const ModalTitle = styled.h3``;
+export const ModalImg = styled.img`
+  position: absolute;
+  width: 742px;
+  height: 478px;
+  padding-bottom: 0;
+  z-index: 0;
+`;
+
+export const ModalTitle = styled.h3`
+  position: absolute;
+  margin-top: 435px;
+  margin-left: 58px;
+  z-index: 999999;
+  width: 200px;
+  height: 20px;
+  color: white;
+  font-weight: 600;
+`;
 
 export const ProductListMainWrapper = styled.div`
   display: flex;
@@ -72,9 +85,11 @@ export const BookMarkStar = styled.div<IImageProps>`
 `;
 
 export const BookMarkStarModal = styled(BookMarkStar)`
-  height: 100px;
-  width: 100px;
-  padding-left: -100px;
+  position: absolute;
+  height: 24px;
+  width: 25px;
+  margin: 430px 240px 0 20px;
+  z-index: 1;
 `;
 
 export interface IModalDetail {
@@ -88,7 +103,9 @@ interface XSign {
 }
 
 export const XSign = styled.img<XSign>`
+  position: absolute;
   height: 30px;
   width: 30px;
-  background-color: red;
+  margin: 20px 0 0 690px;
+  z-index: 10;
 `;

@@ -96,7 +96,7 @@ function ProductList() {
         style={modalStyle}
       >
         <ModalDetail>
-          <XSign src='/image/x.png' />
+          <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
           <ModalImg src={modalDetail.url} alt='Large Image' />
           <BookMarkStarModal id={modalDetail.id} />
           <ModalTitle>{modalDetail.title}</ModalTitle>
