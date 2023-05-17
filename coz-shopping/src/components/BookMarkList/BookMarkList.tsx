@@ -14,6 +14,8 @@ import {
   ProductListMainWrapper,
   BookMarkStar,
   Section,
+  ModalImg,
+  modalStyle,
 } from "../ProductList/ProductListStyle";
 import { IItem } from "../Home/Main";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,13 +24,9 @@ import {
   addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
-
-const enum ItemType {
-  Product = "Product",
-  Category = "Category",
-  Exhibition = "Exhibition",
-  Brand = "Brand",
-}
+import { ItemType } from "./BookMarkListStyle";
+import ReactModal from "react-modal";
+ReactModal.setAppElement("#root");
 
 function BookMarkList() {
   const bookMarkedProducts = useSelector(
@@ -49,16 +47,37 @@ function BookMarkList() {
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [targetUrl, setTargetUrl] = useState("");
+
+  const handleModalOpenClose = (url?: string) => {
+    setIsModalOpen((prev) => !prev);
+    if (url) setTargetUrl(url);
+  };
+  console.log(targetUrl);
+
   return (
     <ProductListMainWrapper>
       <FilterBookMarkBtn
         setFilteredItems={setItems}
         bookMarkedProducts={bookMarkedProducts}
       />
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={() => handleModalOpenClose()}
+        style={modalStyle}
+      >
+        <ModalImg src={targetUrl} alt='Large Image' />
+      </ReactModal>
       <Section>
         <ItemBox>
           {items?.map((item: IItem) => (
-            <Item key={item.id}>
+            <Item
+              key={item.id}
+              onClick={() =>
+                handleModalOpenClose(item.image_url || item.brand_image_url)
+              }
+            >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
               <BookMarkStar
                 id={item.id}
