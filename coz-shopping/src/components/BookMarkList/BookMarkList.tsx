@@ -16,6 +16,11 @@ import {
   Section,
   ModalImg,
   modalStyle,
+  ModalDetail,
+  ModalTitle,
+  BookMarkStarModal,
+  XSign,
+  IModalDetail,
 } from "../ProductList/ProductListStyle";
 import { IItem } from "../Home/MainStyle";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,14 +52,30 @@ function BookMarkList() {
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [targetUrl, setTargetUrl] = useState("");
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [targetUrl, setTargetUrl] = useState("");
 
-  const handleModalOpenClose = (url?: string) => {
+  // const handleModalOpenClose = (url?: string) => {
+  //   setIsModalOpen((prev) => !prev);
+  //   if (url) setTargetUrl(url);
+  // };
+  // console.log(targetUrl);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalDetail, setModalDetail] = useState<IModalDetail>({
+    id: undefined,
+    title: undefined,
+    url: undefined,
+  });
+
+  const handleModalOpenClose = (
+    id?: number,
+    title?: string | null,
+    url?: string
+  ) => {
     setIsModalOpen((prev) => !prev);
-    if (url) setTargetUrl(url);
+    if (url && title) setModalDetail({ id, title, url });
   };
-  console.log(targetUrl);
 
   return (
     <ProductListMainWrapper>
@@ -67,7 +88,19 @@ function BookMarkList() {
         onRequestClose={() => handleModalOpenClose()}
         style={modalStyle}
       >
-        <ModalImg src={targetUrl} alt='Large Image' />
+        <ModalDetail>
+          <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
+          <ModalImg src={modalDetail.url} alt='Large Image' />
+          <BookMarkStarModal
+            id={modalDetail.id}
+            onClick={() => {
+              if (modalDetail.id) {
+                onClickBookMark(modalDetail.id);
+              }
+            }}
+          />
+          <ModalTitle>{modalDetail.title}</ModalTitle>
+        </ModalDetail>
       </ReactModal>
       <Section>
         <ItemBox>
@@ -75,7 +108,11 @@ function BookMarkList() {
             <Item
               key={item.id}
               onClick={() =>
-                handleModalOpenClose(item.image_url || item.brand_image_url)
+                handleModalOpenClose(
+                  item.id,
+                  item.title || item.brand_name,
+                  item.image_url || item.brand_image_url
+                )
               }
             >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>

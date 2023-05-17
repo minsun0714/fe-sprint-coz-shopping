@@ -10,7 +10,7 @@ export const modalStyle: ReactModal.Styles = {
     bottom: "auto",
     transform: "translate(-45%, -40%)",
     width: "744px",
-    height: "480px",
+    height: "481px",
     position: "sticky",
     padding: "0",
     paddingRight: "0px",
