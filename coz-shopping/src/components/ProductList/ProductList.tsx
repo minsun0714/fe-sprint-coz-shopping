@@ -23,8 +23,6 @@ import {
   ProductListMainWrapper,
   Section,
   ModalDetail,
-  IImageProps,
-  BookMarkIcon,
   BookMarkStar,
   BookMarkStarModal,
   modalStyle,
@@ -34,6 +32,7 @@ import {
   XSign,
 } from "./ProductListStyle";
 import ReactModal from "react-modal";
+import { ItemType } from "../BookMarkList/BookMarkListStyle";
 ReactModal.setAppElement("#root");
 
 function ProductList() {
@@ -84,7 +83,7 @@ function ProductList() {
     url?: string
   ) => {
     setIsModalOpen((prev) => !prev);
-    if (url && title) setModalDetail({ id, title, url });
+    setModalDetail({ id, title, url });
   };
 
   return (
@@ -131,7 +130,7 @@ function ProductList() {
               <ItemInfo>
                 <LeftInfo>
                   <LeftUp>
-                    {item.type === "Category"
+                    {item.type === ItemType.Category
                       ? "# " + item.title
                       : item.title || item.brand_name}
                   </LeftUp>
@@ -139,14 +138,14 @@ function ProductList() {
                 </LeftInfo>
                 <RightInfo>
                   <RightUp discount={item.discountPercentage}>
-                    {item.brand_name
+                    {item.type === ItemType.Brand
                       ? "관심고객수"
                       : item.discountPercentage
                       ? item.discountPercentage + "%"
                       : ""}
                   </RightUp>
                   <span>
-                    {item.brand_name
+                    {item.type === ItemType.Brand
                       ? Number(item.follower).toLocaleString()
                       : item.price
                       ? Number(item.price).toLocaleString() + "원"

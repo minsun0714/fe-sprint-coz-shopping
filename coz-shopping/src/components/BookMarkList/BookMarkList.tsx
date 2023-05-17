@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Item,
   ItemImg,
@@ -65,7 +65,7 @@ function BookMarkList() {
     url?: string
   ) => {
     setIsModalOpen((prev) => !prev);
-    if (url && title) setModalDetail({ id, title, url });
+    setModalDetail({ id, title, url });
   };
 
   return (

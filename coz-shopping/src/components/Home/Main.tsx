@@ -32,6 +32,7 @@ import {
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
 import ReactModal from "react-modal";
+import { ItemType } from "../BookMarkList/BookMarkListStyle";
 ReactModal.setAppElement("#root");
 
 function Main() {
@@ -81,7 +82,7 @@ function Main() {
     url?: string
   ) => {
     setIsModalOpen((prev) => !prev);
-    if (url && title) setModalDetail({ id, title, url });
+    setModalDetail({ id, title, url });
   };
 
   return (
@@ -127,7 +128,7 @@ function Main() {
               <ItemInfo>
                 <LeftInfo>
                   <LeftUp>
-                    {item.type === "Category"
+                    {item.type === ItemType.Category
                       ? "# " + item.title
                       : item.title || item.brand_name}
                   </LeftUp>
@@ -135,14 +136,14 @@ function Main() {
                 </LeftInfo>
                 <RightInfo>
                   <RightUp discount={item.discountPercentage}>
-                    {item.brand_name
+                    {item.type === ItemType.Brand
                       ? "관심고객수"
                       : item.discountPercentage
                       ? item.discountPercentage + "%"
                       : ""}
                   </RightUp>
                   <span>
-                    {item.brand_name
+                    {item.type === ItemType.Brand
                       ? Number(item.follower).toLocaleString()
                       : item.price
                       ? Number(item.price).toLocaleString() + "원"
@@ -178,7 +179,7 @@ function Main() {
               <ItemInfo>
                 <LeftInfo>
                   <LeftUp>
-                    {bookMarkedItem.type === "Category"
+                    {bookMarkedItem.type === ItemType.Category
                       ? "# " + bookMarkedItem.title
                       : bookMarkedItem.title || bookMarkedItem.brand_name}
                   </LeftUp>
@@ -186,14 +187,14 @@ function Main() {
                 </LeftInfo>
                 <RightInfo>
                   <RightUp discount={bookMarkedItem.discountPercentage}>
-                    {bookMarkedItem.brand_name
+                    {bookMarkedItem.type === ItemType.Brand
                       ? "관심고객수"
                       : bookMarkedItem.discountPercentage
                       ? bookMarkedItem.discountPercentage + "%"
                       : ""}
                   </RightUp>
                   <span>
-                    {bookMarkedItem.brand_name
+                    {bookMarkedItem.type === ItemType.Brand
                       ? Number(bookMarkedItem.follower).toLocaleString()
                       : bookMarkedItem.price
                       ? Number(bookMarkedItem.price).toLocaleString() + "원"
