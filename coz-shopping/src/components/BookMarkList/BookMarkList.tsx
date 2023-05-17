@@ -23,7 +23,7 @@ import {
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
 
-const enum ItemType {
+export const enum ItemType {
   Product = "Product",
   Category = "Category",
   Exhibition = "Exhibition",
@@ -69,7 +69,7 @@ function BookMarkList() {
                   <LeftUp>
                     {item.type === ItemType.Category
                       ? "# " + item.title
-                      : item.brand_name}
+                      : item.title || item.brand_name}
                   </LeftUp>
                   <span>{item.sub_title}</span>
                 </LeftInfo>
