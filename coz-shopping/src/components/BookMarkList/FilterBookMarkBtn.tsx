@@ -1,13 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/rootStore";
 import {
   ButtonsWrapper,
   ButtonWrapper,
   StyledFilterBtn,
   Label,
 } from "../ProductList/FilterBtn";
-import { IItem } from "../Home/Main";
+import { IItem } from "../Home/MainStyle";
 
 interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;

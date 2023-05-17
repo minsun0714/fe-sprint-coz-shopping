@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import {
   ItemBox,
   Item,
@@ -10,7 +9,7 @@ import {
   RightInfo,
   LeftUp,
   RightUp,
-} from "../Home/Main";
+} from "../Home/MainStyle";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { getAllProducts } from "../../store/productsStore";
@@ -19,49 +18,22 @@ import {
   addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
-import { IItem } from "../Home/Main";
-
-export const ProductListMainWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 84vh;
-`;
-
-export const Section = styled.section`
-  margin: 0 20px 0px;
-  padding-bottom: 100px;
-`;
-
-interface IImageProps {
-  id: any;
-}
-
-const enum BookMarkIcon {
-  onIcon = "/image/bookmark_on.jpg",
-  offIcon = "/image/bookmark_off.jpg",
-}
-
-export const BookMarkStar = styled.div<IImageProps>`
-  background-image: ${(props: IImageProps): string => {
-    const bookMarkedProducts = useSelector(
-      (store: RootState) => store.bookMarkedProducts
-    );
-    const isBookMarked = bookMarkedProducts.find(
-      (product: IItem) => product.id === props.id
-    );
-    const imageUrl = isBookMarked ? BookMarkIcon.onIcon : BookMarkIcon.offIcon;
-    return `url(${imageUrl})`;
-  }};
-  border: none;
-  height: 24px;
-  width: 25px;
-  margin-top: -90px;
-  margin-left: 260px;
-  z-index: 0.5;
-  cursor: pointer;
-`;
+import { IItem } from "../Home/MainStyle";
+import {
+  ProductListMainWrapper,
+  Section,
+  ModalDetail,
+  BookMarkStar,
+  BookMarkStarModal,
+  modalStyle,
+  ModalImg,
+  ModalTitle,
+  IModalDetail,
+  XSign,
+} from "./ProductListStyle";
+import ReactModal from "react-modal";
+import { ItemType } from "../BookMarkList/BookMarkListStyle";
+ReactModal.setAppElement("#root");
 
 function ProductList() {
   const [items, setItems] = useState<IItem[]>([]);
@@ -98,14 +70,59 @@ function ProductList() {
     setItems(products);
   }, [products]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalDetail, setModalDetail] = useState<IModalDetail>({
+    id: undefined,
+    title: undefined,
+    url: undefined,
+  });
+
+  const handleModalOpenClose = (
+    id?: number,
+    title?: string | null,
+    url?: string
+  ) => {
+    setIsModalOpen((prev) => !prev);
+    setModalDetail({ id, title, url });
+  };
+
   return (
     <ProductListMainWrapper>
       <FilterBtn setFilteredItems={setItems} />
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={() => handleModalOpenClose()}
+        style={modalStyle}
+      >
+        <ModalDetail>
+          <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
+          <ModalImg src={modalDetail.url} alt='Large Image' />
+          <BookMarkStarModal
+            id={modalDetail.id}
+            onClick={() => {
+              if (modalDetail.id) {
+                onClickBookMark(modalDetail.id);
+              }
+            }}
+          />
+          <ModalTitle>{modalDetail.title}</ModalTitle>
+        </ModalDetail>
+      </ReactModal>
       <Section>
         <ItemBox>
           {items?.map((item: IItem) => (
-            <Item key={item.id}>
+            <Item
+              key={item.id}
+              onClick={() =>
+                handleModalOpenClose(
+                  item.id,
+                  item.title || item.brand_name,
+                  item.image_url || item.brand_image_url
+                )
+              }
+            >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
+
               <BookMarkStar
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
@@ -113,7 +130,7 @@ function ProductList() {
               <ItemInfo>
                 <LeftInfo>
                   <LeftUp>
-                    {item.type === "Category"
+                    {item.type === ItemType.Category
                       ? "# " + item.title
                       : item.title || item.brand_name}
                   </LeftUp>
@@ -121,14 +138,14 @@ function ProductList() {
                 </LeftInfo>
                 <RightInfo>
                   <RightUp discount={item.discountPercentage}>
-                    {item.brand_name
+                    {item.type === ItemType.Brand
                       ? "관심고객수"
                       : item.discountPercentage
                       ? item.discountPercentage + "%"
                       : ""}
                   </RightUp>
                   <span>
-                    {item.brand_name
+                    {item.type === ItemType.Brand
                       ? Number(item.follower).toLocaleString()
                       : item.price
                       ? Number(item.price).toLocaleString() + "원"

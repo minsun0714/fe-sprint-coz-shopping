@@ -1,101 +1,39 @@
-import styled from "styled-components";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
-import { BookMarkStar } from "../ProductList/ProductList";
+import {
+  MainWrapper,
+  Section,
+  H2,
+  ItemBox,
+  Item,
+  ItemImg,
+  ItemInfo,
+  LeftInfo,
+  LeftUp,
+  RightInfo,
+  RightUp,
+  IRightUp,
+  IItem,
+} from "./MainStyle";
+import {
+  BookMarkStar,
+  modalStyle,
+  ModalImg,
+  ModalDetail,
+  XSign,
+  BookMarkStarModal,
+  ModalTitle,
+  IModalDetail,
+} from "../ProductList/ProductListStyle";
 import {
   addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
-
-export const MainWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  box-shadow: 0px 3px 4px gray;
-  margin: 70px 0 66px;
-`;
-
-const Section = styled.section``;
-
-const H2 = styled.h2`
-  font-size: 24px;
-  margin-left: 350px;
-  margin-bottom: -20px;
-`;
-
-export const ItemBox = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-content: flex-start;
-  margin: 10px 370px 0 260px;
-`;
-
-export const Item = styled.span`
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  margin-top: 12px;
-`;
-
-export const ItemImg = styled.img`
-  height: 210px;
-  width: 264px;
-  border-radius: 20px;
-  margin: 10px 0 50px 40px;
-`;
-
-export const ItemInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 30px 32px 0;
-`;
-
-export const LeftInfo = styled.span`
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-  margin-top: -20px;
-`;
-
-export const LeftUp = styled.h4`
-  margin-bottom: 7px;
-`;
-
-export const RightInfo = styled.span`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-right: -20px;
-  margin-top: -20px;
-`;
-
-export interface IRightUp {
-  discount: number | null;
-}
-
-export const RightUp = styled.h4<IRightUp>`
-  color: ${(props) => {
-    return props.discount ? "purple" : null;
-  }};
-  margin-bottom: 7px;
-  margin-left: auto;
-`;
-
-export interface IItem {
-  brand_image_url?: string;
-  brand_name: string | null;
-  discountPercentage: number | null;
-  follower: number;
-  id: number;
-  image_url: string | null;
-  price: string | null;
-  sub_title: string | null;
-  title: string | null;
-  type: string;
-}
+import ReactModal from "react-modal";
+import { ItemType } from "../BookMarkList/BookMarkListStyle";
+ReactModal.setAppElement("#root");
 
 function Main() {
   const [itemsList, setItemsList] = useState<IItem[]>([]);
@@ -131,13 +69,57 @@ function Main() {
     } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalDetail, setModalDetail] = useState<IModalDetail>({
+    id: undefined,
+    title: undefined,
+    url: undefined,
+  });
+
+  const handleModalOpenClose = (
+    id?: number,
+    title?: string | null,
+    url?: string
+  ) => {
+    setIsModalOpen((prev) => !prev);
+    setModalDetail({ id, title, url });
+  };
+
   return (
     <MainWrapper>
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={() => handleModalOpenClose()}
+        style={modalStyle}
+      >
+        <ModalDetail>
+          <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
+          <ModalImg src={modalDetail.url} alt='Large Image' />
+          <BookMarkStarModal
+            id={modalDetail.id}
+            onClick={() => {
+              if (modalDetail.id) {
+                onClickBookMark(modalDetail.id);
+              }
+            }}
+          />
+          <ModalTitle>{modalDetail.title}</ModalTitle>
+        </ModalDetail>
+      </ReactModal>
       <Section>
         <H2>상품 리스트</H2>
         <ItemBox>
           {itemsList.map((item) => (
-            <Item key={item.id}>
+            <Item
+              key={item.id}
+              onClick={() =>
+                handleModalOpenClose(
+                  item.id,
+                  item.title || item.brand_name,
+                  item.image_url || item.brand_image_url
+                )
+              }
+            >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
               <BookMarkStar
                 id={item.id}
@@ -146,7 +128,7 @@ function Main() {
               <ItemInfo>
                 <LeftInfo>
                   <LeftUp>
-                    {item.type === "Category"
+                    {item.type === ItemType.Category
                       ? "# " + item.title
                       : item.title || item.brand_name}
                   </LeftUp>
@@ -154,14 +136,14 @@ function Main() {
                 </LeftInfo>
                 <RightInfo>
                   <RightUp discount={item.discountPercentage}>
-                    {item.brand_name
+                    {item.type === ItemType.Brand
                       ? "관심고객수"
                       : item.discountPercentage
                       ? item.discountPercentage + "%"
                       : ""}
                   </RightUp>
                   <span>
-                    {item.brand_name
+                    {item.type === ItemType.Brand
                       ? Number(item.follower).toLocaleString()
                       : item.price
                       ? Number(item.price).toLocaleString() + "원"
@@ -177,7 +159,16 @@ function Main() {
         <H2>북마크 리스트</H2>
         <ItemBox>
           {showFourBookMarked.map((bookMarkedItem) => (
-            <Item key={bookMarkedItem.id}>
+            <Item
+              key={bookMarkedItem.id}
+              onClick={() =>
+                handleModalOpenClose(
+                  bookMarkedItem.id,
+                  bookMarkedItem.title || bookMarkedItem.brand_name,
+                  bookMarkedItem.image_url || bookMarkedItem.brand_image_url
+                )
+              }
+            >
               <ItemImg
                 src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
               ></ItemImg>
@@ -188,7 +179,7 @@ function Main() {
               <ItemInfo>
                 <LeftInfo>
                   <LeftUp>
-                    {bookMarkedItem.type === "Category"
+                    {bookMarkedItem.type === ItemType.Category
                       ? "# " + bookMarkedItem.title
                       : bookMarkedItem.title || bookMarkedItem.brand_name}
                   </LeftUp>
@@ -196,14 +187,14 @@ function Main() {
                 </LeftInfo>
                 <RightInfo>
                   <RightUp discount={bookMarkedItem.discountPercentage}>
-                    {bookMarkedItem.brand_name
+                    {bookMarkedItem.type === ItemType.Brand
                       ? "관심고객수"
                       : bookMarkedItem.discountPercentage
                       ? bookMarkedItem.discountPercentage + "%"
                       : ""}
                   </RightUp>
                   <span>
-                    {bookMarkedItem.brand_name
+                    {bookMarkedItem.type === ItemType.Brand
                       ? Number(bookMarkedItem.follower).toLocaleString()
                       : bookMarkedItem.price
                       ? Number(bookMarkedItem.price).toLocaleString() + "원"
