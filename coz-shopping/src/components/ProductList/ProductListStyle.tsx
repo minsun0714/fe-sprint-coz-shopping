@@ -3,6 +3,28 @@ import { RootState } from "../../store/rootStore";
 import { useSelector } from "react-redux";
 import { IItem } from "../Home/Main";
 
+export const modalStyle: ReactModal.Styles = {
+  content: {
+    top: "40vh",
+    left: "47vw",
+    bottom: "auto",
+    transform: "translate(-30%, -32%)",
+    width: "294px",
+    height: "230px",
+    position: "sticky",
+    padding: "0",
+    paddingRight: "0px",
+    borderRadius: "20px",
+    zIndex: "9999",
+  },
+};
+
+export const ModalImg = styled.img`
+  width: 292px;
+  height: 223px;
+  padding-bottom: 0;
+`;
+
 export const ProductListMainWrapper = styled.div`
   display: flex;
   flex-direction: column;

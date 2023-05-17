@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import {
   ItemBox,
   Item,
@@ -26,7 +25,11 @@ import {
   IImageProps,
   BookMarkIcon,
   BookMarkStar,
+  modalStyle,
+  ModalImg,
 } from "./ProductListStyle";
+import ReactModal from "react-modal";
+ReactModal.setAppElement("#root");
 
 function ProductList() {
   const [items, setItems] = useState<IItem[]>([]);
@@ -63,14 +66,36 @@ function ProductList() {
     setItems(products);
   }, [products]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [targetUrl, setTargetUrl] = useState("");
+
+  const handleModalOpenClose = (url?: string) => {
+    setIsModalOpen((prev) => !prev);
+    if (url) setTargetUrl(url);
+  };
+  console.log(targetUrl);
+
   return (
     <ProductListMainWrapper>
       <FilterBtn setFilteredItems={setItems} />
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={() => handleModalOpenClose()}
+        style={modalStyle}
+      >
+        <ModalImg src={targetUrl} alt='Large Image' />
+      </ReactModal>
       <Section>
         <ItemBox>
           {items?.map((item: IItem) => (
-            <Item key={item.id}>
+            <Item
+              key={item.id}
+              onClick={() =>
+                handleModalOpenClose(item.image_url || item.brand_image_url)
+              }
+            >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
+
               <BookMarkStar
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
