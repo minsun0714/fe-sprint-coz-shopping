@@ -14,7 +14,7 @@ import {
   ProductListMainWrapper,
   BookMarkStar,
   Section,
-} from "../ProductList/ProductList";
+} from "../ProductList/ProductListStyle";
 import { IItem } from "../Home/Main";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
