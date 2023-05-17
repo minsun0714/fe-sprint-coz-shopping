@@ -14,10 +14,7 @@ import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { getAllProducts } from "../../store/productsStore";
 import { RootState } from "../../store/rootStore";
-import {
-  addBookMarkedProducts,
-  deleteBookMarkedProduct,
-} from "../../store/bookMarkStore";
+import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
 import { IItem } from "../Home/MainStyle";
 import {
   ProductListMainWrapper,
@@ -49,8 +46,8 @@ function ProductList() {
     );
     if (!bookMarkedTargetItem) {
       const targetItem = products.find((product: IItem) => product.id === id);
-      if (targetItem) dispatch(addBookMarkedProducts(targetItem));
-    } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
+      if (targetItem) dispatch(addBookMark(targetItem));
+    } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
 
   useEffect(() => {

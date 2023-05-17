@@ -6,6 +6,7 @@ import {
   Label,
 } from "../ProductList/FilterBtn";
 import { IItem } from "../Home/MainStyle";
+import { ItemType } from "../ProductList/ProductListStyle";
 
 interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;
@@ -32,28 +33,28 @@ function FilterBookMarkBtn({
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
-          name='Product'
+          name={ItemType.Product}
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
         <Label>상품</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
-          name='Category'
+          name={ItemType.Category}
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
         <Label>카테고리</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
-          name='Exhibition'
+          name={ItemType.Exhibition}
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
         <Label>기획전</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
-          name='Brand'
+          name={ItemType.Brand}
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
         <Label>브랜드</Label>
