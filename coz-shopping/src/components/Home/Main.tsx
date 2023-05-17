@@ -27,10 +27,7 @@ import {
   ModalTitle,
   IModalDetail,
 } from "../ProductList/ProductListStyle";
-import {
-  addBookMarkedProducts,
-  deleteBookMarkedProduct,
-} from "../../store/bookMarkStore";
+import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
 import ReactModal from "react-modal";
 import { ItemType } from "../BookMarkList/BookMarkListStyle";
 ReactModal.setAppElement("#root");
@@ -65,8 +62,8 @@ function Main() {
 
     if (!bookMarkedTargetItem) {
       const targetItem = itemsList.find((product: IItem) => product.id === id);
-      if (targetItem) dispatch(addBookMarkedProducts(targetItem));
-    } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
+      if (targetItem) dispatch(addBookMark(targetItem));
+    } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);

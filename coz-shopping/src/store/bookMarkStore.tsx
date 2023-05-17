@@ -16,14 +16,14 @@ export const bookMarkedProducts = createSlice({
   name: "bookMarkReducer",
   initialState: bookMarkedProductsLocalStorage,
   reducers: {
-    addBookMarkedProducts: (state: IItem[], action: PayloadAction<IItem>) => {
+    addBookMark: (state: IItem[], action: PayloadAction<IItem>) => {
       localStorage.setItem(
         String(action.payload.id),
         JSON.stringify(action.payload)
       );
       return [...state, action.payload];
     },
-    deleteBookMarkedProduct: (state: IItem[], action: PayloadAction<IItem>) => {
+    deleteBookMark: (state: IItem[], action: PayloadAction<IItem>) => {
       localStorage.removeItem(String(action.payload.id));
       return state.filter((item) => item.id !== action.payload.id);
     },
@@ -33,5 +33,4 @@ export const bookMarkedProducts = createSlice({
 export const bookMarkStore = configureStore({
   reducer: bookMarkedProducts.reducer,
 });
-export const { addBookMarkedProducts, deleteBookMarkedProduct } =
-  bookMarkedProducts.actions;
+export const { addBookMark, deleteBookMark } = bookMarkedProducts.actions;

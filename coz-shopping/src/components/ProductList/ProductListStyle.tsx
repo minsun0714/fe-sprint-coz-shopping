@@ -111,3 +111,10 @@ export const XSign = styled.img<XSign>`
   z-index: 10;
   cursor: pointer;
 `;
+
+export const enum ItemType {
+  Product = "Product",
+  Category = "Category",
+  Exhibition = "Exhibition",
+  Brand = "Brand",
+}

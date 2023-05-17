@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
 import { IItem } from "../Home/MainStyle";
+import { ItemType } from "./ProductListStyle";
 
 export const ButtonsWrapper = styled.section`
   display: flex;
@@ -86,28 +87,28 @@ function FilterBtn({ setFilteredItems }: IFilteredBtn) {
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
-          name='Product'
+          name={ItemType.Product}
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
         <Label>상품</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
-          name='Category'
+          name={ItemType.Category}
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
         <Label>카테고리</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
-          name='Exhibition'
+          name={ItemType.Exhibition}
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
         <Label>기획전</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
-          name='Brand'
+          name={ItemType.Brand}
           onClick={(e) => onClick(e)}
         ></StyledFilterBtn>
         <Label>브랜드</Label>
