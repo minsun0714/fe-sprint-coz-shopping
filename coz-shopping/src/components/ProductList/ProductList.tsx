@@ -98,7 +98,14 @@ function ProductList() {
         <ModalDetail>
           <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
           <ModalImg src={modalDetail.url} alt='Large Image' />
-          <BookMarkStarModal id={modalDetail.id} />
+          <BookMarkStarModal
+            id={modalDetail.id}
+            onClick={() => {
+              if (modalDetail.id) {
+                onClickBookMark(modalDetail.id);
+              }
+            }}
+          />
           <ModalTitle>{modalDetail.title}</ModalTitle>
         </ModalDetail>
       </ReactModal>

@@ -90,6 +90,7 @@ export const BookMarkStarModal = styled(BookMarkStar)`
   width: 25px;
   margin: 430px 240px 0 20px;
   z-index: 1;
+  cursor: pointer;
 `;
 
 export interface IModalDetail {
@@ -108,4 +109,5 @@ export const XSign = styled.img<XSign>`
   width: 30px;
   margin: 20px 0 0 690px;
   z-index: 10;
+  cursor: pointer;
 `;
