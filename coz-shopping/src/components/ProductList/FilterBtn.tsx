@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
-import { IItem } from "../Home/Main";
+import { IItem } from "../Home/MainStyle";
 
 export const ButtonsWrapper = styled.section`
   display: flex;

@@ -1,5 +1,5 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IItem } from "../components/Home/Main";
+import { IItem } from "../components/Home/MainStyle";
 
 const initialProducts: IItem[] = [];
 

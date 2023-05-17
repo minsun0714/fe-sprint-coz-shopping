@@ -8,7 +8,7 @@ import {
   RightInfo,
   LeftUp,
   RightUp,
-} from "../Home/Main";
+} from "../Home/MainStyle";
 import FilterBookMarkBtn from "../BookMarkList/FilterBookMarkBtn";
 import {
   ProductListMainWrapper,
@@ -17,7 +17,7 @@ import {
   ModalImg,
   modalStyle,
 } from "../ProductList/ProductListStyle";
-import { IItem } from "../Home/Main";
+import { IItem } from "../Home/MainStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
 import {

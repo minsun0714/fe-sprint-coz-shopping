@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { RootState } from "../../store/rootStore";
 import { useSelector } from "react-redux";
-import { IItem } from "../Home/Main";
+import { IItem } from "../Home/MainStyle";
 
 export const modalStyle: ReactModal.Styles = {
   content: {

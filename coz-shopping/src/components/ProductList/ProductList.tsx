@@ -9,7 +9,7 @@ import {
   RightInfo,
   LeftUp,
   RightUp,
-} from "../Home/Main";
+} from "../Home/MainStyle";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { getAllProducts } from "../../store/productsStore";
@@ -18,7 +18,7 @@ import {
   addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
-import { IItem } from "../Home/Main";
+import { IItem } from "../Home/MainStyle";
 import {
   ProductListMainWrapper,
   Section,

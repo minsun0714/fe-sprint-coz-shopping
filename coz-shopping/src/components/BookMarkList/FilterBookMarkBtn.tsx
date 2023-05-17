@@ -7,7 +7,7 @@ import {
   StyledFilterBtn,
   Label,
 } from "../ProductList/FilterBtn";
-import { IItem } from "../Home/Main";
+import { IItem } from "../Home/MainStyle";
 
 interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;
