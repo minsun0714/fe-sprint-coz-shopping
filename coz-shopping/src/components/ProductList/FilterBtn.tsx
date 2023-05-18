@@ -11,6 +11,9 @@ export const ButtonsWrapper = styled.section`
   justify-content: center;
   margin-top: 80px;
   transform: translateX(110%);
+  @media (max-width: 1500px) {
+    transform: translateX(73%);
+  }
 `;
 
 export const ButtonWrapper = styled.span`

@@ -34,6 +34,10 @@ export const CodeStatesLogo = styled.img`
   height: 45px;
   padding: 10px 10px 10px 19vw;
   margin-top: 10px;
+  @media (max-width: 1500px) {
+    padding: 10px 20vw 0 154px;
+    height: 33px;
+  }
 `;
 
 export const COZShopping = styled.img`
@@ -41,14 +45,19 @@ export const COZShopping = styled.img`
   height: 45px;
   padding: 13px 10px 10px 24vw;
   margin-top: 14px;
+  @media (max-width: 1500px) {
+    padding: 10px 20vw 0 240px;
+    height: 33px;
+  }
 `;
 
 export const Hamburger = styled.img`
   height: 20px;
-  margin-left: auto;
-  margin-right: 21vw;
-  margin-top: 25px;
+  margin: 25px 21vw 0 auto;
   cursor: pointer;
+  @media (max-width: 1500px) {
+    margin: 20px 5vw 0 87vw;
+  }
 `;
 
 export const Nav = styled.nav`

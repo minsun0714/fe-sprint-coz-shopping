@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 
 export const StyledToastContainer = styled(ToastContainer)`
   &&&.Toastify__toast-container {
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: flex-end;

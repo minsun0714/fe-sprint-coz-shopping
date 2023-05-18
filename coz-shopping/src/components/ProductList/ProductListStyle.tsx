@@ -8,7 +8,7 @@ export const modalStyle: ReactModal.Styles = {
     top: "40vh",
     left: "47vw",
     bottom: "auto",
-    transform: "translate(-45%, -40%)",
+    transform: "translate(-45%, -25%)",
     width: "744px",
     height: "481px",
     position: "sticky",
