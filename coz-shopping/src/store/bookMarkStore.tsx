@@ -1,5 +1,8 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IItem } from "../components/Home/MainStyle";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastImg, ToastAction } from "../GlobalStyle";
 
 const bookMarkedProductsLocalStorage: IItem[] = [];
 
@@ -12,6 +15,16 @@ if (localStorage.length) {
   }
 }
 
+const tostify = (actionType: ToastAction) =>
+  toast(
+    actionType === "add" ? (
+      <ToastImg src='/image/Toast UI on.png' />
+    ) : (
+      <ToastImg src='/image/Toast UI off.png' />
+    ),
+    { position: toast.POSITION.BOTTOM_RIGHT }
+  );
+
 export const bookMarkedProducts = createSlice({
   name: "bookMarkReducer",
   initialState: bookMarkedProductsLocalStorage,
@@ -21,10 +34,16 @@ export const bookMarkedProducts = createSlice({
         String(action.payload.id),
         JSON.stringify(action.payload)
       );
+
+      tostify("add");
+
       return [...state, action.payload];
     },
     deleteBookMark: (state: IItem[], action: PayloadAction<IItem>) => {
       localStorage.removeItem(String(action.payload.id));
+
+      tostify("delete");
+
       return state.filter((item) => item.id !== action.payload.id);
     },
   },
