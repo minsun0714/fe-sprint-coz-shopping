@@ -1,59 +1,42 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/rootStore";
+import React, { useState } from "react";
 import {
-  MainWrapper,
-  Section,
-  H2,
-  ItemBox,
   Item,
   ItemImg,
+  ItemBox,
   ItemInfo,
   LeftInfo,
-  LeftUp,
   RightInfo,
+  LeftUp,
   RightUp,
-  IRightUp,
-  IItem,
-} from "./MainStyle";
+} from "../../Home/MainStyle";
+import FilterBookMarkBtn from "./FilterBookMarkBtn";
 import {
+  ProductListMainWrapper,
   BookMarkStar,
-  modalStyle,
+  Section,
   ModalImg,
+  modalStyle,
   ModalDetail,
-  XSign,
-  BookMarkStarModal,
   ModalTitle,
+  BookMarkStarModal,
+  XSign,
   IModalDetail,
-} from "../ProductList/ProductListStyle";
-import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
+} from "../../ProductList/ProductListStyle";
+import { IItem } from "../../Home/MainType";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/rootStore";
+import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
+import { ItemType } from "../../ProductList/ProductListType";
 import ReactModal from "react-modal";
-import { ItemType } from "../BookMarkList/BookMarkListStyle";
 ReactModal.setAppElement("#root");
 
-function Main() {
-  const [itemsList, setItemsList] = useState<IItem[]>([]);
-  const dispatch = useDispatch();
+function BookMarkList() {
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
-  const showFourBookMarked = bookMarkedProducts.slice(0, 4);
-
-  useEffect(() => {
-    axios
-      .get("http://cozshopping.codestates-seb.link/api/v1/products", {
-        params: {
-          count: 4,
-        },
-      })
-      .then((response) => {
-        setItemsList(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const [items, setItems] = useState<IItem[]>(bookMarkedProducts);
+  const dispatch = useDispatch();
+  const products = useSelector((store: RootState) => store.products);
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
@@ -61,7 +44,7 @@ function Main() {
     );
 
     if (!bookMarkedTargetItem) {
-      const targetItem = itemsList.find((product: IItem) => product.id === id);
+      const targetItem = products.find((product: IItem) => product.id === id);
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
@@ -83,7 +66,11 @@ function Main() {
   };
 
   return (
-    <MainWrapper>
+    <ProductListMainWrapper>
+      <FilterBookMarkBtn
+        setFilteredItems={setItems}
+        bookMarkedProducts={bookMarkedProducts}
+      />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}
@@ -104,9 +91,8 @@ function Main() {
         </ModalDetail>
       </ReactModal>
       <Section>
-        <H2>상품 리스트</H2>
         <ItemBox>
-          {itemsList.map((item) => (
+          {items?.map((item: IItem) => (
             <Item
               key={item.id}
               onClick={() =>
@@ -152,58 +138,7 @@ function Main() {
           ))}
         </ItemBox>
       </Section>
-      <Section>
-        <H2>북마크 리스트</H2>
-        <ItemBox>
-          {showFourBookMarked.map((bookMarkedItem) => (
-            <Item
-              key={bookMarkedItem.id}
-              onClick={() =>
-                handleModalOpenClose(
-                  bookMarkedItem.id,
-                  bookMarkedItem.title || bookMarkedItem.brand_name,
-                  bookMarkedItem.image_url || bookMarkedItem.brand_image_url
-                )
-              }
-            >
-              <ItemImg
-                src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
-              ></ItemImg>
-              <BookMarkStar
-                id={bookMarkedItem.id}
-                onClick={() => onClickBookMark(bookMarkedItem.id)}
-              ></BookMarkStar>
-              <ItemInfo>
-                <LeftInfo>
-                  <LeftUp>
-                    {bookMarkedItem.type === ItemType.Category
-                      ? "# " + bookMarkedItem.title
-                      : bookMarkedItem.title || bookMarkedItem.brand_name}
-                  </LeftUp>
-                  <span>{bookMarkedItem.sub_title}</span>
-                </LeftInfo>
-                <RightInfo>
-                  <RightUp discount={bookMarkedItem.discountPercentage}>
-                    {bookMarkedItem.type === ItemType.Brand
-                      ? "관심고객수"
-                      : bookMarkedItem.discountPercentage
-                      ? bookMarkedItem.discountPercentage + "%"
-                      : ""}
-                  </RightUp>
-                  <span>
-                    {bookMarkedItem.type === ItemType.Brand
-                      ? Number(bookMarkedItem.follower).toLocaleString()
-                      : bookMarkedItem.price
-                      ? Number(bookMarkedItem.price).toLocaleString() + "원"
-                      : ""}
-                  </span>
-                </RightInfo>
-              </ItemInfo>
-            </Item>
-          ))}
-        </ItemBox>
-      </Section>
-    </MainWrapper>
+    </ProductListMainWrapper>
   );
 }
-export default Main;
+export default BookMarkList;

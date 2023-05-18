@@ -1,53 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  ItemBox,
   Item,
   ItemImg,
-  ItemBox,
   ItemInfo,
   LeftInfo,
   RightInfo,
   LeftUp,
   RightUp,
-} from "../Home/MainStyle";
-import FilterBookMarkBtn from "../BookMarkList/FilterBookMarkBtn";
+} from "../../Home/MainStyle";
+import FilterBtn from "./FilterBtn";
+import axios from "axios";
+import { getAllProducts } from "../../../store/productsStore";
+import { RootState } from "../../../store/rootStore";
+import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
+import { IItem } from "../../Home/MainType";
 import {
   ProductListMainWrapper,
-  BookMarkStar,
   Section,
-  ModalImg,
-  modalStyle,
   ModalDetail,
-  ModalTitle,
+  BookMarkStar,
   BookMarkStarModal,
-  XSign,
+  modalStyle,
+  ModalImg,
+  ModalTitle,
   IModalDetail,
-} from "../ProductList/ProductListStyle";
-import { IItem } from "../Home/MainStyle";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/rootStore";
-import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
-import { ItemType } from "./BookMarkListStyle";
+  XSign,
+} from "../ProductListStyle";
 import ReactModal from "react-modal";
+import { ItemType } from "../ProductListType";
 ReactModal.setAppElement("#root");
 
-function BookMarkList() {
+function ProductList() {
+  const [items, setItems] = useState<IItem[]>([]);
+  const dispatch = useDispatch();
+  const products = useSelector((store: RootState) => store.products);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
-  const [items, setItems] = useState<IItem[]>(bookMarkedProducts);
-  const dispatch = useDispatch();
-  const products = useSelector((store: RootState) => store.products);
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
       (product: IItem) => product.id === id
     );
-
     if (!bookMarkedTargetItem) {
       const targetItem = products.find((product: IItem) => product.id === id);
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
+
+  useEffect(() => {
+    if (products.length === 0) {
+      axios
+        .get("http://cozshopping.codestates-seb.link/api/v1/products")
+        .then((response) => {
+          dispatch(getAllProducts(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    setItems(products);
+  }, [products]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDetail, setModalDetail] = useState<IModalDetail>({
@@ -67,10 +85,7 @@ function BookMarkList() {
 
   return (
     <ProductListMainWrapper>
-      <FilterBookMarkBtn
-        setFilteredItems={setItems}
-        bookMarkedProducts={bookMarkedProducts}
-      />
+      <FilterBtn setFilteredItems={setItems} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}
@@ -104,6 +119,7 @@ function BookMarkList() {
               }
             >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
+
               <BookMarkStar
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
@@ -141,4 +157,4 @@ function BookMarkList() {
     </ProductListMainWrapper>
   );
 }
-export default BookMarkList;
+export default ProductList;

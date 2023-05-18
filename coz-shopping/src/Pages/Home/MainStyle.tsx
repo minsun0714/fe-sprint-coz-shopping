@@ -81,16 +81,3 @@ export const RightUp = styled.h4<IRightUp>`
   margin-bottom: 7px;
   margin-left: auto;
 `;
-
-export interface IItem {
-  brand_image_url?: string;
-  brand_name: string | null;
-  discountPercentage: number | null;
-  follower: number;
-  id: number;
-  image_url: string | null;
-  price: string | null;
-  sub_title: string | null;
-  title: string | null;
-  type: string;
-}

@@ -12,7 +12,7 @@ import {
   Greeting,
   PageItem,
   Icon,
-} from "./HeaderStyle";
+} from "../HeaderStyle";
 ReactModal.setAppElement("#root");
 
 function Header() {

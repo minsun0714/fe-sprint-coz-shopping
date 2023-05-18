@@ -1,71 +1,69 @@
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/rootStore";
 import {
+  MainWrapper,
+  Section,
+  H2,
   ItemBox,
   Item,
   ItemImg,
   ItemInfo,
   LeftInfo,
-  RightInfo,
   LeftUp,
+  RightInfo,
   RightUp,
-} from "../Home/MainStyle";
-import FilterBtn from "./FilterBtn";
-import axios from "axios";
-import { getAllProducts } from "../../store/productsStore";
-import { RootState } from "../../store/rootStore";
-import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
-import { IItem } from "../Home/MainStyle";
+} from "../MainStyle";
+import { IItem } from "../MainType";
 import {
-  ProductListMainWrapper,
-  Section,
-  ModalDetail,
   BookMarkStar,
-  BookMarkStarModal,
   modalStyle,
   ModalImg,
+  ModalDetail,
+  XSign,
+  BookMarkStarModal,
   ModalTitle,
   IModalDetail,
-  XSign,
-} from "./ProductListStyle";
+} from "../../ProductList/ProductListStyle";
+import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import ReactModal from "react-modal";
-import { ItemType } from "../BookMarkList/BookMarkListStyle";
+import { ItemType } from "../../ProductList/ProductListType";
 ReactModal.setAppElement("#root");
 
-function ProductList() {
-  const [items, setItems] = useState<IItem[]>([]);
+function Main() {
+  const [itemsList, setItemsList] = useState<IItem[]>([]);
   const dispatch = useDispatch();
-  const products = useSelector((store: RootState) => store.products);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
+  const showFourBookMarked = bookMarkedProducts.slice(0, 4);
+
+  useEffect(() => {
+    axios
+      .get("http://cozshopping.codestates-seb.link/api/v1/products", {
+        params: {
+          count: 4,
+        },
+      })
+      .then((response) => {
+        setItemsList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
       (product: IItem) => product.id === id
     );
+
     if (!bookMarkedTargetItem) {
-      const targetItem = products.find((product: IItem) => product.id === id);
+      const targetItem = itemsList.find((product: IItem) => product.id === id);
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
-
-  useEffect(() => {
-    if (products.length === 0) {
-      axios
-        .get("http://cozshopping.codestates-seb.link/api/v1/products")
-        .then((response) => {
-          dispatch(getAllProducts(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, []);
-
-  useEffect(() => {
-    setItems(products);
-  }, [products]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDetail, setModalDetail] = useState<IModalDetail>({
@@ -84,8 +82,7 @@ function ProductList() {
   };
 
   return (
-    <ProductListMainWrapper>
-      <FilterBtn setFilteredItems={setItems} />
+    <MainWrapper>
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}
@@ -106,8 +103,9 @@ function ProductList() {
         </ModalDetail>
       </ReactModal>
       <Section>
+        <H2>상품 리스트</H2>
         <ItemBox>
-          {items?.map((item: IItem) => (
+          {itemsList.map((item) => (
             <Item
               key={item.id}
               onClick={() =>
@@ -119,7 +117,6 @@ function ProductList() {
               }
             >
               <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-
               <BookMarkStar
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
@@ -154,7 +151,58 @@ function ProductList() {
           ))}
         </ItemBox>
       </Section>
-    </ProductListMainWrapper>
+      <Section>
+        <H2>북마크 리스트</H2>
+        <ItemBox>
+          {showFourBookMarked.map((bookMarkedItem) => (
+            <Item
+              key={bookMarkedItem.id}
+              onClick={() =>
+                handleModalOpenClose(
+                  bookMarkedItem.id,
+                  bookMarkedItem.title || bookMarkedItem.brand_name,
+                  bookMarkedItem.image_url || bookMarkedItem.brand_image_url
+                )
+              }
+            >
+              <ItemImg
+                src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
+              ></ItemImg>
+              <BookMarkStar
+                id={bookMarkedItem.id}
+                onClick={() => onClickBookMark(bookMarkedItem.id)}
+              ></BookMarkStar>
+              <ItemInfo>
+                <LeftInfo>
+                  <LeftUp>
+                    {bookMarkedItem.type === ItemType.Category
+                      ? "# " + bookMarkedItem.title
+                      : bookMarkedItem.title || bookMarkedItem.brand_name}
+                  </LeftUp>
+                  <span>{bookMarkedItem.sub_title}</span>
+                </LeftInfo>
+                <RightInfo>
+                  <RightUp discount={bookMarkedItem.discountPercentage}>
+                    {bookMarkedItem.type === ItemType.Brand
+                      ? "관심고객수"
+                      : bookMarkedItem.discountPercentage
+                      ? bookMarkedItem.discountPercentage + "%"
+                      : ""}
+                  </RightUp>
+                  <span>
+                    {bookMarkedItem.type === ItemType.Brand
+                      ? Number(bookMarkedItem.follower).toLocaleString()
+                      : bookMarkedItem.price
+                      ? Number(bookMarkedItem.price).toLocaleString() + "원"
+                      : ""}
+                  </span>
+                </RightInfo>
+              </ItemInfo>
+            </Item>
+          ))}
+        </ItemBox>
+      </Section>
+    </MainWrapper>
   );
 }
-export default ProductList;
+export default Main;

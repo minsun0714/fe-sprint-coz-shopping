@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { RootState } from "../../store/rootStore";
 import { useSelector } from "react-redux";
-import { IItem } from "../Home/MainStyle";
+import { IItem } from "../Home/MainType";
 
 export const modalStyle: ReactModal.Styles = {
   content: {
@@ -117,4 +117,70 @@ export const enum ItemType {
   Category = "Category",
   Exhibition = "Exhibition",
   Brand = "Brand",
+}
+
+export const ButtonsWrapper = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 80px;
+  transform: translateX(110%);
+  @media (max-width: 1500px) {
+    transform: translateX(73%);
+  }
+`;
+
+export const ButtonWrapper = styled.span`
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  text-align: center;
+`;
+
+export const Label = styled.label``;
+
+export const enum FilterBtnIcon {
+  Whole = "/image/버튼 전체.png",
+  Product = "/image/버튼 상품.png",
+  Category = "/image/버튼 카테고리.png",
+  Exhibition = "/image/버튼 기획전.png",
+  Brand = "/image/버튼 브랜드.png",
+}
+
+export interface IStyledFilteredBtn {
+  name?: string;
+}
+
+export const StyledFilterBtn = styled.button<IStyledFilteredBtn>`
+  background-image: ${(props) => {
+    let icon;
+    switch (props.name) {
+      case "Product":
+        icon = FilterBtnIcon.Product;
+        break;
+      case "Category":
+        icon = FilterBtnIcon.Category;
+        break;
+      case "Exhibition":
+        icon = FilterBtnIcon.Exhibition;
+        break;
+      case "Brand":
+        icon = FilterBtnIcon.Brand;
+        break;
+      default:
+        icon = FilterBtnIcon.Whole;
+        break;
+    }
+    return `url("${icon}")`;
+  }};
+  border-radius: 100px;
+  height: 82px;
+  width: 82px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 8px;
+  cursor: pointer;
+`;
+
+export interface IFilteredBtn {
+  setFilteredItems: (items: IItem[]) => void;
 }

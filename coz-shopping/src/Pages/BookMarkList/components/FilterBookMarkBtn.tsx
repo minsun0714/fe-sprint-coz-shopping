@@ -4,9 +4,9 @@ import {
   ButtonWrapper,
   StyledFilterBtn,
   Label,
-} from "../ProductList/FilterBtn";
-import { IItem } from "../Home/MainStyle";
-import { ItemType } from "../ProductList/ProductListStyle";
+} from "../../ProductList/ProductListStyle";
+import { IItem } from "../../Home/MainType";
+import { ItemType } from "../../ProductList/ProductListStyle";
 
 interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;
