@@ -38,3 +38,5 @@ export const ToastImg = styled.img`
 `;
 
 export type ToastAction = "add" | "delete";
+
+export type ToastImgType = "/image/Toast UI on.png" | "/image/Toast UI off.png";
