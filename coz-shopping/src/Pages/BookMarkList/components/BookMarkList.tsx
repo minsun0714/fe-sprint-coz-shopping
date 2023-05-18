@@ -20,8 +20,8 @@ import {
   ModalTitle,
   BookMarkStarModal,
   XSign,
-  IModalDetail,
 } from "../../ProductList/ProductListStyle";
+import { IModalDetail } from "../../ProductList/ProductListType";
 import { IItem } from "../../Home/MainType";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/rootStore";
@@ -78,7 +78,7 @@ function BookMarkList() {
       >
         <ModalDetail>
           <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
-          <ModalImg src={modalDetail.url} alt='Large Image' />
+          <ModalImg src={modalDetail.url} alt='' />
           <BookMarkStarModal
             id={modalDetail.id}
             onClick={() => {

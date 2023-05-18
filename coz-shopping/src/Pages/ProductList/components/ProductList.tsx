@@ -25,9 +25,9 @@ import {
   modalStyle,
   ModalImg,
   ModalTitle,
-  IModalDetail,
   XSign,
 } from "../ProductListStyle";
+import { IModalDetail } from "../ProductListType";
 import ReactModal from "react-modal";
 import { ItemType } from "../ProductListType";
 ReactModal.setAppElement("#root");

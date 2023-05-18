@@ -6,7 +6,7 @@ import {
   Label,
 } from "../../ProductList/ProductListStyle";
 import { IItem } from "../../Home/MainType";
-import { ItemType } from "../../ProductList/ProductListStyle";
+import { ItemType } from "../../ProductList/ProductListType";
 
 interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;
@@ -28,35 +28,26 @@ function FilterBookMarkBtn({
   return (
     <ButtonsWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn onClick={(e) => onClick(e)}></StyledFilterBtn>
+        <StyledFilterBtn onClick={(e) => onClick(e)} />
         <Label>전체</Label>
       </ButtonWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn
-          name={ItemType.Product}
-          onClick={(e) => onClick(e)}
-        ></StyledFilterBtn>
+        <StyledFilterBtn name={ItemType.Product} onClick={(e) => onClick(e)} />
         <Label>상품</Label>
       </ButtonWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn
-          name={ItemType.Category}
-          onClick={(e) => onClick(e)}
-        ></StyledFilterBtn>
+        <StyledFilterBtn name={ItemType.Category} onClick={(e) => onClick(e)} />
         <Label>카테고리</Label>
       </ButtonWrapper>
       <ButtonWrapper>
         <StyledFilterBtn
           name={ItemType.Exhibition}
           onClick={(e) => onClick(e)}
-        ></StyledFilterBtn>
+        />
         <Label>기획전</Label>
       </ButtonWrapper>
       <ButtonWrapper>
-        <StyledFilterBtn
-          name={ItemType.Brand}
-          onClick={(e) => onClick(e)}
-        ></StyledFilterBtn>
+        <StyledFilterBtn name={ItemType.Brand} onClick={(e) => onClick(e)} />
         <Label>브랜드</Label>
       </ButtonWrapper>
     </ButtonsWrapper>

@@ -2,6 +2,12 @@ import styled from "styled-components";
 import { RootState } from "../../store/rootStore";
 import { useSelector } from "react-redux";
 import { IItem } from "../Home/MainType";
+import {
+  IImageProps,
+  BookMarkIcon,
+  IStyledFilteredBtn,
+  FilterBtnIcon,
+} from "./ProductListType";
 
 export const modalStyle: ReactModal.Styles = {
   content: {
@@ -55,15 +61,6 @@ export const Section = styled.section`
   padding-bottom: 100px;
 `;
 
-export interface IImageProps {
-  id: any;
-}
-
-export const enum BookMarkIcon {
-  onIcon = "/image/bookmark_on.jpg",
-  offIcon = "/image/bookmark_off.jpg",
-}
-
 export const BookMarkStar = styled.div<IImageProps>`
   background-image: ${(props: IImageProps): string => {
     const bookMarkedProducts = useSelector(
@@ -93,13 +90,7 @@ export const BookMarkStarModal = styled(BookMarkStar)`
   cursor: pointer;
 `;
 
-export interface IModalDetail {
-  id?: number;
-  title?: string | null;
-  url?: string;
-}
-
-interface XSign {
+export interface XSign {
   src: string;
 }
 
@@ -111,13 +102,6 @@ export const XSign = styled.img<XSign>`
   z-index: 10;
   cursor: pointer;
 `;
-
-export const enum ItemType {
-  Product = "Product",
-  Category = "Category",
-  Exhibition = "Exhibition",
-  Brand = "Brand",
-}
 
 export const ButtonsWrapper = styled.section`
   display: flex;
@@ -138,18 +122,6 @@ export const ButtonWrapper = styled.span`
 `;
 
 export const Label = styled.label``;
-
-export const enum FilterBtnIcon {
-  Whole = "/image/버튼 전체.png",
-  Product = "/image/버튼 상품.png",
-  Category = "/image/버튼 카테고리.png",
-  Exhibition = "/image/버튼 기획전.png",
-  Brand = "/image/버튼 브랜드.png",
-}
-
-export interface IStyledFilteredBtn {
-  name?: string;
-}
 
 export const StyledFilterBtn = styled.button<IStyledFilteredBtn>`
   background-image: ${(props) => {
@@ -180,7 +152,3 @@ export const StyledFilterBtn = styled.button<IStyledFilteredBtn>`
   margin: 8px;
   cursor: pointer;
 `;
-
-export interface IFilteredBtn {
-  setFilteredItems: (items: IItem[]) => void;
-}

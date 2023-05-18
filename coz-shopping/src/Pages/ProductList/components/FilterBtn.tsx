@@ -3,13 +3,12 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/rootStore";
 import { IItem } from "../../Home/MainType";
-import { ItemType } from "../ProductListStyle";
+import { ItemType, IFilteredBtn } from "../ProductListType";
 import {
   ButtonsWrapper,
   ButtonWrapper,
   Label,
   StyledFilterBtn,
-  IFilteredBtn,
 } from "../ProductListStyle";
 
 function FilterBtn({ setFilteredItems }: IFilteredBtn) {

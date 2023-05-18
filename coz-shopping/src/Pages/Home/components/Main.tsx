@@ -24,8 +24,8 @@ import {
   XSign,
   BookMarkStarModal,
   ModalTitle,
-  IModalDetail,
 } from "../../ProductList/ProductListStyle";
+import { IModalDetail } from "../../ProductList/ProductListType";
 import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import ReactModal from "react-modal";
 import { ItemType } from "../../ProductList/ProductListType";
