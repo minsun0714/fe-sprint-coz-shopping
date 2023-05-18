@@ -26,7 +26,7 @@ import { IItem } from "../Home/MainStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
 import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
-import { ItemType } from "../BookMarkList/BookMarkListStyle";
+import { ItemType } from "./BookMarkListStyle";
 import ReactModal from "react-modal";
 ReactModal.setAppElement("#root");
 
