@@ -8,7 +8,7 @@ import {
 import { IItem } from "../../Home/MainType";
 import { ItemType } from "../../ProductList/ProductListType";
 
-interface IFilteredBtn {
+export interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;
   bookMarkedProducts: IItem[];
 }

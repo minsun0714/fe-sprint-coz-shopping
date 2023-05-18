@@ -13,6 +13,7 @@ import {
   PageItem,
   Icon,
 } from "../HeaderStyle";
+import { IHeaderUrl } from "../HeaderType";
 ReactModal.setAppElement("#root");
 
 function Header() {
@@ -26,16 +27,16 @@ function Header() {
     <HeaderWrapper>
       <Link to='/'>
         <CodeStatesLogo
-          src='/image/로고.png'
+          src={IHeaderUrl.CodeStatesLogo}
           alt='코드스테이츠 로고'
         ></CodeStatesLogo>
         <COZShopping
-          src='/image/쇼핑몰 이름.jpg'
+          src={IHeaderUrl.ShoppingMallName}
           alt='쇼핑몰 이름 코즈 쇼핑'
         ></COZShopping>
       </Link>
       <Hamburger
-        src='/image/hamburger.jpg'
+        src={IHeaderUrl.Hamburger}
         alt='메뉴 열기/닫기'
         onClick={handleModalOpenClose}
       ></Hamburger>
@@ -49,13 +50,13 @@ function Header() {
           <PageMenu>
             <PageItem>
               <Link to='/products/list' onClick={handleModalOpenClose}>
-                <Icon src='/image/상품 아이콘.png' alt='상품리스트 페이지' />
+                <Icon src={IHeaderUrl.Product} alt='상품리스트 페이지' />
                 상품리스트 페이지
               </Link>
             </PageItem>
             <PageItem>
               <Link to='/bookmark' onClick={handleModalOpenClose}>
-                <Icon src='/image/북마크 아이콘.png' alt='북마크 페이지' />
+                <Icon src={IHeaderUrl.BookMark} alt='북마크 페이지' />
                 북마크 페이지
               </Link>
             </PageItem>
