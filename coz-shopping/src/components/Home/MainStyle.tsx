@@ -87,3 +87,10 @@ export interface IItem {
   title: string | null;
   type: string;
 }
+
+export const enum ItemType {
+  Product = "Product",
+  Category = "Category",
+  Exhibition = "Exhibition",
+  Brand = "Brand",
+}

@@ -29,7 +29,7 @@ import {
   addBookMarkedProducts,
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
-import { ItemType } from "./BookMarkListStyle";
+import { ItemType } from "../Home/MainStyle";
 import ReactModal from "react-modal";
 ReactModal.setAppElement("#root");
 

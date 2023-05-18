@@ -32,7 +32,7 @@ import {
   deleteBookMarkedProduct,
 } from "../../store/bookMarkStore";
 import ReactModal from "react-modal";
-import { ItemType } from "../BookMarkList/BookMarkListStyle";
+import { ItemType } from "../Home/MainStyle";
 ReactModal.setAppElement("#root");
 
 function Main() {
