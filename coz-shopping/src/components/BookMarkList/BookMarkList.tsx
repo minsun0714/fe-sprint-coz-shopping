@@ -25,11 +25,8 @@ import {
 import { IItem } from "../Home/MainStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
-import {
-  addBookMarkedProducts,
-  deleteBookMarkedProduct,
-} from "../../store/bookMarkStore";
-import { ItemType } from "../Home/MainStyle";
+import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
+import { ItemType } from "../BookMarkList/BookMarkListStyle";
 import ReactModal from "react-modal";
 ReactModal.setAppElement("#root");
 
@@ -48,8 +45,8 @@ function BookMarkList() {
 
     if (!bookMarkedTargetItem) {
       const targetItem = products.find((product: IItem) => product.id === id);
-      if (targetItem) dispatch(addBookMarkedProducts(targetItem));
-    } else dispatch(deleteBookMarkedProduct(bookMarkedTargetItem));
+      if (targetItem) dispatch(addBookMark(targetItem));
+    } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
