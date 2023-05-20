@@ -35,7 +35,6 @@ export const Item = styled.span`
   display: flex;
   flex-direction: column;
   margin-top: 12px;
-  border: solid 1px red;
 `;
 
 export const ItemImg = styled.img`

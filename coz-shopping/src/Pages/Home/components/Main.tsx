@@ -155,18 +155,16 @@ function Main() {
         <H2>북마크 리스트</H2>
         <ItemBox>
           {showFourBookMarked.map((bookMarkedItem) => (
-            <Item
-              key={bookMarkedItem.id}
-              onClick={() =>
-                handleModalOpenClose(
-                  bookMarkedItem.id,
-                  bookMarkedItem.title || bookMarkedItem.brand_name,
-                  bookMarkedItem.image_url || bookMarkedItem.brand_image_url
-                )
-              }
-            >
+            <Item key={bookMarkedItem.id}>
               <ItemImg
                 src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
+                onClick={() =>
+                  handleModalOpenClose(
+                    bookMarkedItem.id,
+                    bookMarkedItem.title || bookMarkedItem.brand_name,
+                    bookMarkedItem.image_url || bookMarkedItem.brand_image_url
+                  )
+                }
               />
               <BookMarkStar
                 id={bookMarkedItem.id}

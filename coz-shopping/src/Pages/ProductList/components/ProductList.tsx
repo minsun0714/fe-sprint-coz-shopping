@@ -108,22 +108,21 @@ function ProductList() {
       <Section>
         <ItemBox>
           {items?.map((item: IItem) => (
-            <Item
-              key={item.id}
-              onClick={() =>
-                handleModalOpenClose(
-                  item.id,
-                  item.title || item.brand_name,
-                  item.image_url || item.brand_image_url
-                )
-              }
-            >
-              <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
-
+            <Item key={item.id}>
+              <ItemImg
+                src={item.image_url || item.brand_image_url}
+                onClick={() =>
+                  handleModalOpenClose(
+                    item.id,
+                    item.title || item.brand_name,
+                    item.image_url || item.brand_image_url
+                  )
+                }
+              />
               <BookMarkStar
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
-              ></BookMarkStar>
+              />
               <ItemInfo>
                 <LeftInfo>
                   <LeftUp>
