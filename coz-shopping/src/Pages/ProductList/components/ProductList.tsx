@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ItemBox,
-  Item,
-  ItemImg,
-  ItemInfo,
-  LeftInfo,
-  RightInfo,
-  LeftUp,
-  RightUp,
-} from "../../Home/MainStyle";
+import { ItemBox, Item, ItemImg } from "../../Home/MainStyle";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { getAllProducts } from "../../../store/productsStore";
@@ -29,7 +20,6 @@ import {
 } from "../ProductListStyle";
 import { IModalDetail } from "../ProductListType";
 import ReactModal from "react-modal";
-import { ItemType } from "../ProductListType";
 import ItemDetail from "./ItemInfo";
 ReactModal.setAppElement("#root");
 

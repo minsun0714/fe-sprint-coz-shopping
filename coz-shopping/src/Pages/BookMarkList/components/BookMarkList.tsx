@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  Item,
-  ItemImg,
-  ItemBox,
-  ItemInfo,
-  LeftInfo,
-  RightInfo,
-  LeftUp,
-  RightUp,
-} from "../../Home/MainStyle";
+import { Item, ItemImg, ItemBox } from "../../Home/MainStyle";
 import {
   ProductListMainWrapper,
   BookMarkStar,
@@ -25,7 +16,6 @@ import { IItem } from "../../Home/MainType";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/rootStore";
 import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
-import { ItemType } from "../../ProductList/ProductListType";
 import ReactModal from "react-modal";
 import FilterBtn from "../../ProductList/components/FilterBtn";
 import ItemDetail from "../../ProductList/components/ItemInfo";

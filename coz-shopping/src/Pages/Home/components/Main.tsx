@@ -2,19 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/rootStore";
-import {
-  MainWrapper,
-  Section,
-  H2,
-  ItemBox,
-  Item,
-  ItemImg,
-  ItemInfo,
-  LeftInfo,
-  LeftUp,
-  RightInfo,
-  RightUp,
-} from "../MainStyle";
+import { MainWrapper, Section, H2, ItemBox, Item, ItemImg } from "../MainStyle";
 import { IItem } from "../MainType";
 import {
   BookMarkStar,
@@ -28,7 +16,7 @@ import {
 import { IModalDetail } from "../../ProductList/ProductListType";
 import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import ReactModal from "react-modal";
-import { ItemType } from "../../ProductList/ProductListType";
+import ItemDetail from "../../ProductList/components/ItemInfo";
 ReactModal.setAppElement("#root");
 
 function Main() {
@@ -121,32 +109,7 @@ function Main() {
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               />
-              <ItemInfo>
-                <LeftInfo>
-                  <LeftUp>
-                    {item.type === ItemType.Category
-                      ? "# " + item.title
-                      : item.title || item.brand_name}
-                  </LeftUp>
-                  <span>{item.sub_title}</span>
-                </LeftInfo>
-                <RightInfo>
-                  <RightUp discount={item.discountPercentage}>
-                    {item.type === ItemType.Brand
-                      ? "관심고객수"
-                      : item.discountPercentage
-                      ? item.discountPercentage + "%"
-                      : ""}
-                  </RightUp>
-                  <span>
-                    {item.type === ItemType.Brand
-                      ? Number(item.follower).toLocaleString()
-                      : item.price
-                      ? Number(item.price).toLocaleString() + "원"
-                      : ""}
-                  </span>
-                </RightInfo>
-              </ItemInfo>
+              <ItemDetail item={item} />
             </Item>
           ))}
         </ItemBox>
@@ -170,32 +133,7 @@ function Main() {
                 id={bookMarkedItem.id}
                 onClick={() => onClickBookMark(bookMarkedItem.id)}
               />
-              <ItemInfo>
-                <LeftInfo>
-                  <LeftUp>
-                    {bookMarkedItem.type === ItemType.Category
-                      ? "# " + bookMarkedItem.title
-                      : bookMarkedItem.title || bookMarkedItem.brand_name}
-                  </LeftUp>
-                  <span>{bookMarkedItem.sub_title}</span>
-                </LeftInfo>
-                <RightInfo>
-                  <RightUp discount={bookMarkedItem.discountPercentage}>
-                    {bookMarkedItem.type === ItemType.Brand
-                      ? "관심고객수"
-                      : bookMarkedItem.discountPercentage
-                      ? bookMarkedItem.discountPercentage + "%"
-                      : ""}
-                  </RightUp>
-                  <span>
-                    {bookMarkedItem.type === ItemType.Brand
-                      ? Number(bookMarkedItem.follower).toLocaleString()
-                      : bookMarkedItem.price
-                      ? Number(bookMarkedItem.price).toLocaleString() + "원"
-                      : ""}
-                  </span>
-                </RightInfo>
-              </ItemInfo>
+              <ItemDetail item={bookMarkedItem} />
             </Item>
           ))}
         </ItemBox>
