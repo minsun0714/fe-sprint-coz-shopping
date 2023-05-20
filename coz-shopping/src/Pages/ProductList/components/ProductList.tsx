@@ -85,7 +85,7 @@ function ProductList() {
 
   return (
     <ProductListMainWrapper>
-      <FilterBtn setFilteredItems={setItems} />
+      <FilterBtn products={products} setFilteredItems={setItems} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}

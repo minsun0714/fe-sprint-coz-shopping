@@ -9,7 +9,6 @@ import {
   LeftUp,
   RightUp,
 } from "../../Home/MainStyle";
-import FilterBookMarkBtn from "./FilterBookMarkBtn";
 import {
   ProductListMainWrapper,
   BookMarkStar,
@@ -28,6 +27,7 @@ import { RootState } from "../../../store/rootStore";
 import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import { ItemType } from "../../ProductList/ProductListType";
 import ReactModal from "react-modal";
+import FilterBtn from "../../ProductList/components/FilterBtn";
 ReactModal.setAppElement("#root");
 
 function BookMarkList() {
@@ -67,10 +67,7 @@ function BookMarkList() {
 
   return (
     <ProductListMainWrapper>
-      <FilterBookMarkBtn
-        setFilteredItems={setItems}
-        bookMarkedProducts={bookMarkedProducts}
-      />
+      <FilterBtn setFilteredItems={setItems} products={bookMarkedProducts} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}

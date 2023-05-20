@@ -37,4 +37,5 @@ export interface IStyledFilteredBtn {
 
 export interface IFilteredBtn {
   setFilteredItems: (items: IItem[]) => void;
+  products: IItem[];
 }
