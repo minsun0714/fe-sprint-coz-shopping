@@ -28,6 +28,7 @@ import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import { ItemType } from "../../ProductList/ProductListType";
 import ReactModal from "react-modal";
 import FilterBtn from "../../ProductList/components/FilterBtn";
+import ItemDetail from "../../ProductList/components/ItemInfo";
 ReactModal.setAppElement("#root");
 
 function BookMarkList() {
@@ -105,32 +106,7 @@ function BookMarkList() {
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
-              <ItemInfo>
-                <LeftInfo>
-                  <LeftUp>
-                    {item.type === ItemType.Category
-                      ? "# " + item.title
-                      : item.title || item.brand_name}
-                  </LeftUp>
-                  <span>{item.sub_title}</span>
-                </LeftInfo>
-                <RightInfo>
-                  <RightUp discount={item.discountPercentage}>
-                    {item.type === ItemType.Brand
-                      ? "관심고객수"
-                      : item.discountPercentage
-                      ? item.discountPercentage + "%"
-                      : ""}
-                  </RightUp>
-                  <span>
-                    {item.type === ItemType.Brand
-                      ? Number(item.follower).toLocaleString()
-                      : item.price
-                      ? Number(item.price).toLocaleString() + "원"
-                      : ""}
-                  </span>
-                </RightInfo>
-              </ItemInfo>
+              <ItemDetail item={item} />
             </Item>
           ))}
         </ItemBox>

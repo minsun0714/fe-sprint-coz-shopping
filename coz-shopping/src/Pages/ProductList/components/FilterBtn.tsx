@@ -12,7 +12,6 @@ import {
 
 function FilterBtn({ setFilteredItems, products }: IFilteredBtn) {
   const [typeClicked, setTypeClicked] = useState("Whole");
-  // const products = useSelector((store: RootState) => store.products);
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const type = event.currentTarget.name;

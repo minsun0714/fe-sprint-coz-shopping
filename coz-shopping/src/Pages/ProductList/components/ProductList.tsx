@@ -30,6 +30,7 @@ import {
 import { IModalDetail } from "../ProductListType";
 import ReactModal from "react-modal";
 import { ItemType } from "../ProductListType";
+import ItemDetail from "./ItemInfo";
 ReactModal.setAppElement("#root");
 
 function ProductList() {
@@ -123,32 +124,7 @@ function ProductList() {
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               />
-              <ItemInfo>
-                <LeftInfo>
-                  <LeftUp>
-                    {item.type === ItemType.Category
-                      ? "# " + item.title
-                      : item.title || item.brand_name}
-                  </LeftUp>
-                  <span>{item.sub_title}</span>
-                </LeftInfo>
-                <RightInfo>
-                  <RightUp discount={item.discountPercentage}>
-                    {item.type === ItemType.Brand
-                      ? "관심고객수"
-                      : item.discountPercentage
-                      ? item.discountPercentage + "%"
-                      : ""}
-                  </RightUp>
-                  <span>
-                    {item.type === ItemType.Brand
-                      ? Number(item.follower).toLocaleString()
-                      : item.price
-                      ? Number(item.price).toLocaleString() + "원"
-                      : ""}
-                  </span>
-                </RightInfo>
-              </ItemInfo>
+              <ItemDetail item={item} />
             </Item>
           ))}
         </ItemBox>
