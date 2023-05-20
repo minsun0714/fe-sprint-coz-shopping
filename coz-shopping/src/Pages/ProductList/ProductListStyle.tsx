@@ -121,7 +121,18 @@ export const ButtonWrapper = styled.span`
   text-align: center;
 `;
 
-export const Label = styled.label``;
+interface ILabel {
+  typeClicked: boolean;
+}
+
+export const Label = styled.label<ILabel>`
+  color: ${(props) => {
+    return props.typeClicked ? "#412DD4" : "black";
+  }};
+  text-decoration: ${(props) => {
+    return props.typeClicked ? "underline" : "none";
+  }};
+`;
 
 export const StyledFilterBtn = styled.button<IStyledFilteredBtn>`
   background-image: ${(props) => {

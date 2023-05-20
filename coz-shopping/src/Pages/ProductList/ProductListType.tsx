@@ -1,6 +1,7 @@
 import { IItem } from "../Home/MainType";
 
 export const enum ItemType {
+  Whole = "Whole",
   Product = "Product",
   Category = "Category",
   Exhibition = "Exhibition",
