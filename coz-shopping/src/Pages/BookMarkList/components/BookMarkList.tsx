@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { Item, ItemImg, ItemBox } from "../../Home/MainStyle";
 import {
   ProductListMainWrapper,
+  BookMarkStar,
   Section,
   ModalImg,
   modalStyle,
@@ -16,6 +18,7 @@ import { RootState } from "../../../store/rootStore";
 import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import ReactModal from "react-modal";
 import FilterBtn from "../../ProductList/components/FilterBtn";
+import ItemDetail from "../../ProductList/components/ItemInfo";
 import ItemContainer from "../../ProductList/components/ItemContainer";
 ReactModal.setAppElement("#root");
 

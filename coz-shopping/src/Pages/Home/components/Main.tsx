@@ -5,6 +5,7 @@ import { RootState } from "../../../store/rootStore";
 import { MainWrapper, Section, H2, ItemBox, Item, ItemImg } from "../MainStyle";
 import { IItem } from "../MainType";
 import {
+  BookMarkStar,
   modalStyle,
   ModalImg,
   ModalDetail,
@@ -15,6 +16,7 @@ import {
 import { IModalDetail } from "../../ProductList/ProductListType";
 import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import ReactModal from "react-modal";
+import ItemDetail from "../../ProductList/components/ItemInfo";
 import ItemContainer from "../../ProductList/components/ItemContainer";
 ReactModal.setAppElement("#root");
 
