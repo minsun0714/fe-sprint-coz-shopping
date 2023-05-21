@@ -10,7 +10,9 @@ if (localStorage.length) {
   for (const key in localStorage) {
     const value = localStorage.getItem(key);
     if (value) {
-      bookMarkedProductsLocalStorage.push(JSON.parse(value));
+      if ("type" in JSON.parse(value)) {
+        bookMarkedProductsLocalStorage.push(JSON.parse(value));
+      }
     }
   }
 }
