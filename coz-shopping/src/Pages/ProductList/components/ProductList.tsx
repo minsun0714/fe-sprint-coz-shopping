@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ItemBox, Item, ItemImg } from "../../Home/MainStyle";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { getAllProducts } from "../../../store/productsStore";
@@ -11,7 +10,6 @@ import {
   ProductListMainWrapper,
   Section,
   ModalDetail,
-  BookMarkStar,
   BookMarkStarModal,
   modalStyle,
   ModalImg,
@@ -20,7 +18,7 @@ import {
 } from "../ProductListStyle";
 import { IModalDetail } from "../ProductListType";
 import ReactModal from "react-modal";
-import ItemDetail from "./ItemInfo";
+import ItemContainer from "./ItemContainer";
 ReactModal.setAppElement("#root");
 
 function ProductList() {
@@ -97,27 +95,7 @@ function ProductList() {
         </ModalDetail>
       </ReactModal>
       <Section>
-        <ItemBox>
-          {items?.map((item: IItem) => (
-            <Item key={item.id}>
-              <ItemImg
-                src={item.image_url || item.brand_image_url}
-                onClick={() =>
-                  handleModalOpenClose(
-                    item.id,
-                    item.title || item.brand_name,
-                    item.image_url || item.brand_image_url
-                  )
-                }
-              />
-              <BookMarkStar
-                id={item.id}
-                onClick={() => onClickBookMark(item.id)}
-              />
-              <ItemDetail item={item} />
-            </Item>
-          ))}
-        </ItemBox>
+        <ItemContainer items={items} />
       </Section>
     </ProductListMainWrapper>
   );

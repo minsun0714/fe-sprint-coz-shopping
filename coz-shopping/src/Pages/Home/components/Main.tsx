@@ -17,6 +17,7 @@ import { IModalDetail } from "../../ProductList/ProductListType";
 import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import ReactModal from "react-modal";
 import ItemDetail from "../../ProductList/components/ItemInfo";
+import ItemContainer from "../../ProductList/components/ItemContainer";
 ReactModal.setAppElement("#root");
 
 function Main() {
@@ -92,51 +93,11 @@ function Main() {
       </ReactModal>
       <Section>
         <H2>상품 리스트</H2>
-        <ItemBox>
-          {itemsList.map((item) => (
-            <Item key={item.id}>
-              <ItemImg
-                src={item.image_url || item.brand_image_url}
-                onClick={() =>
-                  handleModalOpenClose(
-                    item.id,
-                    item.title || item.brand_name,
-                    item.image_url || item.brand_image_url
-                  )
-                }
-              />
-              <BookMarkStar
-                id={item.id}
-                onClick={() => onClickBookMark(item.id)}
-              />
-              <ItemDetail item={item} />
-            </Item>
-          ))}
-        </ItemBox>
+        <ItemContainer items={itemsList} />
       </Section>
       <Section>
         <H2>북마크 리스트</H2>
-        <ItemBox>
-          {showFourBookMarked.map((bookMarkedItem) => (
-            <Item key={bookMarkedItem.id}>
-              <ItemImg
-                src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
-                onClick={() =>
-                  handleModalOpenClose(
-                    bookMarkedItem.id,
-                    bookMarkedItem.title || bookMarkedItem.brand_name,
-                    bookMarkedItem.image_url || bookMarkedItem.brand_image_url
-                  )
-                }
-              />
-              <BookMarkStar
-                id={bookMarkedItem.id}
-                onClick={() => onClickBookMark(bookMarkedItem.id)}
-              />
-              <ItemDetail item={bookMarkedItem} />
-            </Item>
-          ))}
-        </ItemBox>
+        <ItemContainer items={showFourBookMarked} />
       </Section>
     </MainWrapper>
   );
