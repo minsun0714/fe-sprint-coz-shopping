@@ -19,7 +19,6 @@ import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import ReactModal from "react-modal";
 import FilterBtn from "../../ProductList/components/FilterBtn";
 import ItemDetail from "../../ProductList/components/ItemInfo";
-import ItemContainer from "../../ProductList/components/ItemContainer";
 ReactModal.setAppElement("#root");
 
 function BookMarkList() {
@@ -80,7 +79,27 @@ function BookMarkList() {
         </ModalDetail>
       </ReactModal>
       <Section>
-        <ItemContainer items={items} />
+        <ItemBox>
+          {items?.map((item: IItem) => (
+            <Item key={item.id}>
+              <ItemImg
+                src={item.image_url || item.brand_image_url}
+                onClick={() =>
+                  handleModalOpenClose(
+                    item.id,
+                    item.title || item.brand_name,
+                    item.image_url || item.brand_image_url
+                  )
+                }
+              />
+              <BookMarkStar
+                id={item.id}
+                onClick={() => onClickBookMark(item.id)}
+              ></BookMarkStar>
+              <ItemDetail item={item} />
+            </Item>
+          ))}
+        </ItemBox>
       </Section>
     </ProductListMainWrapper>
   );
