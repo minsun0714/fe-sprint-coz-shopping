@@ -4,12 +4,13 @@ import { IItem } from "../Pages/Home/MainType";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../store/productsStore";
 import { RootState } from "../store/rootStore";
+import { initialUrl } from "./initialUrl";
 
-const useFetch = (initialUrl: string) => {
+const useFetch = () => {
   const currentProductsState = useSelector(
     (store: RootState) => store.products
   );
-  const [url, setUrl] = useState<string>(initialUrl);
+  const [url, setUrl] = useState(initialUrl);
   const [value, setValue] = useState<IItem[]>([]);
   const dispatch = useDispatch();
 

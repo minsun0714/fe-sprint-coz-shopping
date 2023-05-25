@@ -25,9 +25,7 @@ import useFetch from "../../../util/useFetch";
 ReactModal.setAppElement("#root");
 
 function ProductList() {
-  const [items] = useFetch(
-    "http://cozshopping.codestates-seb.link/api/v1/products"
-  );
+  const [items] = useFetch();
 
   const dispatch = useDispatch();
   const products = useSelector((store: RootState) => store.products);

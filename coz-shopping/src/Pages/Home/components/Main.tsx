@@ -27,9 +27,7 @@ import useFetch from "../../../util/useFetch";
 ReactModal.setAppElement("#root");
 
 function Main() {
-  const [allItemsList] = useFetch(
-    "http://cozshopping.codestates-seb.link/api/v1/products"
-  );
+  const [allItemsList] = useFetch();
   const showFourItemsList = allItemsList.slice(0, 4);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts

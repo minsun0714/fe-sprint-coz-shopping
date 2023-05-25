@@ -27,7 +27,6 @@ function BookMarkList() {
   );
   const [items, setItems] = useState<IItem[]>(bookMarkedProducts);
   const dispatch = useDispatch();
-  const products = useSelector((store: RootState) => store.products);
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
@@ -35,7 +34,7 @@ function BookMarkList() {
     );
 
     if (!bookMarkedTargetItem) {
-      const targetItem = products.find((product: IItem) => product.id === id);
+      const targetItem = items.find((product: IItem) => product.id === id);
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
