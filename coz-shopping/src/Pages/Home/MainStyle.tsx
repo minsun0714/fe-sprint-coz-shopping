@@ -20,7 +20,7 @@ export const H2 = styled.h2`
   }
 `;
 
-export const ItemBox = styled.ul`
+export const ItemsWrapper = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-content: flex-start;
@@ -30,7 +30,7 @@ export const ItemBox = styled.ul`
   }
 `;
 
-export const Item = styled.span`
+export const ItemBox = styled.span`
   list-style-type: none;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ItemBox, Item, ItemImg } from "../../Home/MainStyle";
+import { ItemsWrapper, ItemBox, ItemImg } from "../../Home/MainStyle";
 import FilterBtn from "./FilterBtn";
 import axios from "axios";
 import { getAllProducts } from "../../../store/productsStore";
@@ -89,9 +89,9 @@ function ProductList() {
         </ModalDetail>
       </ReactModal>
       <Section>
-        <ItemBox>
+        <ItemsWrapper>
           {filteredItems?.map((item: IItem) => (
-            <Item key={item.id}>
+            <ItemBox key={item.id}>
               <ItemImg
                 src={item.image_url || item.brand_image_url}
                 onClick={() =>
@@ -107,9 +107,9 @@ function ProductList() {
                 onClick={() => onClickBookMark(item.id)}
               />
               <ItemDetail item={item} />
-            </Item>
+            </ItemBox>
           ))}
-        </ItemBox>
+        </ItemsWrapper>
       </Section>
     </ProductListMainWrapper>
   );

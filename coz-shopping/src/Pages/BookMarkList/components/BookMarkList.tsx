@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Item, ItemImg, ItemBox } from "../../Home/MainStyle";
+import { ItemBox, ItemImg, ItemsWrapper } from "../../Home/MainStyle";
 import {
   ProductListMainWrapper,
   BookMarkStar,
@@ -79,9 +79,9 @@ function BookMarkList() {
         </ModalDetail>
       </ReactModal>
       <Section>
-        <ItemBox>
+        <ItemsWrapper>
           {items?.map((item: IItem) => (
-            <Item key={item.id}>
+            <ItemBox key={item.id}>
               <ItemImg
                 src={item.image_url || item.brand_image_url}
                 onClick={() =>
@@ -97,9 +97,9 @@ function BookMarkList() {
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
               <ItemDetail item={item} />
-            </Item>
+            </ItemBox>
           ))}
-        </ItemBox>
+        </ItemsWrapper>
       </Section>
     </ProductListMainWrapper>
   );

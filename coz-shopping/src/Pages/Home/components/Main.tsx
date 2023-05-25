@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/rootStore";
-import { MainWrapper, Section, H2, ItemBox, Item, ItemImg } from "../MainStyle";
+import {
+  MainWrapper,
+  Section,
+  H2,
+  ItemsWrapper,
+  ItemBox,
+  ItemImg,
+} from "../MainStyle";
 import { IItem } from "../MainType";
 import {
   BookMarkStar,
@@ -83,9 +90,9 @@ function Main() {
       </ReactModal>
       <Section>
         <H2>상품 리스트</H2>
-        <ItemBox>
+        <ItemsWrapper>
           {showFourItemsList.map((item) => (
-            <Item key={item.id}>
+            <ItemBox key={item.id}>
               <ItemImg
                 src={item.image_url || item.brand_image_url}
                 onClick={() =>
@@ -101,15 +108,15 @@ function Main() {
                 onClick={() => onClickBookMark(item.id)}
               />
               <ItemDetail item={item} />
-            </Item>
+            </ItemBox>
           ))}
-        </ItemBox>
+        </ItemsWrapper>
       </Section>
       <Section>
         <H2>북마크 리스트</H2>
-        <ItemBox>
+        <ItemsWrapper>
           {showFourBookMarked.map((bookMarkedItem) => (
-            <Item key={bookMarkedItem.id}>
+            <ItemBox key={bookMarkedItem.id}>
               <ItemImg
                 src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
                 onClick={() =>
@@ -125,9 +132,9 @@ function Main() {
                 onClick={() => onClickBookMark(bookMarkedItem.id)}
               />
               <ItemDetail item={bookMarkedItem} />
-            </Item>
+            </ItemBox>
           ))}
-        </ItemBox>
+        </ItemsWrapper>
       </Section>
     </MainWrapper>
   );
