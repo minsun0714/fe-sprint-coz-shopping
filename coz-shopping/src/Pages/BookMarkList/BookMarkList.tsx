@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-  Item,
-  ItemImg,
-  ItemBox,
-  ItemInfo,
-  LeftInfo,
-  RightInfo,
-  LeftUp,
-  RightUp,
-} from "../Home/MainStyle";
-import FilterBookMarkBtn from "../BookMarkList/FilterBookMarkBtn";
+import { ItemBox, ItemImg, ItemsWrapper } from "../Home/MainStyle";
 import {
   ProductListMainWrapper,
   BookMarkStar,
@@ -20,14 +10,15 @@ import {
   ModalTitle,
   BookMarkStarModal,
   XSign,
-  IModalDetail,
 } from "../ProductList/ProductListStyle";
-import { IItem } from "../Home/MainStyle";
+import { IModalDetail } from "../ProductList/ProductListType";
+import { IItem } from "../Home/MainType";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/rootStore";
 import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
-import { ItemType } from "./BookMarkListStyle";
 import ReactModal from "react-modal";
+import FilterBtn from "../../components/FilterBtn";
+import ItemDetail from "../../components/ItemInfo";
 ReactModal.setAppElement("#root");
 
 function BookMarkList() {
@@ -36,7 +27,6 @@ function BookMarkList() {
   );
   const [items, setItems] = useState<IItem[]>(bookMarkedProducts);
   const dispatch = useDispatch();
-  const products = useSelector((store: RootState) => store.products);
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
@@ -44,7 +34,7 @@ function BookMarkList() {
     );
 
     if (!bookMarkedTargetItem) {
-      const targetItem = products.find((product: IItem) => product.id === id);
+      const targetItem = items.find((product: IItem) => product.id === id);
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
@@ -67,10 +57,7 @@ function BookMarkList() {
 
   return (
     <ProductListMainWrapper>
-      <FilterBookMarkBtn
-        setFilteredItems={setItems}
-        bookMarkedProducts={bookMarkedProducts}
-      />
+      <FilterBtn setFilteredItems={setItems} products={bookMarkedProducts} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}
@@ -78,7 +65,7 @@ function BookMarkList() {
       >
         <ModalDetail>
           <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
-          <ModalImg src={modalDetail.url} alt='Large Image' />
+          <ModalImg src={modalDetail.url} alt='' />
           <BookMarkStarModal
             id={modalDetail.id}
             onClick={() => {
@@ -91,52 +78,27 @@ function BookMarkList() {
         </ModalDetail>
       </ReactModal>
       <Section>
-        <ItemBox>
+        <ItemsWrapper>
           {items?.map((item: IItem) => (
-            <Item
-              key={item.id}
-              onClick={() =>
-                handleModalOpenClose(
-                  item.id,
-                  item.title || item.brand_name,
-                  item.image_url || item.brand_image_url
-                )
-              }
-            >
-              <ItemImg src={item.image_url || item.brand_image_url}></ItemImg>
+            <ItemBox key={item.id}>
+              <ItemImg
+                src={item.image_url || item.brand_image_url}
+                onClick={() =>
+                  handleModalOpenClose(
+                    item.id,
+                    item.title || item.brand_name,
+                    item.image_url || item.brand_image_url
+                  )
+                }
+              />
               <BookMarkStar
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
               ></BookMarkStar>
-              <ItemInfo>
-                <LeftInfo>
-                  <LeftUp>
-                    {item.type === ItemType.Category
-                      ? "# " + item.title
-                      : item.title || item.brand_name}
-                  </LeftUp>
-                  <span>{item.sub_title}</span>
-                </LeftInfo>
-                <RightInfo>
-                  <RightUp discount={item.discountPercentage}>
-                    {item.type === ItemType.Brand
-                      ? "관심고객수"
-                      : item.discountPercentage
-                      ? item.discountPercentage + "%"
-                      : ""}
-                  </RightUp>
-                  <span>
-                    {item.type === ItemType.Brand
-                      ? Number(item.follower).toLocaleString()
-                      : item.price
-                      ? Number(item.price).toLocaleString() + "원"
-                      : ""}
-                  </span>
-                </RightInfo>
-              </ItemInfo>
-            </Item>
+              <ItemDetail item={item} />
+            </ItemBox>
           ))}
-        </ItemBox>
+        </ItemsWrapper>
       </Section>
     </ProductListMainWrapper>
   );

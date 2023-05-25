@@ -5,7 +5,8 @@ export const MainWrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   box-shadow: 0px 3px 4px gray;
-  margin: 70px 0 66px;
+  margin: 70px 0 66px 0;
+  padding-right: 0;
 `;
 
 export const Section = styled.section``;
@@ -14,16 +15,22 @@ export const H2 = styled.h2`
   font-size: 24px;
   margin-left: 350px;
   margin-bottom: -20px;
+  @media (max-width: 1500px) {
+    margin: 29px 0 -20px 130px;
+  }
 `;
 
-export const ItemBox = styled.ul`
+export const ItemsWrapper = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-content: flex-start;
   margin: 10px 370px 0 260px;
+  @media (max-width: 1500px) {
+    margin: 10px 20vw 0 40px;
+  }
 `;
 
-export const Item = styled.span`
+export const ItemBox = styled.span`
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -74,16 +81,3 @@ export const RightUp = styled.h4<IRightUp>`
   margin-bottom: 7px;
   margin-left: auto;
 `;
-
-export interface IItem {
-  brand_image_url?: string;
-  brand_name: string | null;
-  discountPercentage: number | null;
-  follower: number;
-  id: number;
-  image_url: string | null;
-  price: string | null;
-  sub_title: string | null;
-  title: string | null;
-  type: string;
-}

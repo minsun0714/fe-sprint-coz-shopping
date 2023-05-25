@@ -1,14 +1,20 @@
 import styled from "styled-components";
 import { RootState } from "../../store/rootStore";
 import { useSelector } from "react-redux";
-import { IItem } from "../Home/MainStyle";
+import { IItem } from "../Home/MainType";
+import {
+  IImageProps,
+  BookMarkIcon,
+  IStyledFilteredBtn,
+  FilterBtnIcon,
+} from "./ProductListType";
 
 export const modalStyle: ReactModal.Styles = {
   content: {
     top: "40vh",
     left: "47vw",
     bottom: "auto",
-    transform: "translate(-45%, -40%)",
+    transform: "translate(-45%, -25%)",
     width: "744px",
     height: "481px",
     position: "sticky",
@@ -55,15 +61,6 @@ export const Section = styled.section`
   padding-bottom: 100px;
 `;
 
-export interface IImageProps {
-  id: any;
-}
-
-export const enum BookMarkIcon {
-  onIcon = "/image/bookmark_on.jpg",
-  offIcon = "/image/bookmark_off.jpg",
-}
-
 export const BookMarkStar = styled.div<IImageProps>`
   background-image: ${(props: IImageProps): string => {
     const bookMarkedProducts = useSelector(
@@ -93,13 +90,7 @@ export const BookMarkStarModal = styled(BookMarkStar)`
   cursor: pointer;
 `;
 
-export interface IModalDetail {
-  id?: number;
-  title?: string | null;
-  url?: string;
-}
-
-interface XSign {
+export interface XSign {
   src: string;
 }
 
@@ -112,9 +103,63 @@ export const XSign = styled.img<XSign>`
   cursor: pointer;
 `;
 
-export const enum ItemType {
-  Product = "Product",
-  Category = "Category",
-  Exhibition = "Exhibition",
-  Brand = "Brand",
+export const ButtonsWrapper = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 80px;
+  transform: translateX(110%);
+  @media (max-width: 1500px) {
+    transform: translateX(73%);
+  }
+`;
+
+export const ButtonWrapper = styled.span`
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  text-align: center;
+`;
+
+interface ILabel {
+  typeClicked: boolean;
 }
+
+export const Label = styled.label<ILabel>`
+  color: ${(props) => {
+    return props.typeClicked ? "#412DD4" : "black";
+  }};
+  text-decoration: ${(props) => {
+    return props.typeClicked ? "underline" : "none";
+  }};
+`;
+
+export const StyledFilterBtn = styled.button<IStyledFilteredBtn>`
+  background-image: ${(props) => {
+    let icon;
+    switch (props.name) {
+      case "Product":
+        icon = FilterBtnIcon.Product;
+        break;
+      case "Category":
+        icon = FilterBtnIcon.Category;
+        break;
+      case "Exhibition":
+        icon = FilterBtnIcon.Exhibition;
+        break;
+      case "Brand":
+        icon = FilterBtnIcon.Brand;
+        break;
+      default:
+        icon = FilterBtnIcon.Whole;
+        break;
+    }
+    return `url("${icon}")`;
+  }};
+  border-radius: 100px;
+  height: 82px;
+  width: 82px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 8px;
+  cursor: pointer;
+`;

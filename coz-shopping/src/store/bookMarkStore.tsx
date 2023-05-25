@@ -1,8 +1,8 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IItem } from "../components/Home/MainStyle";
+import { IItem } from "../Pages/Home/MainType";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastImg, ToastAction } from "../GlobalStyle";
+import { ToastImg, ToastAction, ToastImgType } from "../GlobalStyle";
 
 const bookMarkedProductsLocalStorage: IItem[] = [];
 
@@ -10,17 +10,22 @@ if (localStorage.length) {
   for (const key in localStorage) {
     const value = localStorage.getItem(key);
     if (value) {
-      bookMarkedProductsLocalStorage.push(JSON.parse(value));
+      if ("type" in JSON.parse(value)) {
+        bookMarkedProductsLocalStorage.push(JSON.parse(value));
+      }
     }
   }
 }
 
+const toastUIOnUrl: ToastImgType = "/image/Toast UI on.png";
+const toastUIOffUrl: ToastImgType = "/image/Toast UI off.png";
+
 const tostify = (actionType: ToastAction) =>
   toast(
     actionType === "add" ? (
-      <ToastImg src='/image/Toast UI on.png' />
+      <ToastImg src={toastUIOnUrl} />
     ) : (
-      <ToastImg src='/image/Toast UI off.png' />
+      <ToastImg src={toastUIOffUrl} />
     ),
     { position: toast.POSITION.BOTTOM_RIGHT }
   );

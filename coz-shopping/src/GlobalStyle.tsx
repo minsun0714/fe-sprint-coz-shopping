@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 
 export const StyledToastContainer = styled(ToastContainer)`
   &&&.Toastify__toast-container {
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -37,3 +38,5 @@ export const ToastImg = styled.img`
 `;
 
 export type ToastAction = "add" | "delete";
+
+export type ToastImgType = "/image/Toast UI on.png" | "/image/Toast UI off.png";
