@@ -32,7 +32,9 @@ function Main() {
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
-  const showFourBookMarked = bookMarkedProducts.slice(0, 4);
+  const showFourBookMarked = useSelector((store: RootState) =>
+    store.bookMarkedProducts.slice(0, 4)
+  );
 
   const dispatch = useDispatch();
 
