@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import globalToken from "../../../tokens/global.json";
 import { FilterBtnType } from "./Button.stories";
+import { FilterBtnIcon } from "../../../Pages/ProductList/ProductListType";
 
 const { ButtonText, BorderRadius, ButtonSize, ButtonSpacing } = globalToken;
 
 interface IButton {
-  buttonType: string;
+  buttonType: FilterBtnType;
 }
 
 const ButtonWrapper = styled.button<IButton>`
@@ -14,6 +15,28 @@ const ButtonWrapper = styled.button<IButton>`
   height: ${ButtonSize.value}px;
   width: ${ButtonSize.value}px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+
+  background-image: ${(props) => {
+    let icon;
+    switch (props.buttonType) {
+      case FilterBtnType.Product:
+        icon = FilterBtnIcon.Product;
+        break;
+      case FilterBtnType.Category:
+        icon = FilterBtnIcon.Category;
+        break;
+      case FilterBtnType.Exhibition:
+        icon = FilterBtnIcon.Exhibition;
+        break;
+      case FilterBtnType.Brand:
+        icon = FilterBtnIcon.Brand;
+        break;
+      default:
+        icon = FilterBtnIcon.Whole;
+        break;
+    }
+    return `url("${icon}")`;
+  }};
 `;
 
 interface ILabelText {

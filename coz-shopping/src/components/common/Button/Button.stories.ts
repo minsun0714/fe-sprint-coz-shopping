@@ -21,7 +21,7 @@ export const enum FilterBtnType {
   Exhibition = "기획전",
 }
 
-export const Default: Story = {
+export const DefaultWhole: Story = {
   args: {
     task: {
       id: 1,
@@ -31,12 +31,32 @@ export const Default: Story = {
     },
   },
 };
-export const Clicked: Story = {
+export const ClickedWhole: Story = {
   args: {
     task: {
       id: 2,
       title: "Button",
       buttonType: FilterBtnType.Whole,
+      isClicked: true,
+    },
+  },
+};
+export const DefaultProduct: Story = {
+  args: {
+    task: {
+      id: 3,
+      title: "Button",
+      buttonType: FilterBtnType.Product,
+      isClicked: false,
+    },
+  },
+};
+export const ClickedProduct: Story = {
+  args: {
+    task: {
+      id: 4,
+      title: "Button",
+      buttonType: FilterBtnType.Product,
       isClicked: true,
     },
   },
