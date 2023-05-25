@@ -27,12 +27,14 @@ import useFetch from "../../util/useFetch";
 ReactModal.setAppElement("#root");
 
 function Main() {
-  const products = useFetch();
+  const products = useFetch(4);
   const showFourProducts = products.slice(0, 4);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
-  const showFourBookMarkedProducts = bookMarkedProducts.slice(0, 4);
+  const showFourBookMarkedProducts = useSelector((store: RootState) =>
+    store.bookMarkedProducts.slice(0, 4)
+  );
 
   const dispatch = useDispatch();
 

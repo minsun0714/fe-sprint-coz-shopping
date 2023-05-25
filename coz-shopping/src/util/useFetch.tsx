@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../store/productsStore";
 import { RootState } from "../store/rootStore";
 import { initialUrl } from "./initialUrl";
+import queryParameter from "./queryParameter";
 
-const useFetch = () => {
+const useFetch = (count?: number) => {
   const currentProductsState = useSelector(
     (store: RootState) => store.products
   );
@@ -16,7 +17,7 @@ const useFetch = () => {
 
   const fetchData = () =>
     axios
-      .get(url)
+      .get(count ? url + queryParameter(count) : url)
       .then((response) => {
         setValue(response.data);
         dispatch(getAllProducts(response.data));
