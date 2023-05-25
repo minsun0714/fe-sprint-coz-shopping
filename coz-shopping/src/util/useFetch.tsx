@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../store/productsStore";
 import { RootState } from "../store/rootStore";
 import { initialUrl } from "./initialUrl";
-import queryParameter from "./queryParameter";
 
-const useFetch = (count?: number) => {
+const useFetch = () => {
   const currentProductsState = useSelector(
     (store: RootState) => store.products
   );
@@ -17,13 +16,14 @@ const useFetch = (count?: number) => {
 
   const fetchData = () =>
     axios
-      .get(count ? url + queryParameter(count) : url)
+      .get(url)
       .then((response) => {
         setValue(response.data);
         dispatch(getAllProducts(response.data));
       })
       .catch((error) => console.log(error));
 
+  // 처음에 성능 최적화를 위해 4개만 불러오기 때문에 productList
   useEffect(() => {
     if (currentProductsState.length === 0) fetchData();
   }, []);
