@@ -1,0 +1,18 @@
+{
+  "ButtonText": {
+    "value": "#412DD4",
+    "type": "color"
+  },
+  "BorderRadius": {
+    "value": 100,
+    "type": "borderRadius"
+  },
+  "ButtonSize": {
+    "value": 82,
+    "type": "sizing"
+  },
+  "ButtonSpacing": {
+    "value": 36,
+    "type": "spacing"
+  }
+}
