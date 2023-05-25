@@ -1,41 +1,31 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store/rootStore";
+import { ItemBox, ItemImg, ItemsWrapper } from "../Home/MainStyle";
 import {
-  MainWrapper,
-  Section,
-  H2,
-  ItemsWrapper,
-  ItemBox,
-  ItemImg,
-} from "../MainStyle";
-import { IItem } from "../MainType";
-import {
+  ProductListMainWrapper,
   BookMarkStar,
-  modalStyle,
+  Section,
   ModalImg,
+  modalStyle,
   ModalDetail,
-  XSign,
-  BookMarkStarModal,
   ModalTitle,
-} from "../../ProductList/ProductListStyle";
-import { IModalDetail } from "../../ProductList/ProductListType";
-import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
+  BookMarkStarModal,
+  XSign,
+} from "../ProductList/ProductListStyle";
+import { IModalDetail } from "../ProductList/ProductListType";
+import { IItem } from "../Home/MainType";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/rootStore";
+import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
 import ReactModal from "react-modal";
-import ItemDetail from "../../ProductList/components/ItemInfo";
-import useFetch from "../../../util/useFetch";
+import FilterBtn from "../../components/FilterBtn";
+import ItemDetail from "../../components/ItemInfo";
 ReactModal.setAppElement("#root");
 
-function Main() {
-  const [allItemsList] = useFetch();
-  const showFourItemsList = allItemsList.slice(0, 4);
+function BookMarkList() {
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
-  const showFourBookMarked = useSelector((store: RootState) =>
-    store.bookMarkedProducts.slice(0, 4)
-  );
-
+  const [items, setItems] = useState<IItem[]>(bookMarkedProducts);
   const dispatch = useDispatch();
 
   const onClickBookMark = (id: number) => {
@@ -44,9 +34,7 @@ function Main() {
     );
 
     if (!bookMarkedTargetItem) {
-      const targetItem = showFourItemsList.find(
-        (product: IItem) => product.id === id
-      );
+      const targetItem = items.find((product: IItem) => product.id === id);
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
@@ -68,7 +56,8 @@ function Main() {
   };
 
   return (
-    <MainWrapper>
+    <ProductListMainWrapper>
+      <FilterBtn setFilteredItems={setItems} products={bookMarkedProducts} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}
@@ -76,7 +65,7 @@ function Main() {
       >
         <ModalDetail>
           <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
-          <ModalImg src={modalDetail.url} alt='Large Image' />
+          <ModalImg src={modalDetail.url} alt='' />
           <BookMarkStarModal
             id={modalDetail.id}
             onClick={() => {
@@ -89,9 +78,8 @@ function Main() {
         </ModalDetail>
       </ReactModal>
       <Section>
-        <H2>상품 리스트</H2>
         <ItemsWrapper>
-          {showFourItemsList.map((item) => (
+          {items?.map((item: IItem) => (
             <ItemBox key={item.id}>
               <ItemImg
                 src={item.image_url || item.brand_image_url}
@@ -106,37 +94,13 @@ function Main() {
               <BookMarkStar
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
-              />
+              ></BookMarkStar>
               <ItemDetail item={item} />
             </ItemBox>
           ))}
         </ItemsWrapper>
       </Section>
-      <Section>
-        <H2>북마크 리스트</H2>
-        <ItemsWrapper>
-          {showFourBookMarked.map((bookMarkedItem) => (
-            <ItemBox key={bookMarkedItem.id}>
-              <ItemImg
-                src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
-                onClick={() =>
-                  handleModalOpenClose(
-                    bookMarkedItem.id,
-                    bookMarkedItem.title || bookMarkedItem.brand_name,
-                    bookMarkedItem.image_url || bookMarkedItem.brand_image_url
-                  )
-                }
-              />
-              <BookMarkStar
-                id={bookMarkedItem.id}
-                onClick={() => onClickBookMark(bookMarkedItem.id)}
-              />
-              <ItemDetail item={bookMarkedItem} />
-            </ItemBox>
-          ))}
-        </ItemsWrapper>
-      </Section>
-    </MainWrapper>
+    </ProductListMainWrapper>
   );
 }
-export default Main;
+export default BookMarkList;

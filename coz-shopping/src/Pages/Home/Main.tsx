@@ -1,49 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ItemsWrapper, ItemBox, ItemImg } from "../../Home/MainStyle";
-import FilterBtn from "./FilterBtn";
-import axios from "axios";
-import { getAllProducts } from "../../../store/productsStore";
-import { RootState } from "../../../store/rootStore";
-import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
-import { IItem } from "../../Home/MainType";
+import { RootState } from "../../store/rootStore";
 import {
-  ProductListMainWrapper,
+  MainWrapper,
   Section,
-  ModalDetail,
+  H2,
+  ItemsWrapper,
+  ItemBox,
+  ItemImg,
+} from "./MainStyle";
+import { IItem } from "./MainType";
+import {
   BookMarkStar,
-  BookMarkStarModal,
   modalStyle,
   ModalImg,
-  ModalTitle,
+  ModalDetail,
   XSign,
-} from "../ProductListStyle";
-import { IModalDetail } from "../ProductListType";
+  BookMarkStarModal,
+  ModalTitle,
+} from "../ProductList/ProductListStyle";
+import { IModalDetail } from "../ProductList/ProductListType";
+import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
 import ReactModal from "react-modal";
-import ItemDetail from "./ItemInfo";
-import useFetch from "../../../util/useFetch";
+import ItemDetail from "../../components/ItemInfo";
+import useFetch from "../../util/useFetch";
 ReactModal.setAppElement("#root");
 
-function ProductList() {
-  const [items] = useFetch();
-
-  const dispatch = useDispatch();
-  const products = useSelector((store: RootState) => store.products);
-  const [filteredItems, setFilteredItems] = useState<IItem[]>(products);
+function Main() {
+  const products = useFetch();
+  const showFourProducts = products.slice(0, 4);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
+  const showFourBookMarkedProducts = bookMarkedProducts.slice(0, 4);
 
-  useEffect(() => {
-    setFilteredItems(products);
-  }, [products]);
+  const dispatch = useDispatch();
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
       (product: IItem) => product.id === id
     );
+
     if (!bookMarkedTargetItem) {
-      const targetItem = products.find((product: IItem) => product.id === id);
+      const targetItem = showFourProducts.find(
+        (product: IItem) => product.id === id
+      );
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
@@ -65,8 +66,7 @@ function ProductList() {
   };
 
   return (
-    <ProductListMainWrapper>
-      <FilterBtn products={products} setFilteredItems={setFilteredItems} />
+    <MainWrapper>
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}
@@ -87,8 +87,9 @@ function ProductList() {
         </ModalDetail>
       </ReactModal>
       <Section>
+        <H2>상품 리스트</H2>
         <ItemsWrapper>
-          {filteredItems?.map((item: IItem) => (
+          {showFourProducts.map((item) => (
             <ItemBox key={item.id}>
               <ItemImg
                 src={item.image_url || item.brand_image_url}
@@ -109,7 +110,31 @@ function ProductList() {
           ))}
         </ItemsWrapper>
       </Section>
-    </ProductListMainWrapper>
+      <Section>
+        <H2>북마크 리스트</H2>
+        <ItemsWrapper>
+          {showFourBookMarkedProducts.map((bookMarkedItem) => (
+            <ItemBox key={bookMarkedItem.id}>
+              <ItemImg
+                src={bookMarkedItem.image_url || bookMarkedItem.brand_image_url}
+                onClick={() =>
+                  handleModalOpenClose(
+                    bookMarkedItem.id,
+                    bookMarkedItem.title || bookMarkedItem.brand_name,
+                    bookMarkedItem.image_url || bookMarkedItem.brand_image_url
+                  )
+                }
+              />
+              <BookMarkStar
+                id={bookMarkedItem.id}
+                onClick={() => onClickBookMark(bookMarkedItem.id)}
+              />
+              <ItemDetail item={bookMarkedItem} />
+            </ItemBox>
+          ))}
+        </ItemsWrapper>
+      </Section>
+    </MainWrapper>
   );
 }
-export default ProductList;
+export default Main;

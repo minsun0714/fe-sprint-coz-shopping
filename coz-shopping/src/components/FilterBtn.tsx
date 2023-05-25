@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/rootStore";
-import { IItem } from "../../Home/MainType";
-import { ItemType, IFilteredBtn } from "../ProductListType";
+import { IItem } from "../Pages/Home/MainType";
+import { ItemType, IFilteredBtn } from "../Pages/ProductList/ProductListType";
 import {
   ButtonsWrapper,
   ButtonWrapper,
   Label,
   StyledFilterBtn,
-} from "../ProductListStyle";
+} from "../Pages/ProductList/ProductListStyle";
 
 function FilterBtn({ setFilteredItems, products }: IFilteredBtn) {
   const [typeClicked, setTypeClicked] = useState("Whole");

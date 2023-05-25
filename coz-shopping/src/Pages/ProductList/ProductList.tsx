@@ -1,40 +1,46 @@
-import React, { useState } from "react";
-import { ItemBox, ItemImg, ItemsWrapper } from "../../Home/MainStyle";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ItemsWrapper, ItemBox, ItemImg } from "../Home/MainStyle";
+import FilterBtn from "../../components/FilterBtn";
+import { RootState } from "../../store/rootStore";
+import { addBookMark, deleteBookMark } from "../../store/bookMarkStore";
+import { IItem } from "../Home/MainType";
 import {
   ProductListMainWrapper,
-  BookMarkStar,
   Section,
-  ModalImg,
-  modalStyle,
   ModalDetail,
-  ModalTitle,
+  BookMarkStar,
   BookMarkStarModal,
+  modalStyle,
+  ModalImg,
+  ModalTitle,
   XSign,
-} from "../../ProductList/ProductListStyle";
-import { IModalDetail } from "../../ProductList/ProductListType";
-import { IItem } from "../../Home/MainType";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store/rootStore";
-import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
+} from "./ProductListStyle";
+import { IModalDetail } from "./ProductListType";
 import ReactModal from "react-modal";
-import FilterBtn from "../../ProductList/components/FilterBtn";
-import ItemDetail from "../../ProductList/components/ItemInfo";
+import ItemDetail from "../../components/ItemInfo";
+import useFetch from "../../util/useFetch";
 ReactModal.setAppElement("#root");
 
-function BookMarkList() {
+function ProductList() {
+  const products = useFetch();
+  const [filteredItems, setFilteredItems] = useState<IItem[]>(products);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
-  const [items, setItems] = useState<IItem[]>(bookMarkedProducts);
+
+  useEffect(() => {
+    setFilteredItems(products);
+  }, [products]);
+
   const dispatch = useDispatch();
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
       (product: IItem) => product.id === id
     );
-
     if (!bookMarkedTargetItem) {
-      const targetItem = items.find((product: IItem) => product.id === id);
+      const targetItem = products.find((product: IItem) => product.id === id);
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
@@ -57,7 +63,7 @@ function BookMarkList() {
 
   return (
     <ProductListMainWrapper>
-      <FilterBtn setFilteredItems={setItems} products={bookMarkedProducts} />
+      <FilterBtn products={products} setFilteredItems={setFilteredItems} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}
@@ -65,7 +71,7 @@ function BookMarkList() {
       >
         <ModalDetail>
           <XSign src='/image/x.png' onClick={() => handleModalOpenClose()} />
-          <ModalImg src={modalDetail.url} alt='' />
+          <ModalImg src={modalDetail.url} alt='Large Image' />
           <BookMarkStarModal
             id={modalDetail.id}
             onClick={() => {
@@ -79,7 +85,7 @@ function BookMarkList() {
       </ReactModal>
       <Section>
         <ItemsWrapper>
-          {items?.map((item: IItem) => (
+          {filteredItems?.map((item: IItem) => (
             <ItemBox key={item.id}>
               <ItemImg
                 src={item.image_url || item.brand_image_url}
@@ -94,7 +100,7 @@ function BookMarkList() {
               <BookMarkStar
                 id={item.id}
                 onClick={() => onClickBookMark(item.id)}
-              ></BookMarkStar>
+              />
               <ItemDetail item={item} />
             </ItemBox>
           ))}
@@ -103,4 +109,4 @@ function BookMarkList() {
     </ProductListMainWrapper>
   );
 }
-export default BookMarkList;
+export default ProductList;

@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header/components/Header";
 import Footer from "./Footer/components/Footer";
-import Main from "./Pages/Home/components/Main";
-import ProductList from "./Pages/ProductList/components/ProductList";
-import BookMarkList from "./Pages/BookMarkList/components/BookMarkList";
+import Main from "./Pages/Home/Main";
+import ProductList from "./Pages/ProductList/ProductList";
+import BookMarkList from "./Pages/BookMarkList/BookMarkList";
 import "react-toastify/dist/ReactToastify.css";
 import { StyledToastContainer } from "./GlobalStyle";
 

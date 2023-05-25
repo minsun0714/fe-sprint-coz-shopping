@@ -5,9 +5,9 @@ import {
   RightInfo,
   LeftUp,
   RightUp,
-} from "../../Home/MainStyle";
-import { ItemType } from "../ProductListType";
-import { IItem } from "../../Home/MainType";
+} from "../Pages/Home/MainStyle";
+import { ItemType } from "../Pages/ProductList/ProductListType";
+import { IItem } from "../Pages/Home/MainType";
 
 function ItemDetail({ item }: { item: IItem }) {
   return (

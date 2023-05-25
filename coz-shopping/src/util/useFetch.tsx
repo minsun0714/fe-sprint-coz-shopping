@@ -27,6 +27,6 @@ const useFetch = () => {
     if (currentProductsState.length === 0) fetchData();
   }, []);
 
-  return [value.length ? value : currentProductsState];
+  return value.length ? value : currentProductsState;
 };
 export default useFetch;
