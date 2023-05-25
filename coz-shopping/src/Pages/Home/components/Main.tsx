@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/rootStore";
 import { MainWrapper, Section, H2, ItemBox, Item, ItemImg } from "../MainStyle";
@@ -17,30 +16,20 @@ import { IModalDetail } from "../../ProductList/ProductListType";
 import { addBookMark, deleteBookMark } from "../../../store/bookMarkStore";
 import ReactModal from "react-modal";
 import ItemDetail from "../../ProductList/components/ItemInfo";
+import useFetch from "../../../util/useFetch";
 ReactModal.setAppElement("#root");
 
 function Main() {
-  const [itemsList, setItemsList] = useState<IItem[]>([]);
-  const dispatch = useDispatch();
+  const [allItemsList] = useFetch(
+    "http://cozshopping.codestates-seb.link/api/v1/products"
+  );
+  const showFourItemsList = allItemsList.slice(0, 4);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
   const showFourBookMarked = bookMarkedProducts.slice(0, 4);
 
-  useEffect(() => {
-    axios
-      .get("http://cozshopping.codestates-seb.link/api/v1/products", {
-        params: {
-          count: 4,
-        },
-      })
-      .then((response) => {
-        setItemsList(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const dispatch = useDispatch();
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
@@ -48,7 +37,9 @@ function Main() {
     );
 
     if (!bookMarkedTargetItem) {
-      const targetItem = itemsList.find((product: IItem) => product.id === id);
+      const targetItem = showFourItemsList.find(
+        (product: IItem) => product.id === id
+      );
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
@@ -93,7 +84,7 @@ function Main() {
       <Section>
         <H2>상품 리스트</H2>
         <ItemBox>
-          {itemsList.map((item) => (
+          {showFourItemsList.map((item) => (
             <Item key={item.id}>
               <ItemImg
                 src={item.image_url || item.brand_image_url}

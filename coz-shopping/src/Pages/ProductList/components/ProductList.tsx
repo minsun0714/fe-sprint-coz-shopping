@@ -21,15 +21,24 @@ import {
 import { IModalDetail } from "../ProductListType";
 import ReactModal from "react-modal";
 import ItemDetail from "./ItemInfo";
+import useFetch from "../../../util/useFetch";
 ReactModal.setAppElement("#root");
 
 function ProductList() {
-  const [items, setItems] = useState<IItem[]>([]);
+  const [items] = useFetch(
+    "http://cozshopping.codestates-seb.link/api/v1/products"
+  );
+
   const dispatch = useDispatch();
   const products = useSelector((store: RootState) => store.products);
+  const [filteredItems, setFilteredItems] = useState<IItem[]>(products);
   const bookMarkedProducts = useSelector(
     (store: RootState) => store.bookMarkedProducts
   );
+
+  useEffect(() => {
+    setFilteredItems(products);
+  }, [products]);
 
   const onClickBookMark = (id: number) => {
     const bookMarkedTargetItem = bookMarkedProducts.find(
@@ -40,23 +49,6 @@ function ProductList() {
       if (targetItem) dispatch(addBookMark(targetItem));
     } else dispatch(deleteBookMark(bookMarkedTargetItem));
   };
-
-  useEffect(() => {
-    if (products.length === 0) {
-      axios
-        .get("http://cozshopping.codestates-seb.link/api/v1/products")
-        .then((response) => {
-          dispatch(getAllProducts(response.data));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, []);
-
-  useEffect(() => {
-    setItems(products);
-  }, [products]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDetail, setModalDetail] = useState<IModalDetail>({
@@ -76,7 +68,7 @@ function ProductList() {
 
   return (
     <ProductListMainWrapper>
-      <FilterBtn products={products} setFilteredItems={setItems} />
+      <FilterBtn products={products} setFilteredItems={setFilteredItems} />
       <ReactModal
         isOpen={isModalOpen}
         onRequestClose={() => handleModalOpenClose()}
@@ -98,7 +90,7 @@ function ProductList() {
       </ReactModal>
       <Section>
         <ItemBox>
-          {items?.map((item: IItem) => (
+          {filteredItems?.map((item: IItem) => (
             <Item key={item.id}>
               <ItemImg
                 src={item.image_url || item.brand_image_url}
